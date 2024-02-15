@@ -1,0 +1,1 @@
+g++ -o Game Armor.cpp Companion.cpp Enemy.cpp Game.cpp Journal.cpp Meta.cpp Quest.cpp Weapon.cpp
