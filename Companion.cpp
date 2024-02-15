@@ -129,11 +129,13 @@ void Companion::setArmor(Armor armor_){
 }
 
 int Companion::dealDamage(){
-    return weapon.dealDamage() + (hiding ? 2*level : 0);
+    bool hidingTemp = hiding;
+    hiding = false;
+    return weapon.dealDamage() + (hidingTemp ? 2*level : 0);
 }
 
 bool Companion::takeDamage(int damage){
-    if(hiding) return true;
+    if(hiding) return false; // This should never happen
     //srand(time(NULL));
     if(((rand() % 10) + 1) > defense){
         health -= damage;

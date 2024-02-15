@@ -45,6 +45,28 @@ int selectEnemy(std::vector<Enemy> &enemies){
     return inpInt;
 }
 
+int selectAlly(Meta meta){
+    for(int i = 0; i < meta.companions.size(); i++){
+        std::cout << i+1 << ") " << meta.companions[i].getName() << "\n";
+    }
+    std::string inpString = "";
+    int inpInt = 0;
+    while(true){
+        getline(std::cin, inpString);
+        // TODO: Potential runtime error
+        int inpInt = stoi(inpString);
+        inpInt--;
+        if(inpInt < 0 || inpInt >= (int)meta.companions.size()){
+            std::cout << "Input not recognized. Please try again.\n";
+            continue;
+        }
+        std::cout << "\n";
+        // actionChoice now stores the name of the action instead of the number from the input
+        return inpInt;
+    }
+    return inpInt;
+}
+
 //void journalTester(){ // TESTER CODE
 //    Journal journal = Journal();
 //    journal.addQuest("Test this code.", "You must write tester code to make sure the journal works.", 0, 0);
@@ -82,8 +104,11 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
             }
         }
         //separatorBar();
-        std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attacks " << meta.companions[currTarget].getName() << ".\n" << resettext;
-        if(meta.companions[currTarget].takeDamage(enemies[currEnemy].dealDamage())){
+        std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attacked " << meta.companions[currTarget].getName() << ".\n" << resettext;
+        if(meta.companions[currTarget].isHiding()){
+            std::cout << "The enemy could not find their target...\n";
+        }
+        else if(meta.companions[currTarget].takeDamage(enemies[currEnemy].dealDamage())){
             std::cout << "The enemy's attack was successful.\n";
             std::cout << meta.companions[currTarget].getName() << "'s health has been reduced to " << meta.companions[currTarget].getHealth() << ".\n";
         }
@@ -110,7 +135,7 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
 bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
     //separatorBar();
     // TODO: Maybe output some information about the party here
-    std::cout << "Your party prepares to attack.\n";
+    std::cout << "Your party prepares to attack. You currently have " << meta.getProteinShakes() << " protein shakes.\n";
     for(int i = 0; i < (int)meta.companions.size(); i++){
         if(meta.companions[i].getHealth() <= 0){
             std::cout << meta.companions[i].getName() << " is unconscious.\n";
@@ -158,8 +183,24 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
                 enemies.erase(enemies.begin() + targetEnemy);
             }
         }
-        if(actionChoice == "Drink Protein"){
-            std::cout << "[Dev] Drink Protein was chosen.\n";
+        if(actionChoice == "Drink Protein"){ // Drink Protein-----------
+            if(meta.drinkProteinShake()){
+                meta.companions[i].setHealth(meta.companions[i].getHealth() + 10);
+                std::cout << "You consume a protein shake and gain 10 health. You now have " << meta.companions[i].getHealth() << " health points.\n";
+            }
+            else{
+                std::cout << "You reach into your bag and realize that you don't have any protein shakes left!\n";
+            }
+        }
+        if(actionChoice == "Hide"){ // Hide------------
+            std::cout << "You are now hiding.\n";
+            meta.companions[i].setHiding(true);
+        }
+        if(actionChoice == "Heal"){ // Heal-------------
+            std::cout << "Choose an Ally to heal.\n";
+            int targetAlly = selectAlly(meta);
+            meta.companions[targetAlly].setHealth(meta.companions[targetAlly].getHealth() + 6);
+            std::cout << meta.companions[targetAlly].getName() << " gained 6 health. They now have " << meta.companions[i].getHealth() << " health points.\n";
         }
         separatorBar();
         if(enemies.empty()){

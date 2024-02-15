@@ -98,6 +98,7 @@ void Meta::gainProteinShake(){
     proteinShakes++;
 }
 
+// Returns false if there are not enough protein shakes
 bool Meta::drinkProteinShake(){
     if(proteinShakes == 0) return false;
     proteinShakes--;
