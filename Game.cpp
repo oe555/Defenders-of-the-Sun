@@ -207,7 +207,7 @@ int main(){
     srand(time(NULL));
     Meta meta = Meta();
     std::vector<Enemy> testEnemies;
-    Enemy enemy1 = Enemy("Suyash", 5, 5, 2, 1, 1, false);
+    Enemy enemy1 = Enemy("Test Enemy 1", 5, 5, 2, 1, 1, false);
     //Enemy enemy2 = Enemy("Test Enemy 2", 10, 5, 4, 1, 1, true);
     testEnemies.push_back(enemy1);
     //testEnemies.push_back(enemy2);
