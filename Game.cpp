@@ -18,6 +18,7 @@ const std::string greentext("\033[0;32m");
 const std::string greenboldtext("\033[1;32m");
 const std::string bluetext("\033[0;36m");
 const std::string blueboldtext("\033[1;36m");
+const std::string purpleboldtext("\033[1;35m");
 
 void separatorBar(){
     std::cout << "\n#-----#-----#\n\n";
@@ -38,8 +39,7 @@ int selectEnemy(std::vector<Enemy> &enemies){
             std::cout << "Input not recognized. Please try again.\n";
             continue;
         }
-        std::cout << "\n";
-        // actionChoice now stores the name of the action instead of the number from the input
+        std::cout << purpleboldtext << "-----\n" << resettext;
         return inpInt;
     }
     return inpInt;
@@ -60,8 +60,7 @@ int selectAlly(Meta meta){
             std::cout << "Input not recognized. Please try again.\n";
             continue;
         }
-        std::cout << "\n";
-        // actionChoice now stores the name of the action instead of the number from the input
+        std::cout << purpleboldtext << "-----\n" << resettext;
         return inpInt;
     }
     return inpInt;
@@ -159,7 +158,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
                 std::cout << "Input not recognized. Please try again.\n";
                 continue;
             }
-            std::cout << "\n";
+            std::cout << purpleboldtext << "-----\n" << resettext;
             // actionChoice now stores the name of the action instead of the number from the input
             actionChoice = meta.companions[i].getActions()[actionChoiceInt];
             break;
@@ -249,6 +248,8 @@ int main(){
     Meta meta = Meta();
     std::vector<Enemy> testEnemies;
     Enemy enemy1 = Enemy("Test Enemy 1", 5, 5, 2, 1, 1, false);
+    Companion companion1 = Companion("Teammate", "Cleric");
+    meta.addCompanion(companion1);
     //Enemy enemy2 = Enemy("Test Enemy 2", 10, 5, 4, 1, 1, true);
     testEnemies.push_back(enemy1);
     //testEnemies.push_back(enemy2);
