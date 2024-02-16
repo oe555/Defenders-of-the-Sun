@@ -66,22 +66,6 @@ int selectAlly(Meta meta){
     return inpInt;
 }
 
-//void journalTester(){ // TESTER CODE
-//    Journal journal = Journal();
-//    journal.addQuest("Test this code.", "You must write tester code to make sure the journal works.", 0, 0);
-//    journal.addQuest("Kill Noam.", "You notice your companion Noam is too short. You should find a way to get rid of him.", 2, 1);
-//    journal.addQuest("Realize your potential.", "Take over the world!!!", 1, 2);
-//    journal.addQuest("Eat ice cream.", "yum.", 1, 100);
-//    journal.addQuest("This is an example completed quest.", "uwuwuwuwuwu", 0, 4);
-//    if(!journal.advanceQuest(4, -1, "This quest has been completed.", true)) std::cout << "ERROR";
-//    journal.addQuest("Pet dog.", "Dog cute must pet.", 3, 3);
-//    separatorBar();
-//    journal.listQuests(false);
-//    separatorBar();
-//    journal.listQuests(true);
-//    separatorBar();
-//}
-
 // Return true if they win on their turn
 bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
     //separatorBar();
@@ -256,3 +240,19 @@ int main(){
     runEncounter(testEnemies, meta, true);
     return 0;
 }
+
+//void journalTester(){ // TESTER CODE
+//    Journal journal = Journal();
+//    journal.addQuest("Test this code.", "You must write tester code to make sure the journal works.", 0, 0);
+//    journal.addQuest("Kill Noam.", "You notice your companion Noam is too short. You should find a way to get rid of him.", 2, 1);
+//    journal.addQuest("Realize your potential.", "Take over the world!!!", 1, 2);
+//    journal.addQuest("Eat ice cream.", "yum.", 1, 100);
+//    journal.addQuest("This is an example completed quest.", "uwuwuwuwuwu", 0, 4);
+//    if(!journal.advanceQuest(4, -1, "This quest has been completed.", true)) std::cout << "ERROR";
+//    journal.addQuest("Pet dog.", "Dog cute must pet.", 3, 3);
+//    separatorBar();
+//    journal.listQuests(false);
+//    separatorBar();
+//    journal.listQuests(true);
+//    separatorBar();
+//}
