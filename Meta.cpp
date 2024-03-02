@@ -8,6 +8,7 @@ Meta::Meta(){
     std::cout << "Enter your character's name:\n";
     std::string charName;
     getline(std::cin, charName);
+    characterName = charName;
     std::cout << "\nSelect a class by entering the corresponding number:\n";
     std::cout << "1) Barbarian\n";
     std::cout << "2) Wizard\n";
@@ -57,11 +58,11 @@ Meta::Meta(){
     }
     Companion player = Companion(charName, charClass);
     companions.push_back(player);
-    slightOfHand = 5;
+    slightOfHand = 0;
     if(charClass == "Rogue") slightOfHand += 2;
     if(charClass == "Monk") slightOfHand++;
     if(charClass == "Paladin") slightOfHand--;
-    perception = 5;
+    perception = 0;
     if(charClass == "Wizard") perception++;
     if(charClass == "Rogue") perception++;
     if(charClass == "Druid") perception++;
@@ -69,11 +70,15 @@ Meta::Meta(){
     if(charClass == "Monk") perception++;
     if(charClass == "Cleric") perception++;
     if(charClass == "Paladin") perception--;
-    charisma = 5;
+    charisma = 0;
     if(charClass == "Barbarian") charisma--;
     if(charClass == "Wizard") charisma++;
     if(charClass == "Rogue") charisma++;
     journal = Journal();
+}
+
+std::string Meta::getCharName(){
+    return characterName;
 }
 
 int Meta::getSilver(){

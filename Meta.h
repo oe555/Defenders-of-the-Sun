@@ -13,10 +13,13 @@ private:
     int slightOfHand;
     int perception;
     int charisma;
+    std::string characterName;
 public:
     Journal journal;
     std::vector<Companion> companions;
     Meta();
+
+    std::string getCharName();
 
     int getSilver();
     void gainSilver(int amount);

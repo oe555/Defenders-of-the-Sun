@@ -24,6 +24,7 @@ public:
     std::string getName();
     void setName(std::string name_);
 
+    // Returns the class of the companion as a string
     std::string getType();
     void setType(std::string type_);
 
