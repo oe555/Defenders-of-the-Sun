@@ -14,7 +14,7 @@ private:
     std::string line;
     // Player will roll perception for this line. Set to a large negative number to always show.
     int perceptionRequirement; 
-    // If a player choice, this is the charisma check. It only applies to the first choice.
+    // If a player choice, this is the charisma check. A failed check returns -1. It only applies to the first choice.
     int charismaRequirement;
     // Use "None" if this line is shown to everyone. 
     // If playerChoice is true, this determines whether the last string in "choices" is shown.
