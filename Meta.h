@@ -14,12 +14,14 @@ private:
     int perception;
     int charisma;
     std::string characterName;
+    std::string characterDiety;
 public:
     Journal journal;
     std::vector<Companion> companions;
     Meta();
 
     std::string getCharName();
+    std::string getCharDiety();
 
     int getSilver();
     void gainSilver(int amount);
@@ -27,8 +29,10 @@ public:
 
     int getProteinShakes();
     void gainProteinShake();
+    // Returns false if there are not enough protein shakes
     bool drinkProteinShake();
 
+    
     void addCompanion(Companion companion);
     void removeCompanion(std::string name);
     void shuffleCompanions();

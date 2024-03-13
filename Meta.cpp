@@ -3,12 +3,15 @@
 #include <algorithm>
 
 Meta::Meta(){
+    // TODO: They must pick a diety if they are paladin, cleric, or monk.
     silver = 0;
     proteinShakes = 1;
+    // Get the character's name
     std::cout << "Enter your character's name:\n";
     std::string charName;
     getline(std::cin, charName);
     characterName = charName;
+    // Get the character's class
     std::cout << "\nSelect a class by entering the corresponding number:\n";
     std::cout << "1) Barbarian\n";
     std::cout << "2) Wizard\n";
@@ -56,8 +59,12 @@ Meta::Meta(){
         }
         std::cout << "Input not recognized. Please try again.\n";
     }
+    // TODO
+    characterDiety = "None";
+
     Companion player = Companion(charName, charClass);
     companions.push_back(player);
+    // Adjust stats based on class
     slightOfHand = 0;
     if(charClass == "Rogue") slightOfHand += 2;
     if(charClass == "Monk") slightOfHand++;
@@ -74,11 +81,16 @@ Meta::Meta(){
     if(charClass == "Barbarian") charisma--;
     if(charClass == "Wizard") charisma++;
     if(charClass == "Rogue") charisma++;
+    // Make journal
     journal = Journal();
 }
 
 std::string Meta::getCharName(){
     return characterName;
+}
+
+std::string Meta::getCharDiety(){
+    return characterDiety;
 }
 
 int Meta::getSilver(){

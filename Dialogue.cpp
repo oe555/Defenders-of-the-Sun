@@ -4,15 +4,17 @@
 #include <vector>
 #include <iostream>
 
-Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::vector<std::string> choices_){
+Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string dietyRequirement_, std::vector<std::string> choices_){
     playerChoice = playerChoice_;
     line = line_;
     perceptionRequirement = perceptionRequirement_;
     charismaRequirement = charismaRequirement_;
     classRequirement = classRequirement_;
+    dietyRequirement = dietyRequirement_;
     choices = choices_;
 }
 
+// If it's a player choice, then this will return the index of what the player chooses. Returns -1 on any fail. Returns 0 otherwise.
 int Dialogue::runDialogue(Meta meta){
     if(!playerChoice){ // Not a player choice
         // Check class requirement
@@ -43,8 +45,8 @@ int Dialogue::runDialogue(Meta meta){
         int currChoice = 1;
         bool firstChoiceShown = true; // This will tell us whether we need to change the number we return
         for(int i = 0; i < choices.size(); i++){ // Output choices
-            if(i == 0){ // The first choice is usually special
-                if(perceptionFailed){ // Don't show the first choice if the perception is failed.
+            if(i == 0){ // The first choice is usually special, let's decide if they see it
+                if(perceptionFailed){ // Don't show the first choice if the perception is failed
                     firstChoiceShown = false;
                     continue;
                 }  
@@ -58,6 +60,12 @@ int Dialogue::runDialogue(Meta meta){
                         }
                     }
                 }
+                if(dietyRequirement != "None"){ // Must check diety
+                    if(meta.getCharDiety() != dietyRequirement){
+                        firstChoiceShown = false;
+                        continue;
+                    }
+                }
             }
             std::cout << currChoice << ") " << choices[i] << "\n.";
             currChoice++;
@@ -69,13 +77,22 @@ int Dialogue::runDialogue(Meta meta){
             getline(std::cin, inpString);
             // TODO: Potential runtime error
             int inpInt = stoi(inpString);
-            if(inpInt <= 0 || inpInt >= currChoice) { // Make sure the input is one of the choices
+            if(inpInt <= 0 || inpInt >= currChoice) { // Make sure the input is one of the choices (currChoice is 1 more than the number of choices)
                 std::cout << "Input not recognized. Please try again.\n";
                 continue;
             }
             std::cout << "\033[1;35m" << "-----\n" << "\033[0;0m"; // Purple bold line
         }
+
         if(!firstChoiceShown) inpInt++; // The player did not actually pick the right number if the first choice wasn't there
-        return inpInt;
+
+        //Must make charisma check if they picked first option
+        if(inpInt == 1){
+            if((rand() % 10) + 1 + meta.getCharisma() < charismaRequirement){
+                return -1; // The rizz check failed
+            }
+        }
+
+        return inpInt; // Return what the player picked
     }
 }
