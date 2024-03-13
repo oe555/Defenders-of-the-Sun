@@ -27,6 +27,12 @@ int Dialogue::runDialogue(Meta meta){
                 }
             }
         }
+        // Check diety requirement
+        if(dietyRequirement != "None"){
+            if(meta.getCharDiety() != dietyRequirement){
+                return -1; // Not the correct worship
+            }
+        }
         // Check perception
         if((rand() % 10) + 1 + meta.getPerception() < perceptionRequirement){ // You must hit a perception check to see a dialogue
             return -1; // Returns -1 on a failed perception check
