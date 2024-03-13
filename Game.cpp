@@ -24,6 +24,7 @@ void separatorBar(){
     std::cout << "\n#-----#-----#\n\n";
 }
 
+// Calling this functions prompts the player to pick an enemy from the given vector
 int selectEnemy(std::vector<Enemy> &enemies){
     for(int i = 0; i < enemies.size(); i++){
         std::cout << i+1 << ") " << enemies[i].getName() << "\n";
@@ -45,6 +46,7 @@ int selectEnemy(std::vector<Enemy> &enemies){
     return inpInt;
 }
 
+// Calling this function prompts the player to pick a companion from the given meta object
 int selectAlly(Meta meta){
     for(int i = 0; i < meta.companions.size(); i++){
         std::cout << i+1 << ") " << meta.companions[i].getName() << "\n";
@@ -72,10 +74,10 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
     bool checkCompanions = false;
     for(int currEnemy = 0; currEnemy < (int)enemies.size(); currEnemy++){
         int currTarget = 0;
-        if(enemies[currEnemy].isIntelligent()){
+        if(enemies[currEnemy].isIntelligent()){ // Intellegent enemies attack the lowest health companion
             for(int i = 1; i < (int)meta.companions.size(); i++){
-                // Find the least health companion that is not down
-                if((meta.companions[i].getHealth() < meta.companions[currTarget].getHealth() && meta.companions[i].getHealth() > 0) || meta.companions[currTarget].getHealth() <= 0) currTarget = i;
+                // Find the least health companion that is not down or hiding
+                if((meta.companions[i].getHealth() < meta.companions[currTarget].getHealth() && meta.companions[i].getHealth() > 0 && !meta.companions[i].isHiding()) || meta.companions[currTarget].getHealth() <= 0) currTarget = i;
             }
         }
         else{
@@ -88,7 +90,7 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
         }
         //separatorBar();
         std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attacked " << meta.companions[currTarget].getName() << ".\n" << resettext;
-        if(meta.companions[currTarget].isHiding()){
+        if(meta.companions[currTarget].isHiding()){ // Enemies cannot attack hidden targets
             std::cout << "The enemy could not find their target...\n";
         }
         else if(meta.companions[currTarget].takeDamage(enemies[currEnemy].dealDamage())){
@@ -104,11 +106,11 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
         separatorBar();
         checkCompanions = true;
         for(int i = 0; i < (int)meta.companions.size(); i++){
-            if(meta.companions[i].getHealth() > 0) checkCompanions = false;
+            if(meta.companions[i].getHealth() > 0) checkCompanions = false; // We don't want to return if there's a companion that isn't down
         }
-        if(checkCompanions) return true;
+        if(checkCompanions) return true; // Return true if all companions are down
     }
-    for(int i = 0; i < (int)meta.companions.size(); i++){
+    for(int i = 0; i < (int)meta.companions.size(); i++){ // This is a final check we do to make sure there is a companion that isn't down
         if(meta.companions[i].getHealth() > 0) return false;
     }
     return true;
@@ -119,15 +121,16 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
     //separatorBar();
     // TODO: Maybe output some information about the party here
     std::cout << "Your party prepares to attack. You currently have " << meta.getProteinShakes() << " protein shakes.\n";
-    for(int i = 0; i < (int)meta.companions.size(); i++){
-        if(meta.companions[i].getHealth() <= 0){
+    for(int i = 0; i < (int)meta.companions.size(); i++){ // This loop iterates over all companions
+        if(meta.companions[i].getHealth() <= 0){ // We inform the player and continue when the companion is unconscious
             std::cout << meta.companions[i].getName() << " is unconscious.\n";
             separatorBar();
             continue;
         }
-        else{
+        else{ // Otherwise we provide their HP
             std::cout << meta.companions[i].getName() << "'s current health: " << meta.companions[i].getHealth() << ".\n\n";
         }
+        // This is where the player will pick their action
         std::cout << blueboldtext << meta.companions[i].getName() << "'s action:\n" << resettext;
         std::string actionChoice;
         for(int j = 0; j < (int)meta.companions[i].getActions().size(); j++){
@@ -148,7 +151,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             break;
         }
         /*
-            If statements for every possible action
+            If statements for every possible action because we love spaghetti code
         */
         if(actionChoice == "Attack"){ // Attack----------
             std::cout << "Select the enemy you'd like to attack.\n";
@@ -193,7 +196,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
     return false;
 }
 
-// Return true if the player loses
+// Return true if the player loses. DO NOT CALL THIS FUNCTION DIRECTLY.... ALWAYS USE runEncounter()
 bool encounter(std::vector<Enemy> &enemies, Meta &meta, bool ambush){
     separatorBar();
     std::cout << "--- Combat Initiated ---\n";
@@ -226,7 +229,7 @@ bool runEncounter(std::vector<Enemy> &enemies, Meta &meta, bool ambush){
     }
 }
 
-int main(){
+int main(){ // Main currently has a bunch of tester code
     //companionTester();
     srand(time(NULL));
     Meta meta = Meta();

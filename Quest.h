@@ -7,7 +7,7 @@ class Quest{
 private:
     std::string title;
     std::string description;
-    int type; //.0 = main, 1 = personal, 2 = companion, 3 = side
+    int type; // 0 = main, 1 = personal, 2 = companion, 3 = side
     int id;
     bool complete;
 public:

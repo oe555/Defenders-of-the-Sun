@@ -11,7 +11,7 @@ private:
     int attackDice;
     int attackMultiplier;
     int attackBonus;
-    bool intelligent;
+    bool intelligent; // Determines whether the Enemy attacks a random companion or the lowest health companion
 public:
     Enemy(std::string name_, int health_, int defense_, int attackDice_, int attackMultiplier_, int attackBonus_, bool intelligent_);
 

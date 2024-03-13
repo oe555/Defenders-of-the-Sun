@@ -9,13 +9,20 @@
 class Companion{
 private:
     std::string name;
+    // Type is the class (Barbarian, Raven, Cleric, etc)
     std::string type;
+    // This is the list of things the companion can do in battle
     std::vector<std::string> actions;
+    // Health is set to max health at the start of every battle
     int maxHealth;
     int health;
+    // How likely it is to hit someone (based on a d10 roll)
     int defense;
     int level;
+
+    // STATUS EFFECTS (handled in encounter code)
     bool hiding;
+
     Weapon weapon;
     Armor armor;
 public:

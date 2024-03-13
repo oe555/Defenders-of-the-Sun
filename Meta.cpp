@@ -134,6 +134,7 @@ void Meta::removeCompanion(std::string name){
     }
 }
 
+// This is for battles
 void Meta::shuffleCompanions(){
     std::random_shuffle(companions.begin(), companions.end());
 }

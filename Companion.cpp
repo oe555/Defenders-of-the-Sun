@@ -128,15 +128,16 @@ void Companion::setArmor(Armor armor_){
     armor = armor_;
 }
 
+// Returns damage based on the weapon and handles status effect related things
 int Companion::dealDamage(){
-    bool hidingTemp = hiding;
-    hiding = false;
+    bool hidingTemp = hiding; // Damage increases by 2*level if the companion is hiding
+    hiding = false; // Companion can't hide through an attack
     return weapon.dealDamage() + (hidingTemp ? 2*level : 0);
 }
 
+// The companion will take damage only if the attack hits (based on a d10 and the defense)
 bool Companion::takeDamage(int damage){
-    if(hiding) return false; // This should never happen
-    //srand(time(NULL));
+    if(hiding) return false; // This should never happen based on how encounters are implemented
     if(((rand() % 10) + 1) > defense){
         health -= damage;
         return true;
@@ -144,6 +145,7 @@ bool Companion::takeDamage(int damage){
     return false;
 }
 
+// Outputs details to the terminal
 void Companion::getDetails(){
     std::cout << name << "'s current level: " << level << "\n";
     std::cout << name << "'s class: " << type << "\n";
