@@ -9,6 +9,7 @@
 class Companion{
 private:
     std::string name;
+    std::string diety;
     // Type is the class (Barbarian, Raven, Cleric, etc)
     std::string type;
     // This is the list of things the companion can do in battle
@@ -26,7 +27,7 @@ private:
     Weapon weapon;
     Armor armor;
 public:
-    Companion(std::string name_, std::string type_);
+    Companion(std::string name_, std::string type_, std::string diety_);
 
     std::string getName();
     void setName(std::string name_);
@@ -34,6 +35,9 @@ public:
     // Returns the class of the companion as a string
     std::string getType();
     void setType(std::string type_);
+
+    std::string getDiety();
+    void setDiety(std::string diety_);
 
     std::vector<std::string> getActions();
     void addAction(std::string action_);

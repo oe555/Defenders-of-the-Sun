@@ -5,9 +5,10 @@
 #include <vector>
 #include <iostream>
 
-Companion::Companion(std::string name_, std::string type_){
+Companion::Companion(std::string name_, std::string type_, std::string diety_){
     name = name_;
     type = type_;
+    diety = diety_;
     addAction("Attack");
     addAction("Drink Protein");
     maxHealth = 5;
@@ -40,6 +41,14 @@ std::string Companion::getType(){
     
 void Companion::setType(std::string type_){
     type = type_;
+}
+
+std::string Companion::getDiety(){
+    return diety;
+}
+    
+void Companion::setDiety(std::string diety_){
+    diety = diety_;
 }
 
 std::vector<std::string> Companion::getActions(){

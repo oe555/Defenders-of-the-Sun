@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Meta::Meta(){
-    // TODO: They must pick a diety if they are paladin, cleric, or monk.
+    // TODO: They must pick a diety if they are paladin, cleric, monk, or druid.
     silver = 0;
     proteinShakes = 1;
     // Get the character's name
@@ -59,10 +59,71 @@ Meta::Meta(){
         }
         std::cout << "Input not recognized. Please try again.\n";
     }
-    // TODO
+    // Picking a diety to worship
     characterDiety = "None";
+    std::string charDietyInput;
+    if(charClass == "Druid"){
+        std::cout << "\nSelect a diety by entering the corresponding number:\n";
+        std::cout << "1) Solari\n";
+        std::cout << "2) Terraflora\n";
+        std::cout << "3) Selunara\n";
+        while(true){
+            std::getline(std::cin, charDietyInput);
+            if(charDietyInput == "1"){
+                characterDiety = "Solari";
+                break;
+            }
+            if(charDietyInput == "2"){
+                characterDiety = "Terraflora";
+                break;
+            }
+            if(charDietyInput == "3"){
+                characterDiety = "Selunara";
+                break;
+            }
+            std::cout << "Input not recognized. Please try again.\n";
+        }
+    }
+    if(charClass == "Cleric" || charClass == "Monk" || charClass == "Paladin"){
+        std::cout << "\nSelect a diety by entering the corresponding number:\n";
+        std::cout << "1) Solari\n";
+        std::cout << "2) Terraflora\n";
+        std::cout << "3) Selunara\n";
+        std::cout << "4) Bei\n";
+        std::cout << "5) Necrotar\n";
+        std::cout << "6) Leer\n";
+        while(true){
+            std::getline(std::cin, charDietyInput);
+            if(charDietyInput == "1"){
+                characterDiety = "Solari";
+                break;
+            }
+            if(charDietyInput == "2"){
+                characterDiety = "Terraflora";
+                break;
+            }
+            if(charDietyInput == "3"){
+                characterDiety = "Solari";
+                break;
+            }
+            if(charDietyInput == "4"){
+                characterDiety = "Bei";
+                break;
+            }
+            if(charDietyInput == "5"){
+                characterDiety = "Necrotar";
+                break;
+            }
+            if(charDietyInput == "6"){
+                characterDiety = "Leer";
+                break;
+            }
+            std::cout << "Input not recognized. Please try again.\n";
+        }
+    }
 
-    Companion player = Companion(charName, charClass);
+    // Now we need to add the companion to the list of companions
+    Companion player = Companion(charName, charClass, characterDiety);
     companions.push_back(player);
     // Adjust stats based on class
     slightOfHand = 0;
