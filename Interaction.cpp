@@ -4,6 +4,10 @@
 #include "Dialogue.h"
 #include "Interaction.h"
 
+Interaction::Interaction(){
+    dialogues = {};
+}
+
 Interaction::Interaction(std::vector<Dialogue> dialogues_){
     dialogues = dialogues_;
     interactionNavigator = {};

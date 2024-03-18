@@ -20,6 +20,7 @@ private:
     std::vector<std::pair<std::pair<int, std::pair<int, int>>, std::pair<std::string, std::string>>> questUpdates;
 public:
     Interaction(std::vector<Dialogue> dialogues_);
+    Interaction();
 
     // Adds to the navigator
     void addNav(int oldIndex, int returnVal, int newIndex);
