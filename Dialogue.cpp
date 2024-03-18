@@ -4,13 +4,13 @@
 #include <vector>
 #include <iostream>
 
-Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string dietyRequirement_, std::vector<std::string> choices_){
+Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
     playerChoice = playerChoice_;
     line = line_;
     perceptionRequirement = perceptionRequirement_;
     charismaRequirement = charismaRequirement_;
     classRequirement = classRequirement_;
-    dietyRequirement = dietyRequirement_;
+    deityRequirement = deityRequirement_;
     choices = choices_;
 }
 
@@ -27,9 +27,9 @@ int Dialogue::runDialogue(Meta meta){
                 }
             }
         }
-        // Check diety requirement
-        if(dietyRequirement != "None"){
-            if(meta.getCharDiety() != dietyRequirement){
+        // Check deity requirement
+        if(deityRequirement != "None"){
+            if(meta.getCharDeity() != deityRequirement){
                 return -1; // Not the correct worship
             }
         }
@@ -66,8 +66,8 @@ int Dialogue::runDialogue(Meta meta){
                         }
                     }
                 }
-                if(dietyRequirement != "None"){ // Must check diety
-                    if(meta.getCharDiety() != dietyRequirement){
+                if(deityRequirement != "None"){ // Must check deity
+                    if(meta.getCharDeity() != deityRequirement){
                         firstChoiceShown = false;
                         continue;
                     }

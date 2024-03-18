@@ -14,14 +14,16 @@ private:
     int perception;
     int charisma;
     std::string characterName;
-    std::string characterDiety;
+    std::string characterDeity;
+    std::vector<Armor> armorInventory;
+    std::vector<Weapon> weaponInventory;
 public:
     Journal journal;
     std::vector<Companion> companions;
     Meta();
 
     std::string getCharName();
-    std::string getCharDiety();
+    std::string getCharDeity();
 
     int getSilver();
     void gainSilver(int amount);
@@ -40,6 +42,9 @@ public:
     int getSlightOfHand();
     int getPerception();
     int getCharisma();
+
+    void addArmor(Armor armor);
+    void addWeapon(Weapon weapon);
 };
 
 #endif

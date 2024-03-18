@@ -3,9 +3,10 @@
 #include <algorithm>
 
 Meta::Meta(){
-    // TODO: They must pick a diety if they are paladin, cleric, monk, or druid.
     silver = 0;
     proteinShakes = 1;
+    weaponInventory = {};
+    armorInventory = {};
     // Get the character's name
     std::cout << "Enter your character's name:\n";
     std::string charName;
@@ -59,33 +60,33 @@ Meta::Meta(){
         }
         std::cout << "Input not recognized. Please try again.\n";
     }
-    // Picking a diety to worship
-    characterDiety = "None";
-    std::string charDietyInput;
+    // Picking a deity to worship
+    characterDeity = "None";
+    std::string charDeityInput;
     if(charClass == "Druid"){
-        std::cout << "\nSelect a diety by entering the corresponding number:\n";
+        std::cout << "\nSelect a deity by entering the corresponding number:\n";
         std::cout << "1) Solari\n";
         std::cout << "2) Terraflora\n";
         std::cout << "3) Selunara\n";
         while(true){
-            std::getline(std::cin, charDietyInput);
-            if(charDietyInput == "1"){
-                characterDiety = "Solari";
+            std::getline(std::cin, charDeityInput);
+            if(charDeityInput == "1"){
+                characterDeity = "Solari";
                 break;
             }
-            if(charDietyInput == "2"){
-                characterDiety = "Terraflora";
+            if(charDeityInput == "2"){
+                characterDeity = "Terraflora";
                 break;
             }
-            if(charDietyInput == "3"){
-                characterDiety = "Selunara";
+            if(charDeityInput == "3"){
+                characterDeity = "Selunara";
                 break;
             }
             std::cout << "Input not recognized. Please try again.\n";
         }
     }
     if(charClass == "Cleric" || charClass == "Monk" || charClass == "Paladin"){
-        std::cout << "\nSelect a diety by entering the corresponding number:\n";
+        std::cout << "\nSelect a deity by entering the corresponding number:\n";
         std::cout << "1) Solari\n";
         std::cout << "2) Terraflora\n";
         std::cout << "3) Selunara\n";
@@ -93,29 +94,29 @@ Meta::Meta(){
         std::cout << "5) Necrotar\n";
         std::cout << "6) Leer\n";
         while(true){
-            std::getline(std::cin, charDietyInput);
-            if(charDietyInput == "1"){
-                characterDiety = "Solari";
+            std::getline(std::cin, charDeityInput);
+            if(charDeityInput == "1"){
+                characterDeity = "Solari";
                 break;
             }
-            if(charDietyInput == "2"){
-                characterDiety = "Terraflora";
+            if(charDeityInput == "2"){
+                characterDeity = "Terraflora";
                 break;
             }
-            if(charDietyInput == "3"){
-                characterDiety = "Solari";
+            if(charDeityInput == "3"){
+                characterDeity = "Solari";
                 break;
             }
-            if(charDietyInput == "4"){
-                characterDiety = "Bei";
+            if(charDeityInput == "4"){
+                characterDeity = "Bei";
                 break;
             }
-            if(charDietyInput == "5"){
-                characterDiety = "Necrotar";
+            if(charDeityInput == "5"){
+                characterDeity = "Necrotar";
                 break;
             }
-            if(charDietyInput == "6"){
-                characterDiety = "Leer";
+            if(charDeityInput == "6"){
+                characterDeity = "Leer";
                 break;
             }
             std::cout << "Input not recognized. Please try again.\n";
@@ -123,7 +124,7 @@ Meta::Meta(){
     }
 
     // Now we need to add the companion to the list of companions
-    Companion player = Companion(charName, charClass, characterDiety);
+    Companion player = Companion(charName, charClass, characterDeity);
     companions.push_back(player);
     // Adjust stats based on class
     slightOfHand = 0;
@@ -150,8 +151,8 @@ std::string Meta::getCharName(){
     return characterName;
 }
 
-std::string Meta::getCharDiety(){
-    return characterDiety;
+std::string Meta::getCharDeity(){
+    return characterDeity;
 }
 
 int Meta::getSilver(){
@@ -243,4 +244,14 @@ int Meta::getPerception(){
 
 int Meta::getCharisma(){
     return charisma;
+}
+
+void Meta::addArmor(Armor armor){
+    armorInventory.push_back(armor);
+    std::cout << "\n\033[0;36mA new piece of armor was added to your inventory.\033[0;0m\n";
+}
+
+void Meta::addWeapon(Weapon weapon){
+    weaponInventory.push_back(weapon);
+    std::cout << "\n\033[0;36mA new weapon was added to your inventory.\033[0;0m\n";
 }

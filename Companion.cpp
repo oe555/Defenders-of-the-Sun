@@ -5,10 +5,12 @@
 #include <vector>
 #include <iostream>
 
-Companion::Companion(std::string name_, std::string type_, std::string diety_){
+Companion::Companion(){}
+
+Companion::Companion(std::string name_, std::string type_, std::string deity_){
     name = name_;
     type = type_;
-    diety = diety_;
+    deity = deity_;
     addAction("Attack");
     addAction("Drink Protein");
     maxHealth = 5;
@@ -43,12 +45,12 @@ void Companion::setType(std::string type_){
     type = type_;
 }
 
-std::string Companion::getDiety(){
-    return diety;
+std::string Companion::getDeity(){
+    return deity;
 }
     
-void Companion::setDiety(std::string diety_){
-    diety = diety_;
+void Companion::setDeity(std::string deity_){
+    deity = deity_;
 }
 
 std::vector<std::string> Companion::getActions(){
@@ -124,6 +126,7 @@ Weapon Companion::getWeapon(){
 }
     
 void Companion::setWeapon(Weapon weapon_){
+    // TODO output something to player
     if(type == "Monk") return;
     weapon = weapon_;
 }
@@ -133,6 +136,7 @@ Armor Companion::getArmor(){
 }
 
 void Companion::setArmor(Armor armor_){
+    // TODO output something to player
     if(type == "Monk") return;
     armor = armor_;
 }

@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <iostream>
 #include "Dialogue.h"
 #include "Interaction.h"
 
@@ -29,6 +30,26 @@ int Interaction::runInteraction(Meta &meta){
         if(currDialogueIndex == -1){ // This resolution ends the dialogue with no special resolution
             return 0; // Nothing
         }
+        if(currDialogueIndex == -2){ // This resolutions ends in an encounter
+            return 1; // Tell the game to run an ecnounter using the location's enemies
+        }
+        if(currDialogueIndex == -3){ // This resolution results in the companion joining
+            std::cout << "\n#-----#-----#\n\nA new companion has joined your party.\n\n#-----#-----#\n";
+            meta.addCompanion(companion);
+            return 2;
+        }
+        if(currDialogueIndex == -4){ // This resolution results in gaining a weapon
+            meta.addWeapon(weapon);
+            return 4;
+        }
+        if(currDialogueIndex == -5){ // This resolution results in gaining armor
+            meta.addArmor(armor);
+            return 5;
+        }
+        if(currDialogueIndex == -6){ // This resolution results in gaining silver
+            meta.gainSilver(silver);
+            return 3;
+        }
         if(currDialogueIndex == -7){ // This resolution results in quest updates
             for(auto x : questUpdates){
                 if(x.first.first == -1){ // New quest
@@ -47,4 +68,20 @@ int Interaction::runInteraction(Meta &meta){
 
 void Interaction::addQuestUpdate(int oldId, int newId, int type, std::string name, std::string description){
     questUpdates.push_back({{oldId, {newId,type}}, {name, description}});
+}
+
+void Interaction::addCompanion(std::string name, std::string deity){
+    companion = Companion(name, name, deity);
+}
+
+void Interaction::addArmor(Armor armor_){
+    armor = armor_;
+}
+
+void Interaction::addWeapon(Weapon weapon_){
+    weapon = weapon_;
+}
+
+void Interaction::setSilver(int silver_){
+    silver = silver_;
 }

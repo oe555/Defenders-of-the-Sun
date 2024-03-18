@@ -232,15 +232,46 @@ bool runEncounter(std::vector<Enemy> &enemies, Meta &meta, bool ambush){
 int main(){ // Main currently has a bunch of tester code
     //companionTester();
     srand(time(NULL));
-    Meta meta = Meta();
-    std::vector<Enemy> testEnemies;
-    Enemy enemy1 = Enemy("Test Enemy 1", 5, 5, 2, 1, 1, false);
-    Companion companion1 = Companion("Teammate", "Cleric");
-    meta.addCompanion(companion1);
+    std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    std::cout << greenboldtext << "Defenders of the Sun\n" << resettext;
+    std::cout << bluetext << "When navigating menus, enter the number corresponding to your choice and press enter. To exit the game, press control + C.\n" << resettext;
+    std::string mainMenuInput;
+    while(true){
+        std::cout << "1) Start a new adventure\n";
+        std::cout << "2) Read about the world in which this adventure takes place (recommended)\n"; 
+        getline(std::cin, mainMenuInput);
+        if(mainMenuInput == "1"){
+            break;
+        }
+        else if(mainMenuInput == "2"){
+            std::cout << "Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe (somewhere between 50 and 60), and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n\n";
+            std::cout << "- Solari: God of the sun (lawful good)\n";
+            std::cout << "- Selunara: Goddess of the moon (chaotic good)\n";
+            std::cout << "- Leer: Goddess of darkness and night (chaotic evil)\n";
+            std::cout << "The deities listed above are siblings. Followers of Leer are typically enemies with followers of the other two as they believe light is a distraction from self awareness and reflection.\n";
+            std::cout << "- Terraflora: Goddess of nature (neutral good)\n";
+            std::cout << "- Bei: Goddess of War (lawful evil)\n";
+            std::cout << "- Necrotar: God of death (neutral evil)\n\n";
+            std::cout << "There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way (most druids serve Terraflora).\n\n";
+            std::cout << "Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards and necromancers are scholars and don't have patrons).\n\n";
+            std::cout << "The underworld exists, but nobody knows much about it or how to get there. Devils live in the underworld and seek to control the surface, but the deities keep them trapped in the underworld to maintain balance.\n\n";
+            std::cout << "#-----#-----#\n\n";
+            std::cout << "Select a new option from the menu above:\n";
+        }
+        else{
+            std::cout << "Input not recognized. Please try again.\n";
+        }
+    }
+    
+    //Meta meta = Meta();
+    //std::vector<Enemy> testEnemies;
+    //Enemy enemy1 = Enemy("Test Enemy 1", 5, 5, 2, 1, 1, false);
+    //Companion companion1 = Companion("Teammate", "Cleric", "Leer");
+    //meta.addCompanion(companion1);
     //Enemy enemy2 = Enemy("Test Enemy 2", 10, 5, 4, 1, 1, true);
-    testEnemies.push_back(enemy1);
+    //testEnemies.push_back(enemy1);
     //testEnemies.push_back(enemy2);
-    runEncounter(testEnemies, meta, true);
+    //runEncounter(testEnemies, meta, true);
     return 0;
 }
 

@@ -18,13 +18,13 @@ private:
     int charismaRequirement;
     // Use "None" if this line is shown to everyone. 
     // If playerChoice is true, this determines whether the first string in "choices" is shown.
-    // dietyRequirement is the same idea
+    // deityRequirement is the same idea
     std::string classRequirement; 
-    std::string dietyRequirement;
+    std::string deityRequirement;
     // List of choices that will be shown if this is a player choice.
     std::vector<std::string> choices;
 public:
-    Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string dietyRequirement_, std::vector<std::string> choices_);
+    Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string deityRequirement_, std::vector<std::string> choices_);
 
     // If it's a player choice, then this will return the index of what the player chooses. Returns -1 on any fail. Returns 0 otherwise.
     int runDialogue(Meta meta);
