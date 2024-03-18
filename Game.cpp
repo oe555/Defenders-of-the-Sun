@@ -20,6 +20,28 @@ const std::string bluetext("\033[0;36m");
 const std::string blueboldtext("\033[1;36m");
 const std::string purpleboldtext("\033[1;35m");
 
+std::string pad(std::string str){
+    const int maxLineLength = 150; // This is the max number of lines that will show on any line in the terminal.
+    int currLineLength = 0;
+    int lastSpace = 0;
+    for(int i = 0; i < str.size(); i++){
+        if(str[i] == ' '){
+            lastSpace = i;
+        }
+        if(str[i] == '\n'){
+            currLineLength = 0;
+        }
+        if(currLineLength >= maxLineLength){
+            str[lastSpace] = '\n';
+            currLineLength = i - lastSpace;
+        }
+        else{
+            currLineLength++;
+        }
+    }
+    return str;
+}
+
 void separatorBar(){
     std::cout << "\n#-----#-----#\n\n";
 }
@@ -244,19 +266,19 @@ int main(){ // Main currently has a bunch of tester code
             break;
         }
         else if(mainMenuInput == "2"){
-            std::cout << "Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe (somewhere between 50 and 60), and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n\n";
+            std::cout << pad("Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe (somewhere between 50 and 60), and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n\n");
             std::cout << "- Solari: God of the sun (lawful good)\n";
             std::cout << "- Selunara: Goddess of the moon (chaotic good)\n";
             std::cout << "- Leer: Goddess of darkness and night (chaotic evil)\n";
-            std::cout << "The deities listed above are siblings. Followers of Leer are typically enemies with followers of the other two as they believe light is a distraction from self awareness and reflection.\n";
+            std::cout << pad("The deities listed above are siblings. Followers of Leer are typically enemies with followers of the other two as they believe light is a distraction from self awareness and reflection.\n");
             std::cout << "- Terraflora: Goddess of nature (neutral good)\n";
             std::cout << "- Bei: Goddess of War (lawful evil)\n";
             std::cout << "- Necrotar: God of death (neutral evil)\n\n";
-            std::cout << "There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way (most druids serve Terraflora).\n\n";
-            std::cout << "Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards and necromancers are scholars and don't have patrons).\n\n";
-            std::cout << "The underworld exists, but nobody knows much about it or how to get there. Devils live in the underworld and seek to control the surface, but the deities keep them trapped in the underworld to maintain balance.\n\n";
+            std::cout << pad("There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way (most druids serve Terraflora).\n\n");
+            std::cout << pad("Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards and necromancers are scholars and don't have patrons).\n\n");
+            std::cout << pad("The underworld exists, but nobody knows much about it or how to get there. Devils live in the underworld and seek to control the surface, but the deities keep them trapped in the underworld to maintain balance.\n\n");
             std::cout << "#-----#-----#\n\n";
-            std::cout << "Select a new option from the menu above:\n";
+            std::cout << "Select a new option from the menu:\n";
         }
         else{
             std::cout << "Input not recognized. Please try again.\n";
