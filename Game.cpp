@@ -303,6 +303,7 @@ int main(){ // Main currently has a bunch of tester code
     int inp;
     while(true){
         currLocation = &(regA.locations[currLocationIndex]);
+        std::cout << "\nCurrent Location: " << currLocation->getName() << "\n";
         if(currLocation->getHasPrimaryInteraction()){ // Run the primary interaction if we haven't already
             interactionRes = currLocation->getPrimaryInteraction().runInteraction(meta);
             if(interactionRes == 1){ // The interaction results in an encounter
@@ -342,13 +343,31 @@ int main(){ // Main currently has a bunch of tester code
             // TODO: Optional interactions
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 1){ // Move to a nearby location
-            // TODO
+            currOptionIndex = 1; // Utilize these variables to prompt the choice of where to go
+            for(int i = 0; i < regA.getAdj(currLocationIndex).size(); i++){ // Outputs the names of the adjacent locations
+                std::cout << currOptionIndex << ") " << regA.locations[regA.getAdj(currLocationIndex)[i]].getName() << "\n";
+                currOptionIndex++;
+            }
+            while(true){
+                getline(std::cin, inpStr);
+                inp = stoi(inpStr);
+                if(inp < 1 || inp >= currOptionIndex){
+                    std::cout << "Input not recognized. Please try again.\n";
+                    continue;
+                }
+                std::cout << purpleboldtext << "-----\n" << resettext;
+                break;
+            }
+            currLocationIndex = regA.getAdj(currLocationIndex)[inp-1];
+            continue;
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 2){ // View active quests
             meta.journal.listQuests(false);
+            continue;
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 3){ // View completed quests
             meta.journal.listQuests(true);
+            continue;
         }
     }
     //std::vector<Enemy> testEnemies;

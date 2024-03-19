@@ -27,12 +27,13 @@ std::string pad2(std::string str){
     return str;
 }
 
-Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
+Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
     playerChoice = playerChoice_;
     line = line_;
     perceptionRequirement = perceptionRequirement_;
     charismaRequirement = charismaRequirement_;
     classRequirement = classRequirement_;
+    companionRequirement = companionRequirement_;
     deityRequirement = deityRequirement_;
     choices = choices_;
 }
@@ -49,6 +50,16 @@ int Dialogue::runDialogue(Meta meta){
                     }
                 }
             }
+        }
+        // Check companion requirement
+        if(companionRequirement != "None"){
+            bool ok = false;
+            for(Companion x : meta.companions){
+                if(x.getName() == companionRequirement){
+                    ok = true; // We found the companion
+                }
+            }
+            if(!ok) return -1; // Companion not found
         }
         // Check deity requirement
         if(deityRequirement != "None"){
@@ -87,6 +98,18 @@ int Dialogue::runDialogue(Meta meta){
                                 continue; // Not the correct class to see this choice
                             }
                         }
+                    }
+                }
+                if(companionRequirement != "None"){
+                    bool ok = false;
+                    for(Companion x : meta.companions){
+                        if(x.getName() == companionRequirement){
+                            ok = true; // We found the companion
+                        }
+                    }
+                    if(!ok){
+                        firstChoiceShown = false;
+                        continue; // Companion not found, can't see this choice
                     }
                 }
                 if(deityRequirement != "None"){ // Must check deity

@@ -1,13 +1,18 @@
 #include "Location.h"
 #include <string>
 
-Location::Location(){
+Location::Location(std::string name_){
+    name = name_;
     hasPrimaryInteraction = false;
     hasPostEncounterInteraction = false;
     encounter = {};
     optionalInteractions = {};
     numOptionalInteractions = 0;
     // Interaction has a default constructor
+}
+
+std::string Location::getName(){
+    return name;
 }
 
 bool Location::getHasPrimaryInteraction(){

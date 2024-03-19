@@ -8,6 +8,8 @@
 
 class Location{
 private:
+    std::string name;
+
     bool hasPrimaryInteraction;
     bool hasPostEncounterInteraction;
     Interaction primaryInteraction;
@@ -19,7 +21,9 @@ private:
     // The string is what is displayed in the menu when the player is selecting what to do at the location
     std::vector<std::pair<std::string, Interaction>> optionalInteractions;
 public:
-    Location();
+    Location(std::string name_);
+
+    std::string getName();
 
     bool getHasPrimaryInteraction();
     bool getHasPostEncounterInteraction();

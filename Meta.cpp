@@ -104,7 +104,7 @@ Meta::Meta(){
                 break;
             }
             if(charDeityInput == "3"){
-                characterDeity = "Solari";
+                characterDeity = "Selunara";
                 break;
             }
             if(charDeityInput == "4"){
