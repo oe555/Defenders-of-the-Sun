@@ -5,6 +5,11 @@
 #include "Armor.h"
 #include "Companion.h"
 #include "Meta.h"
+#include "Location.h"
+#include "Interaction.h"
+#include "Region.h"
+#include "Dialogue.h"
+#include "MapGen.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -284,8 +289,68 @@ int main(){ // Main currently has a bunch of tester code
             std::cout << "Input not recognized. Please try again.\n";
         }
     }
-    
-    //Meta meta = Meta();
+
+    /*
+        START ADVENTURE!!!!!!!!!!!!!!!
+    */
+    Meta meta = Meta();
+    Region regA = GenRegionA(meta); // Generate the first region
+    int currLocationIndex = 0; // Current location is A0
+    Location *currLocation;
+    int interactionRes;
+    int currOptionIndex = 0;
+    std::string inpStr;
+    int inp;
+    while(true){
+        currLocation = &(regA.locations[currLocationIndex]);
+        if(currLocation->getHasPrimaryInteraction()){ // Run the primary interaction if we haven't already
+            interactionRes = currLocation->getPrimaryInteraction().runInteraction(meta);
+            if(interactionRes == 1){ // The interaction results in an encounter
+                std::vector<Enemy> temp = currLocation->getEnemies();
+                if(runEncounter(temp, meta, false)){ // TODO: AMBUSHES (also figure out whether we need temp)
+                    return 0;
+                } 
+                if(currLocation->getHasPostEncounterInteraction()){
+                    currLocation->getPostEncounterInteraction().runInteraction(meta); // This will never result in an encounter
+                }
+            }
+        }
+        // Give player options for what to do
+        currOptionIndex = 1;
+        std::cout << "\n";
+        for(int i = 0; i < currLocation->getNumOptionalInteractions(); i++){
+            std::cout << currOptionIndex << ") " << currLocation->getOptionalInteraction(i).first;
+            currOptionIndex++;
+        }
+        std::cout << currOptionIndex << ") Move to a nearby location\n";
+        currOptionIndex++;
+        std::cout << currOptionIndex << ") View active quests\n";
+        currOptionIndex++;
+        std::cout << currOptionIndex << ") View completed quests\n";
+        currOptionIndex++;
+        while(true){ // Get the input from the user
+            getline(std::cin, inpStr);
+            inp = stoi(inpStr); // TODO: Runtime error
+            if(inp < 1 || inp >= currOptionIndex){
+                std::cout << "Input not recognized. Please try again.\n";
+                continue;
+            }
+            std::cout << purpleboldtext << "-----\n" << resettext;
+            break;
+        } // inp now stores their choice
+        if(inp <= currLocation->getNumOptionalInteractions()){
+            // TODO: Optional interactions
+        }
+        else if(inp == currLocation->getNumOptionalInteractions() + 1){ // Move to a nearby location
+            // TODO
+        }
+        else if(inp == currLocation->getNumOptionalInteractions() + 2){ // View active quests
+            meta.journal.listQuests(false);
+        }
+        else if(inp == currLocation->getNumOptionalInteractions() + 3){ // View completed quests
+            meta.journal.listQuests(true);
+        }
+    }
     //std::vector<Enemy> testEnemies;
     //Enemy enemy1 = Enemy("Test Enemy 1", 5, 5, 2, 1, 1, false);
     //Companion companion1 = Companion("Teammate", "Cleric", "Leer");

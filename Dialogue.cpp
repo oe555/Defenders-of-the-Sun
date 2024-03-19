@@ -4,6 +4,29 @@
 #include <vector>
 #include <iostream>
 
+// TODO: This is the same as pad in Game.cpp, but giving it the same name causes a compiletime error
+std::string pad2(std::string str){
+    const int maxLineLength = 150; // This is the max number of lines that will show on any line in the terminal.
+    int currLineLength = 0;
+    int lastSpace = 0;
+    for(int i = 0; i < str.size(); i++){
+        if(str[i] == ' '){
+            lastSpace = i;
+        }
+        if(str[i] == '\n'){
+            currLineLength = 0;
+        }
+        if(currLineLength >= maxLineLength){
+            str[lastSpace] = '\n';
+            currLineLength = i - lastSpace;
+        }
+        else{
+            currLineLength++;
+        }
+    }
+    return str;
+}
+
 Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
     playerChoice = playerChoice_;
     line = line_;
@@ -38,12 +61,12 @@ int Dialogue::runDialogue(Meta meta){
             return -1; // Returns -1 on a failed perception check
         }
         std::cout << "\n#-----#-----#\n\n";
-        std::cout << line << "\n";
+        std::cout << pad2(line) << "\n";
         return 0; // Successfully showed the line
     }
     else{ // This is what to do if it's a player choice.
         std::cout << "\n#-----#-----#\n\n";
-        std::cout << line << "\n";
+        std::cout << pad2(line) << "\n";
         bool perceptionFailed = false;
         if((rand() % 10) + 1 + meta.getPerception() < perceptionRequirement){
             perceptionFailed = true; // The perception check was failed... Don't show first choice.
@@ -73,7 +96,7 @@ int Dialogue::runDialogue(Meta meta){
                     }
                 }
             }
-            std::cout << currChoice << ") " << choices[i] << "\n.";
+            std::cout << currChoice << ") " << choices[i] << "\n";
             currChoice++;
         } // Done outputting choices
         // The user will now enter which choice they want to make
@@ -82,12 +105,13 @@ int Dialogue::runDialogue(Meta meta){
         while(true){
             getline(std::cin, inpString);
             // TODO: Potential runtime error
-            int inpInt = stoi(inpString);
+            inpInt = stoi(inpString);
             if(inpInt <= 0 || inpInt >= currChoice) { // Make sure the input is one of the choices (currChoice is 1 more than the number of choices)
                 std::cout << "Input not recognized. Please try again.\n";
                 continue;
             }
             std::cout << "\033[1;35m" << "-----\n" << "\033[0;0m"; // Purple bold line
+            break;
         }
 
         if(!firstChoiceShown) inpInt++; // The player did not actually pick the right number if the first choice wasn't there

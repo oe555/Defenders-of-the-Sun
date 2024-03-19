@@ -32,6 +32,7 @@ public:
     void addNav(int oldIndex, int returnVal, int newIndex);
 
     // Runs the interaction (takes in meta to get player stats and stuff). The return value decides if something special happens
+    // Return values: 0 - Nothing, 1 - Encounter, 2 - Companion, 3 - Silver, 4 - Weapon, 5 - Armor, 6 - Quest
     int runInteraction(Meta &meta);
 
     // Special stuff

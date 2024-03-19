@@ -10,7 +10,9 @@ Interaction::Interaction(){
 }
 
 Interaction::Interaction(std::vector<Dialogue> dialogues_){
-    dialogues = dialogues_;
+    for(int i = 0; i < dialogues_.size(); i++){
+        dialogues.push_back(dialogues_[i]);
+    }
     interactionNavigator = {};
     questUpdates = {};
 }
@@ -21,12 +23,18 @@ void Interaction::addNav(int oldIndex, int returnVal, int newIndex){
 
 // Return values: 0 - Nothing, 1 - Encounter, 2 - Companion, 3 - Silver, 4 - Weapon, 5 - Armor, 6 - Quest
 int Interaction::runInteraction(Meta &meta){
+    //std::cout << "[DEBUG] Outputting interaction map:\n";
+    //for(auto x : interactionNavigator){
+    //    std::cout << x.first.first << " " << x.first.second << " " << x.second << "\n";
+    //}
     // TODO - Add special stuff (if statements after running dialogue)
     int currDialogueIndex = 0; // Nonnegative numbers are dialogues, negative numbers are something special
     int dialogueReturnVal = 0;
     while(true){ // Run dialogues until we get to a resulution
         dialogueReturnVal = dialogues[currDialogueIndex].runDialogue(meta); // Run the first dialogue
+        //std::cout << "[DEBUG] That dialogue (" << currDialogueIndex << ")  returned " << dialogueReturnVal << "\n";
         currDialogueIndex = interactionNavigator[{currDialogueIndex, dialogueReturnVal}]; // Use navigator to go to next thing
+
         if(currDialogueIndex == -1){ // This resolution ends the dialogue with no special resolution
             return 0; // Nothing
         }
@@ -39,18 +47,22 @@ int Interaction::runInteraction(Meta &meta){
             return 2;
         }
         if(currDialogueIndex == -4){ // This resolution results in gaining a weapon
+            std::cout << "\n#-----#-----#\n\nYou gained a new weapon.\n\n#-----#-----#\n";
             meta.addWeapon(weapon);
             return 4;
         }
         if(currDialogueIndex == -5){ // This resolution results in gaining armor
+            std::cout << "\n#-----#-----#\n\nYou gained a new piece of armor.\n\n#-----#-----#\n";
             meta.addArmor(armor);
             return 5;
         }
         if(currDialogueIndex == -6){ // This resolution results in gaining silver
+            std::cout << "\n#-----#-----#\n\nYou gained some silver.\n\n#-----#-----#\n";
             meta.gainSilver(silver);
             return 3;
         }
         if(currDialogueIndex == -7){ // This resolution results in quest updates
+            std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
             for(auto x : questUpdates){
                 if(x.first.first == -1){ // New quest
                     meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
@@ -66,6 +78,7 @@ int Interaction::runInteraction(Meta &meta){
     }
 }
 
+// Set oldId to -1 for a new quest, newId to -1 to complete the quest
 void Interaction::addQuestUpdate(int oldId, int newId, int type, std::string name, std::string description){
     questUpdates.push_back({{oldId, {newId,type}}, {name, description}});
 }

@@ -19,6 +19,7 @@ bool Location::getHasPostEncounterInteraction(){
 }
 
 Interaction Location::getPrimaryInteraction(){
+    hasPrimaryInteraction = false;
     return primaryInteraction;
 }
 
@@ -28,6 +29,7 @@ void Location::setPrimaryInteraction(Interaction interaction_){
 }
 
 Interaction Location::getPostEncounterInteraction(){
+    hasPostEncounterInteraction = false;
     return postEncounterInteraction;
 }
 
@@ -49,7 +51,10 @@ int Location::getNumOptionalInteractions(){
 }
 
 std::pair<std::string, Interaction> Location::getOptionalInteraction(int index_){
-    return optionalInteractions[index_];
+    std::pair<std::string, Interaction> temp = optionalInteractions[index_];
+    optionalInteractions.erase(optionalInteractions.begin() + index_);
+    numOptionalInteractions--;
+    return temp;
 }
 
 void Location::addOptionalInteraction(std::pair<std::string, Interaction> interaction_){
