@@ -77,6 +77,7 @@ bool Enemy::takeDamage(int damage, int precisionBonus){
     //srand(time(NULL));
     if(((rand() % 10) + 1) + precisionBonus > defense){
         health -= damage;
+        health = std::max(health, 0); // We never go to negative HP
         return true;
     }
     return false;

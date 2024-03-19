@@ -116,7 +116,7 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
             }
         }
         //separatorBar();
-        std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attacked " << meta.companions[currTarget].getName() << ".\n" << resettext;
+        std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attempted to attack " << meta.companions[currTarget].getName() << ".\n" << resettext;
         if(meta.companions[currTarget].isHiding()){ // Enemies cannot attack hidden targets
             std::cout << "The enemy could not find their target...\n";
         }
@@ -183,13 +183,13 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         if(actionChoice == "Attack"){ // Attack----------
             std::cout << "Select the enemy you'd like to attack.\n";
             int targetEnemy = selectEnemy(enemies);
-            std::cout << boldtext << meta.companions[i].getName() << " attacks " << enemies[targetEnemy].getName() << "\n" << resettext;
+            std::cout << boldtext << meta.companions[i].getName() << " attempts to attack " << enemies[targetEnemy].getName() << "\n" << resettext;
             if(enemies[targetEnemy].takeDamage(meta.companions[i].dealDamage(), meta.companions[i].getWeapon().getPrecisionBonus())){
-                std::cout << "Your attack was successful.\n";
+                std::cout << greentext << "Your attack was successful.\n" << resettext;
                 std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
             }
             else{
-                std::cout << "You missed your attack.\n";
+                std::cout << redtext << "You missed your attack.\n" << resettext;
             }
             if(enemies[targetEnemy].getHealth() <= 0){
                 std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;

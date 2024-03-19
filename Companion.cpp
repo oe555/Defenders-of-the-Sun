@@ -153,6 +153,7 @@ bool Companion::takeDamage(int damage){
     if(hiding) return false; // This should never happen based on how encounters are implemented
     if(((rand() % 10) + 1) > defense){
         health -= damage;
+        health = std::max(health, 0); // We never go to negative HP
         return true;
     }
     return false;

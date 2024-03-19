@@ -80,7 +80,7 @@ Region GenRegionA(Meta meta){
     /*
         A2
     */
-    d0 = Dialogue(false, "You run down the hallway towards the noise, but you're too late. Dead warriors of Selunara and piles of bones are scattered across the floor. There are three severely weakened skeletons that are still in tact. They turn towards you, ready to fight.",
+    d0 = Dialogue(false, "You run down the hallway towards the noise, but you're too late. Dead warriors of Selunara and piles of bones are scattered across the floor. There are three severely weakened skeletons that are still intact. They turn towards you, ready to fight.",
                 -99, -99, "None", "None", "None", {});
     d1 = Dialogue(false, "Raven: \"Shit. Stay close, we can take them.\"", -99, 
                 -99, "None", "Raven", "None", {});
