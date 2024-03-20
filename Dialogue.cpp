@@ -149,3 +149,7 @@ int Dialogue::runDialogue(Meta meta){
         return inpInt; // Return what the player picked
     }
 }
+
+bool Dialogue::isPlayerChoice(){
+    return playerChoice;
+}

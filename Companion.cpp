@@ -13,8 +13,25 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     deity = deity_;
     addAction("Attack");
     addAction("Drink Protein");
-    maxHealth = 5;
-    defense = 3;
+    maxHealth = 0;
+
+    if(type == "Barbarian") maxHealth = 23;
+    if(type == "Wizard") maxHealth = 12;
+    if(type == "Rogue") maxHealth = 15;
+    if(type == "Druid") maxHealth = 18;
+    if(type == "Necromancer") maxHealth = 14;
+    if(type == "Monk") maxHealth = 17;
+    if(type == "Cleric") maxHealth = 20;
+    if(type == "Paladin") maxHealth = 25;
+    
+    if(type == "Noam") maxHealth = 12;
+    if(type == "Shrugmini") maxHealth = 16;
+    if(type == "Vivian") maxHealth = 19;
+    if(type == "Raven") maxHealth = 14;
+    if(type == "Huburt") maxHealth = 16;
+    if(type == "Iris") maxHealth = 25;
+
+    defense = 3; // Everyone has base 3 defense
     if(type == "Barbarian") defense++;
     if(type == "Wizard") defense--;
     if(type == "Rogue") defense--;
@@ -99,15 +116,7 @@ int Companion::getLevel(){
 
 void Companion::levelUp(){
     level++;
-    if(type == "Barbarian") maxHealth += 4;
-    if(type == "Wizard") maxHealth += 2;
-    if(type == "Rogue") maxHealth += 2;
-    if(type == "Druid") maxHealth += 3;
-    if(type == "Necromancer") maxHealth += 2;
-    if(type == "Monk") maxHealth += 3;
-    if(type == "Cleric") maxHealth += 3;
-    if(type == "Paladin") maxHealth += 5;
-    if(level == 1){
+    if(level == 1){ // TODO: Expand
         if(type == "Rogue") addAction("Hide");
         if(type == "Cleric") addAction("Heal");
     }
@@ -163,7 +172,7 @@ bool Companion::takeDamage(int damage){
 void Companion::getDetails(){
     std::cout << name << "'s current level: " << level << "\n";
     std::cout << name << "'s class: " << type << "\n";
-    std::cout << name << "'s max health: " << maxHealth << "\n";
+    std::cout << name << "'s health: " << maxHealth << "\n";
     std::cout << name << "'s defense: " << defense << "\n\n";
 
     std::cout << name << "'s equipment:\n";

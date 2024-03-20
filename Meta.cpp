@@ -127,22 +127,15 @@ Meta::Meta(){
     Companion player = Companion(charName, charClass, characterDeity);
     companions.push_back(player);
     // Adjust stats based on class
-    slightOfHand = 0;
-    if(charClass == "Rogue") slightOfHand += 2;
-    if(charClass == "Monk") slightOfHand++;
-    if(charClass == "Paladin") slightOfHand--;
     perception = 0;
     if(charClass == "Wizard") perception++;
-    if(charClass == "Rogue") perception++;
+    if(charClass == "Rogue") perception+=2;
     if(charClass == "Druid") perception++;
     if(charClass == "Necromancer") perception++;
-    if(charClass == "Monk") perception++;
-    if(charClass == "Cleric") perception++;
-    if(charClass == "Paladin") perception--;
     charisma = 0;
     if(charClass == "Barbarian") charisma--;
     if(charClass == "Wizard") charisma++;
-    if(charClass == "Rogue") charisma++;
+    if(charClass == "Rogue") charisma+=2;
     // Make journal
     journal = Journal();
 }
@@ -191,29 +184,77 @@ void Meta::addCompanion(Companion companion){
         std::cout << "Your party is full. You must ask one of your companions to travel seperately...\n";
         std::cout << "(Enter the number corresponding to the companion you'd like to release)\n";
         int currIndex = 1;
+        std::string companionNames[4];
         for(auto x : companions){
             if(x.getName() != characterName){
+                companionNames[currIndex-1] = x.getName();
                 std::cout << currIndex << ") " << x.getName();
                 currIndex++;
             }
         }
         std::string inputStr;
-        while(true){ // The player enters the number for the companion they want to release
+        bool loopThing = true;
+        while(loopThing){ // The player enters the number for the companion they want to release
             getline(std::cin, inputStr);
             if(inputStr == "1"){
-                companions.erase(companions.begin() + 1);
-                break;
+                for(int i = 0; i < (int)companions.size(); i++){ // Go through the companions and remove the one that matches the name
+                    if(companions[i].getName() == companionNames[0]){
+                        companionNames[0] = companions[i].getName(); // We will later check the name to remove the quest
+                        companions.erase(companions.begin() + i);
+                        loopThing = false;
+                        break;
+                    }
+                }
             }
             if(inputStr == "2"){
-                companions.erase(companions.begin() + 2);
-                break;
+                for(int i = 0; i < (int)companions.size(); i++){
+                    if(companions[i].getName() == companionNames[1]){
+                        companionNames[0] = companions[i].getName(); // We will later check the name to remove the quest
+                        companions.erase(companions.begin() + i);
+                        loopThing = false;
+                        break;
+                    }
+                }
             }
             if(inputStr == "3"){
-                companions.erase(companions.begin() + 3);
-                break;
+                for(int i = 0; i < (int)companions.size(); i++){
+                    if(companions[i].getName() == companionNames[2]){
+                        companionNames[0] = companions[i].getName(); // We will later check the name to remove the quest
+                        companions.erase(companions.begin() + i);
+                        loopThing = false;
+                        break;
+                    }
+                }
             }
             if(inputStr == "4"){
-                companions.erase(companions.begin() + 4);
+                for(int i = 0; i < (int)companions.size(); i++){
+                    if(companions[i].getName() == companionNames[3]){
+                        companionNames[0] = companions[i].getName(); // We will later check the name to remove the quest
+                        companions.erase(companions.begin() + i);
+                        loopThing = false;
+                        break;
+                    }
+                }
+            }
+            if(!loopThing){ // Companion was successfully selected
+                if(companionNames[0] == "Raven"){
+                    journal.advanceQuest(3, -1, "We decided not to travel with Raven.", true);
+                }
+                if(companionNames[0] == "Vivian"){
+                    journal.advanceQuest(4, -1, "We decided not to travel with Vivian.", true);
+                }
+                if(companionNames[0] == "Shrugmini"){
+                    journal.advanceQuest(5, -1, "We decided not to travel with Shrugmini.", true);
+                }
+                if(companionNames[0] == "Iris"){
+                    journal.advanceQuest(6, -1, "We decided not to travel with Iris.", true);
+                }
+                if(companionNames[0] == "Hubert"){
+                    journal.advanceQuest(7, -1, "We decided not to travel with Hubert.", true);
+                }
+                if(companionNames[0] == "Noam"){
+                    journal.advanceQuest(8, -1, "We decided not to travel with Noam.", true);
+                }
                 break;
             }
             std::cout << "Input not recognized. Please try again.\n";
@@ -232,10 +273,6 @@ void Meta::removeCompanion(std::string name){
 // This is for battles
 void Meta::shuffleCompanions(){
     std::random_shuffle(companions.begin(), companions.end());
-}
-
-int Meta::getSlightOfHand(){
-    return slightOfHand;
 }
 
 int Meta::getPerception(){

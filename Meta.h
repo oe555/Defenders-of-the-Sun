@@ -10,7 +10,6 @@ class Meta{
 private:
     int silver;
     int proteinShakes;
-    int slightOfHand;
     int perception;
     int charisma;
     std::string characterName;
@@ -39,7 +38,6 @@ public:
     void removeCompanion(std::string name);
     void shuffleCompanions();
 
-    int getSlightOfHand();
     int getPerception();
     int getCharisma();
 

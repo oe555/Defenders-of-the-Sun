@@ -29,6 +29,8 @@ public:
 
     // If it's a player choice, then this will return the index of what the player chooses. Returns -1 on any fail. Returns 0 otherwise.
     int runDialogue(Meta meta);
+
+    bool isPlayerChoice();
 };
 
 #endif

@@ -99,6 +99,7 @@ int selectAlly(Meta meta){
 bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
     //separatorBar();
     bool checkCompanions = false;
+    std::string trashLine;
     for(int currEnemy = 0; currEnemy < (int)enemies.size(); currEnemy++){
         int currTarget = 0;
         if(enemies[currEnemy].isIntelligent()){ // Intellegent enemies attack the lowest health companion
@@ -130,6 +131,8 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
         if(meta.companions[currTarget].getHealth() <= 0){
             std::cout << redtext << meta.companions[currTarget].getName() << " was knocked unconscious!\n" << resettext;
         }
+        std::cout << "<Press Enter to continue>";
+        getline(std::cin, trashLine);
         separatorBar();
         checkCompanions = true;
         for(int i = 0; i < (int)meta.companions.size(); i++){
@@ -213,7 +216,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             std::cout << "Choose an Ally to heal.\n";
             int targetAlly = selectAlly(meta);
             meta.companions[targetAlly].setHealth(meta.companions[targetAlly].getHealth() + 6);
-            std::cout << meta.companions[targetAlly].getName() << " gained 6 health. They now have " << meta.companions[i].getHealth() << " health points.\n";
+            std::cout << meta.companions[targetAlly].getName() << " gained 6 health. They now have " << meta.companions[targetAlly].getHealth() << " health points.\n";
         }
         separatorBar();
         if(enemies.empty()){

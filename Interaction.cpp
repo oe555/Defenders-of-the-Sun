@@ -30,8 +30,13 @@ int Interaction::runInteraction(Meta &meta){
     // TODO - Add special stuff (if statements after running dialogue)
     int currDialogueIndex = 0; // Nonnegative numbers are dialogues, negative numbers are something special
     int dialogueReturnVal = 0;
+    std::string trashLine;
     while(true){ // Run dialogues until we get to a resulution
         dialogueReturnVal = dialogues[currDialogueIndex].runDialogue(meta); // Run the first dialogue
+        if(!dialogues[currDialogueIndex].isPlayerChoice() && dialogueReturnVal != -1){
+            std::cout << "<Press Enter to continue>";
+            getline(std::cin, trashLine);
+        }
         //std::cout << "[DEBUG] That dialogue (" << currDialogueIndex << ")  returned " << dialogueReturnVal << "\n";
         currDialogueIndex = interactionNavigator[{currDialogueIndex, dialogueReturnVal}]; // Use navigator to go to next thing
 
