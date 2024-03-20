@@ -21,12 +21,12 @@ private:
     int defense;
     int level;
 
-    // STATUS EFFECTS (handled in encounter code)
-    bool hiding;
-
     Weapon weapon;
     Armor armor;
 public:
+    // STATUS EFFECTS (handled in encounter code)
+    bool hiding;
+
     Companion();
     Companion(std::string name_, std::string type_, std::string deity_);
 
@@ -55,9 +55,6 @@ public:
 
     int getLevel();
     void levelUp();
-
-    bool isHiding();
-    void setHiding(bool hiding_);
 
     Weapon getWeapon();
     void setWeapon(Weapon weapon_);

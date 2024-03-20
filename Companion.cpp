@@ -122,14 +122,6 @@ void Companion::levelUp(){
     }
 }
 
-bool Companion::isHiding(){
-    return hiding;
-}
-
-void Companion::setHiding(bool hiding_){
-    hiding = hiding_;
-}
-
 Weapon Companion::getWeapon(){
     return weapon;
 }

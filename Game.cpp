@@ -105,7 +105,7 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
         if(enemies[currEnemy].isIntelligent()){ // Intellegent enemies attack the lowest health companion
             for(int i = 1; i < (int)meta.companions.size(); i++){
                 // Find the least health companion that is not down or hiding
-                if((meta.companions[i].getHealth() < meta.companions[currTarget].getHealth() && meta.companions[i].getHealth() > 0 && !meta.companions[i].isHiding()) || meta.companions[currTarget].getHealth() <= 0) currTarget = i;
+                if((meta.companions[i].getHealth() < meta.companions[currTarget].getHealth() && meta.companions[i].getHealth() > 0 && !meta.companions[i].hiding) || meta.companions[currTarget].getHealth() <= 0) currTarget = i;
             }
         }
         else{
@@ -118,7 +118,7 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
         }
         //separatorBar();
         std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attempted to attack " << meta.companions[currTarget].getName() << ".\n" << resettext;
-        if(meta.companions[currTarget].isHiding()){ // Enemies cannot attack hidden targets
+        if(meta.companions[currTarget].hiding){ // Enemies cannot attack hidden targets
             std::cout << "The enemy could not find their target...\n";
         }
         else if(meta.companions[currTarget].takeDamage(enemies[currEnemy].dealDamage())){
@@ -210,7 +210,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         }
         if(actionChoice == "Hide"){ // Hide------------
             std::cout << "You are now hiding.\n";
-            meta.companions[i].setHiding(true);
+            meta.companions[i].hiding = true;
         }
         if(actionChoice == "Heal"){ // Heal-------------
             std::cout << "Choose an Ally to heal.\n";
