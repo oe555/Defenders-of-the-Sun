@@ -48,6 +48,7 @@ int Interaction::runInteraction(Meta &meta){
         }
         if(currDialogueIndex == -3){ // This resolution results in the companion joining
             std::cout << "\n#-----#-----#\n\nA new companion has joined your party.\n\n#-----#-----#\n";
+            companion.levelUp();
             meta.addCompanion(companion);
             for(auto x : questUpdates){ // We do quest updates here because getting a companion always results in their quest appearing
                 if(x.first.first == -1){ // New quest

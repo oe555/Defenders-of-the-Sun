@@ -90,8 +90,10 @@ Region GenRegionA(Meta meta){
     interaction.addNav(1, 0, -2);
     
     Location A2 = Location("First Hallway");
-    Enemy skeletonWarrior = Enemy("Skeleton Warrior", 3, 2, 6, 1, 0, false);
-    A2.addEnemy(skeletonWarrior); A2.addEnemy(skeletonWarrior); A2.addEnemy(skeletonWarrior);
+    Enemy skeletonWarrior1 = Enemy("Skeleton Warrior 1", 3, 2, 6, 1, 0, false);
+    Enemy skeletonWarrior2 = Enemy("Skeleton Warrior 2", 3, 2, 6, 1, 0, false);
+    Enemy skeletonWarrior3 = Enemy("Skeleton Warrior 3", 3, 2, 6, 1, 0, false);
+    A2.addEnemy(skeletonWarrior1); A2.addEnemy(skeletonWarrior2); A2.addEnemy(skeletonWarrior3);
     A2.setPrimaryInteraction(interaction);
     // TODO: POST ENCOUNTER INTERACTION WITH VIVIAN
 

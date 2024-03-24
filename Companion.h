@@ -24,8 +24,11 @@ private:
     Weapon weapon;
     Armor armor;
 public:
-    // STATUS EFFECTS (handled in encounter code)
+    // STATUS EFFECTS (usually handled in encounter code)
     bool hiding;
+    bool raging;
+    std::string stance; // Only matters for monks
+    std::string aura; // Only matters for paladins
 
     Companion();
     Companion(std::string name_, std::string type_, std::string deity_);
@@ -66,6 +69,8 @@ public:
     bool takeDamage(int damage);
 
     void getDetails();
+
+    void resetStatusEffects();
 };
 
 #endif

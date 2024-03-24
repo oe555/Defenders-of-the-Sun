@@ -13,15 +13,28 @@ Meta::Meta(){
     getline(std::cin, charName);
     characterName = charName;
     // Get the character's class
-    std::cout << "\nSelect a class by entering the corresponding number:\n";
+    std::cout << "\nSelect a class by entering the corresponding number:\n\n";
     std::cout << "1) Barbarian\n";
+    std::cout << "-- Tough fighters who use anger to their advantage.\n\n";
     std::cout << "2) Wizard\n";
+    std::cout << "-- Scholars who are well versed in the art of magic.\n\n";
     std::cout << "3) Rogue\n";
+    std::cout << "-- Former criminals who use deception and stealth to their advantage.\n\n";
     std::cout << "4) Druid\n";
-    std::cout << "5) Necromancer\n";
+    std::cout << "-- Servants of the deities of nature with the power to turn into animals.\n\n";
+    std::cout << "5) Hunter\n";
+    std::cout << "-- Experts of survival who gather food for their community (picking this class provides a pet wolf).\n\n";
     std::cout << "6) Monk\n";
+    std::cout << "-- Masters of martial arts who practice meditation in order to communicate to their deity.\n\n";
     std::cout << "7) Cleric\n";
+    std::cout << "-- Priests who have been trusted by their deity to wield special powers.\n\n";
     std::cout << "8) Paladin\n";
+    std::cout << "-- Loyal knights who defend those worshipping the same deity.\n\n";
+    std::cout << "9) Artisan\n";
+    std::cout << "-- Skilled crafters who can improve weapons and armor.\n\n";
+    std::cout << "10) Explorer\n";
+    std::cout << "-- Smart and charismatic individuals who are weak in combat but strong elsewhere.\n";
+    std::cout << "Warning: Picking explorer will result in a uniquely challenging experience.\n";
     std::string charClass;
     std::string charClassInput;
     while(true){
@@ -43,7 +56,7 @@ Meta::Meta(){
             break;
         }
         if(charClassInput == "5"){
-            charClass = "Necromancer";
+            charClass = "Hunter";
             break;
         }
         if(charClassInput == "6"){
@@ -56,6 +69,14 @@ Meta::Meta(){
         }
         if(charClassInput == "8"){
             charClass = "Paladin";
+            break;
+        }
+        if(charClassInput == "9"){
+            charClass = "Artisan";
+            break;
+        }
+        if(charClassInput == "10"){
+            charClass = "Explorer";
             break;
         }
         std::cout << "Input not recognized. Please try again.\n";
@@ -122,20 +143,31 @@ Meta::Meta(){
             std::cout << "Input not recognized. Please try again.\n";
         }
     }
+    if(charClass == "Hunter"){
+        std::cout << "\nName your pet wolf:\n";
+        std::string wolfName;
+        getline(std::cin, wolfName);
+        Companion wolf = Companion(wolfName, "Wolf", "None");
+        wolf.levelUp();
+        companions.push_back(wolf);
+    }
 
     // Now we need to add the companion to the list of companions
     Companion player = Companion(charName, charClass, characterDeity);
+    player.levelUp();
     companions.push_back(player);
     // Adjust stats based on class
     perception = 0;
     if(charClass == "Wizard") perception++;
     if(charClass == "Rogue") perception+=2;
     if(charClass == "Druid") perception++;
-    if(charClass == "Necromancer") perception++;
+    if(charClass == "Hunter") perception++;
+    if(charClass == "Explorer") perception+=100;
     charisma = 0;
     if(charClass == "Barbarian") charisma--;
     if(charClass == "Wizard") charisma++;
     if(charClass == "Rogue") charisma+=2;
+    if(charClass == "Explorer") charisma+=100;
     // Make journal
     journal = Journal();
 }
@@ -179,7 +211,14 @@ bool Meta::drinkProteinShake(){
 
 void Meta::addCompanion(Companion companion){
     companions.push_back(companion);
-    if(companions.size() == 5){ // Too many party members now...
+    // We check to see if the player is a hunter since their wolf does not count as a companion
+    int isNotHunter = 1;
+    for(auto x : companions){
+        if(x.getType() == "Hunter"){
+            isNotHunter = 0;
+        }
+    }
+    if(companions.size() == 6 - isNotHunter){ // Too many party members now...
         std::cout << "\n#-----#-----#\n\n";
         std::cout << "Your party is full. You must ask one of your companions to travel seperately...\n";
         std::cout << "(Enter the number corresponding to the companion you'd like to release)\n";

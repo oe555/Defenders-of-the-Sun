@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include <string>
+#include <vector>
 
 class Enemy{
 private:
@@ -12,6 +13,8 @@ private:
     int attackMultiplier;
     int attackBonus;
     bool intelligent; // Determines whether the Enemy attacks a random companion or the lowest health companion
+
+    std::vector<std::string> statusEffects;
 public:
     Enemy(std::string name_, int health_, int defense_, int attackDice_, int attackMultiplier_, int attackBonus_, bool intelligent_);
 
@@ -38,6 +41,9 @@ public:
 
     int dealDamage();
     bool takeDamage(int damage, int precisionBonus); // Returns true if enemy dies
+
+    void addStatusEffect(std::string effect);
+    bool hasStatusEffect(std::string effect);
 };
 
 #endif

@@ -9,6 +9,7 @@ Enemy::Enemy(std::string name_, int health_, int defense_, int attackDice_, int 
     attackMultiplier = attackMultiplier_;
     attackBonus = attackBonus_;
     intelligent = intelligent_;
+    statusEffects = {};
 }
 
 std::string Enemy::getName(){
@@ -79,6 +80,17 @@ bool Enemy::takeDamage(int damage, int precisionBonus){
         health -= damage;
         health = std::max(health, 0); // We never go to negative HP
         return true;
+    }
+    return false;
+}
+
+void Enemy::addStatusEffect(std::string effect){
+    statusEffects.push_back(effect);
+}
+
+bool Enemy::hasStatusEffect(std::string effect){
+    for(auto x : statusEffects){
+        if(x == effect) return true;
     }
     return false;
 }

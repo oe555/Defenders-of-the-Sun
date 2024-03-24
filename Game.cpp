@@ -99,8 +99,18 @@ int selectAlly(Meta meta){
 bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
     //separatorBar();
     bool checkCompanions = false;
+    int statusDamage = 0;
     std::string trashLine;
     for(int currEnemy = 0; currEnemy < (int)enemies.size(); currEnemy++){
+        // RESOLVE STATUS EFFECTS
+        if(enemies[currEnemy].hasStatusEffect("Poison")){
+            statusDamage = rand() % 4 + 1;
+            std::cout << enemies[currEnemy].getName() << " took " << statusDamage << " poison damage.\n";
+            enemies[currEnemy].takeDamage(statusDamage, 100); // Always hit
+            enemies[currEnemy].setHealth(std::max(enemies[currEnemy].getHealth(), 1)); // Status damage can't kill
+            std::cout << enemies[currEnemy].getName() << " now has " << enemies[currEnemy].getHealth() << " health.\n";
+        }
+
         int currTarget = 0;
         if(enemies[currEnemy].isIntelligent()){ // Intellegent enemies attack the lowest health companion
             for(int i = 1; i < (int)meta.companions.size(); i++){
@@ -157,8 +167,15 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             separatorBar();
             continue;
         }
-        else{ // Otherwise we provide their HP
-            std::cout << meta.companions[i].getName() << "'s current health: " << meta.companions[i].getHealth() << ".\n\n";
+        else{ // Otherwise we provide their HP and list status effects
+            std::cout << meta.companions[i].getName() << "'s current health: " << meta.companions[i].getHealth() << ".\n";
+            if(meta.companions[i].hiding){
+                std::cout << meta.companions[i].getName() << " is hiding.\n";
+            }
+            if(meta.companions[i].raging){
+                std::cout << meta.companions[i].getName() << " is raging.\n";
+            }
+            std::cout << "\n";
         }
         // This is where the player will pick their action
         std::cout << blueboldtext << meta.companions[i].getName() << "'s action:\n" << resettext;
@@ -181,9 +198,9 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             break;
         }
         /*
-            If statements for every possible action because we love spaghetti code
+            If statements for every possible action because we love spaghetti
         */
-        if(actionChoice == "Attack"){ // Attack----------
+        if(actionChoice == "Attack"){
             std::cout << "Select the enemy you'd like to attack.\n";
             int targetEnemy = selectEnemy(enemies);
             std::cout << boldtext << meta.companions[i].getName() << " attempts to attack " << enemies[targetEnemy].getName() << "\n" << resettext;
@@ -194,12 +211,12 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             else{
                 std::cout << redtext << "You missed your attack.\n" << resettext;
             }
-            if(enemies[targetEnemy].getHealth() <= 0){
+            if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
                 std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
                 enemies.erase(enemies.begin() + targetEnemy);
             }
         }
-        if(actionChoice == "Drink Protein"){ // Drink Protein-----------
+        if(actionChoice == "Drink Protein"){
             if(meta.drinkProteinShake()){
                 meta.companions[i].setHealth(meta.companions[i].getHealth() + 10);
                 std::cout << "You consume a protein shake and gain 10 health. You now have " << meta.companions[i].getHealth() << " health points.\n";
@@ -208,15 +225,37 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
                 std::cout << "You reach into your bag and realize that you don't have any protein shakes left!\n";
             }
         }
-        if(actionChoice == "Hide"){ // Hide------------
+        if(actionChoice == "Rage"){
+            std::cout << "You are now raging.\n";
+            meta.companions[i].raging = true;
+        }
+        if(actionChoice == "Zap"){
+            std::cout << "Select the enemy you'd like to zap.\n";
+            int targetEnemy = selectEnemy(enemies);
+            std::cout << boldtext << meta.companions[i].getName() << " zaps " << enemies[targetEnemy].getName() << "\n" << resettext;
+            enemies[targetEnemy].takeDamage(2*meta.companions[i].getLevel(), 100); // Precision level 100 makes it always hit
+            std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
+            if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
+                std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
+                enemies.erase(enemies.begin() + targetEnemy);
+            }
+        }
+        if(actionChoice == "Hide"){
             std::cout << "You are now hiding.\n";
             meta.companions[i].hiding = true;
         }
-        if(actionChoice == "Heal"){ // Heal-------------
+        if(actionChoice == "Snake Bite"){
+            std::cout << "Select the enemy you'd like to bite.\n";
+            int targetEnemy = selectEnemy(enemies);
+            std::cout << boldtext << meta.companions[i].getName() << " bites " << enemies[targetEnemy].getName() << "\n" << resettext;
+            enemies[targetEnemy].addStatusEffect("Poison");
+            std::cout << enemies[targetEnemy].getName() << " has been poisoned.\n";
+        }
+        if(actionChoice == "Heal"){
             std::cout << "Choose an Ally to heal.\n";
             int targetAlly = selectAlly(meta);
-            meta.companions[targetAlly].setHealth(meta.companions[targetAlly].getHealth() + 6);
-            std::cout << meta.companions[targetAlly].getName() << " gained 6 health. They now have " << meta.companions[targetAlly].getHealth() << " health points.\n";
+            meta.companions[targetAlly].setHealth(meta.companions[targetAlly].getHealth() + 5 + meta.companions[i].getLevel());
+            std::cout << meta.companions[targetAlly].getName() << " was healed. They now have " << meta.companions[targetAlly].getHealth() << " health points.\n";
         }
         separatorBar();
         if(enemies.empty()){
@@ -255,6 +294,10 @@ bool runEncounter(std::vector<Enemy> &enemies, Meta &meta, bool ambush){
         separatorBar();
         std::cout << greenboldtext << "Your party successfully survived the encounter!\n" << resettext;
         separatorBar();
+        // Reset status effects
+        for(int i = 0; i < meta.companions.size(); i++){
+            meta.companions[i].resetStatusEffects();
+        }
         return false;
     }
 }
