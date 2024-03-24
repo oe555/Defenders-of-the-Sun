@@ -326,7 +326,7 @@ int main(){ // Main currently has a bunch of tester code
             std::cout << "- Bei: Goddess of War (lawful evil)\n";
             std::cout << "- Necrotar: God of death (neutral evil)\n\n";
             std::cout << pad("There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way (most druids serve Terraflora).\n\n");
-            std::cout << pad("Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards and necromancers are scholars and don't have patrons).\n\n");
+            std::cout << pad("Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards are scholars and don't have patrons, but witches/warlocks do).\n\n");
             std::cout << pad("The underworld exists, but nobody knows much about it or how to get there. Devils live in the underworld and seek to control the surface, but the deities keep them trapped in the underworld to maintain balance.\n\n");
             std::cout << "#-----#-----#\n\n";
             std::cout << "Select a new option from the menu:\n";
