@@ -21,7 +21,7 @@ void Interaction::addNav(int oldIndex, int returnVal, int newIndex){
     interactionNavigator[{oldIndex, returnVal}] = newIndex;
 }
 
-// Return values: 0 - Nothing, 1 - Encounter, 2 - Companion, 3 - Silver, 4 - Weapon, 5 - Armor, 6 - Quest
+// Return values: 0 - Nothing, 1 - Encounter, 2 - Companion, 3 - Silver, 4 - Weapon, 5 - Armor, 6 - Quest, 7 - Story Update
 int Interaction::runInteraction(Meta &meta){
     //std::cout << "[DEBUG] Outputting interaction map:\n";
     //for(auto x : interactionNavigator){
@@ -89,6 +89,10 @@ int Interaction::runInteraction(Meta &meta){
             }
             return 6; // Tells the main function to indicate to the player that the journal was updated
         }
+        if(currDialogueIndex == -8){ // This resolution updates the story variable
+            meta.toggleStoryVariable(storyVariableUpdate);
+            return 7;
+        }
         // ...
     }
 }
@@ -112,4 +116,8 @@ void Interaction::addWeapon(Weapon weapon_){
 
 void Interaction::setSilver(int silver_){
     silver = silver_;
+}
+
+void Interaction::setStoryVariableUpdate(int storyVariableUpdate_){
+    storyVariableUpdate = storyVariableUpdate_;
 }

@@ -8,6 +8,7 @@
 Companion::Companion(){}
 
 Companion::Companion(std::string name_, std::string type_, std::string deity_){
+    approval = 0;
     name = name_;
     type = type_;
     deity = deity_;
@@ -265,4 +266,12 @@ void Companion::increaseAgonizeCount(){
 
 int Companion::getAgonizeCount(){
     return agonizeCount;
+}
+
+void Companion::adjustApproval(int change){
+    approval += change;
+}
+
+int Companion::getApproval(){
+    return approval;
 }

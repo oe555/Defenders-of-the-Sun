@@ -22,15 +22,21 @@ private:
     std::string classRequirement;
     std::string deityRequirement;
     std::string companionRequirement;
+    int storyVariableRequirement;
     // List of choices that will be shown if this is a player choice.
     std::vector<std::string> choices;
+
+    // Pairs of name, approval value
+    std::vector<std::pair<std::pair<std::string, int>, int>> approval;
 public:
-    Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_);
+    Dialogue(bool playerChoice_, std::string line_, int storyVariableRequirement_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_);
 
     // If it's a player choice, then this will return the index of what the player chooses. Returns -1 on any fail. Returns 0 otherwise.
     int runDialogue(Meta meta);
 
     bool isPlayerChoice();
+
+    void addApproval(std::string companion, int value, int index);
 };
 
 #endif

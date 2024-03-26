@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <map>
 
 // TODO: This is the same as pad in Game.cpp, but giving it the same name causes a compiletime error
 std::string pad2(std::string str){
@@ -27,9 +28,10 @@ std::string pad2(std::string str){
     return str;
 }
 
-Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
+Dialogue::Dialogue(bool playerChoice_, std::string line_, int storyVariableRequirement_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
     playerChoice = playerChoice_;
     line = line_;
+    storyVariableRequirement = storyVariableRequirement_;
     perceptionRequirement = perceptionRequirement_;
     charismaRequirement = charismaRequirement_;
     classRequirement = classRequirement_;
@@ -42,6 +44,11 @@ Dialogue::Dialogue(bool playerChoice_, std::string line_, int perceptionRequirem
 int Dialogue::runDialogue(Meta meta){
     if(!playerChoice){ // Not a player choice
         // Check class requirement
+        if(storyVariableRequirement != -1){
+            if(!meta.getStoryVariable(storyVariableRequirement)){
+                return -1; // The story variable is not true, so we fail here
+            }
+        }
         if(classRequirement != "None"){
             for(Companion x : meta.companions){
                 if(x.getName() == meta.getCharName()){
@@ -86,6 +93,12 @@ int Dialogue::runDialogue(Meta meta){
         bool firstChoiceShown = true; // This will tell us whether we need to change the number we return
         for(int i = 0; i < choices.size(); i++){ // Output choices
             if(i == 0){ // The first choice is usually special, let's decide if they see it
+                if(storyVariableRequirement != -1){
+                    if(!meta.getStoryVariable(storyVariableRequirement)){ // Don't show the first choice bc the story variable isn't true
+                        firstChoiceShown = false;
+                        continue;
+                    }
+                }
                 if(perceptionFailed){ // Don't show the first choice if the perception is failed
                     firstChoiceShown = false;
                     continue;
@@ -145,6 +158,24 @@ int Dialogue::runDialogue(Meta meta){
                 return -1; // The rizz check failed
             }
         }
+        
+        // Approval
+        std::map<int, std::string> approvalPhrases;
+        for(auto x : approval){
+            if(inpInt == x.second){ // This approval is related to this choice
+                bool companionInParty = false;
+                for(int i = 0; meta.companions.size(); i++){
+                    if(meta.companions[i].getName() == x.first.first){
+                        meta.companions[i].adjustApproval(x.first.second);
+                        if(x.first.second == -3) std::cout << "\n\033[1;31m" << x.first.first << " strongly dissaproves.\n\033[0;0m";
+                        if(x.first.second == -2) std::cout << "\n\033[0;31m" << x.first.first << " dissaproves.\n\033[0;0m";
+                        if(x.first.second == -1) std::cout << "\n\033[0;31m" << x.first.first << " slightly dissaproves.\n\033[0;0m";
+                        if(x.first.second == 2) std::cout << "\n\033[0;32m" << x.first.first << " approves.\n\033[0;0m";
+                        if(x.first.second == 3) std::cout << "\n\033[1;32m" << x.first.first << " strongly approves.\n\033[0;0m";
+                    }
+                }
+            }
+        }
 
         return inpInt; // Return what the player picked
     }
@@ -152,4 +183,8 @@ int Dialogue::runDialogue(Meta meta){
 
 bool Dialogue::isPlayerChoice(){
     return playerChoice;
+}
+
+void Dialogue::addApproval(std::string companion, int value, int index){
+    approval.push_back({{companion, value}, index});
 }

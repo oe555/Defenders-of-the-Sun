@@ -20,6 +20,8 @@ private:
     std::vector<std::pair<std::pair<int, std::pair<int, int>>, std::pair<std::string, std::string>>> questUpdates;
     // This is the companion that joins the party if that's a result
     Companion companion;
+    // Story variable update
+    int storyVariableUpdate;
 
     Weapon weapon;
     Armor armor;
@@ -41,6 +43,7 @@ public:
     void addWeapon(Weapon weapon_);
     void addArmor(Armor armor_);
     void setSilver(int silver_);
+    void setStoryVariableUpdate(int storyVariableUpdate_);
 };
 
 #endif

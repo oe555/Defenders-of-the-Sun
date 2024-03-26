@@ -16,6 +16,9 @@ private:
     std::string characterDeity;
     std::vector<Armor> armorInventory;
     std::vector<Weapon> weaponInventory;
+
+    static const int storyVarCount = 1;
+    bool storyVariables[storyVarCount];
 public:
     Journal journal;
     std::vector<Companion> companions;
@@ -43,6 +46,9 @@ public:
 
     void addArmor(Armor armor);
     void addWeapon(Weapon weapon);
+
+    void toggleStoryVariable(int index);
+    bool getStoryVariable(int index);
 };
 
 #endif

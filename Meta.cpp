@@ -3,6 +3,9 @@
 #include <algorithm>
 
 Meta::Meta(){
+    for(int i = 0; i < storyVarCount; i++){
+        storyVariables[i] = false;
+    }
     silver = 0;
     proteinShakes = 1;
     weaponInventory = {};
@@ -349,4 +352,12 @@ void Meta::addArmor(Armor armor){
 void Meta::addWeapon(Weapon weapon){
     weaponInventory.push_back(weapon);
     std::cout << "\n\033[0;36mA new weapon was added to your inventory.\033[0;0m\n";
+}
+
+void Meta::toggleStoryVariable(int index){
+    storyVariables[index] = true;
+}
+
+bool Meta::getStoryVariable(int index){
+    return storyVariables[index];
 }

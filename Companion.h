@@ -26,6 +26,8 @@ private:
 
     Weapon weapon;
     Armor armor;
+
+    int approval;
 public:
     // STATUS EFFECTS (usually handled in encounter code)
     bool hiding;
@@ -79,6 +81,9 @@ public:
 
     void increaseAgonizeCount();
     int getAgonizeCount();
+
+    void adjustApproval(int change);
+    int getApproval();
 };
 
 #endif
