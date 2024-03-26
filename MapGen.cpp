@@ -25,7 +25,7 @@ Region GenRegionA(Meta meta){
                         {"Check your body for injuries.", "Look for prisoners in the cell across the hall."});
     Dialogue d1 = Dialogue(false, "You glance over your body, trying to find scars. Everything seems fine, but who knows how much luck was involved?",
                         -99, -99, "None", "None", "None", {});
-    Dialogue d2 = Dialogue(false, "You closely examine the only cell within your line of sight. You see a young, unconscious, female half elf with black hair and a large raven tattooed to her neck. Looking at her gives you a feeling of danger and uncertainty. It's unclear whether allying with her is a good idea...",
+    Dialogue d2 = Dialogue(false, "You closely examine the only cell within your line of sight. You see a young, unconscious, female half-elf with black hair and a large raven tattooed to her neck. Looking at her gives you a feeling of danger and uncertainty. It's unclear whether allying with her is a good idea...",
                         -99, -99, "None", "None", "None", {});
     Dialogue d3 = Dialogue(false, "Before you get a chance to check anything else, a massive beam moonlight shoots through the hallway. A radiant energy, one that you realize is fueled by the power of your goddess, burns the skeletons to a crisp. The energy shakes the ground, causing your cell door to open slightly. Strangely, it seems like none the cell doors were locked in the first place.\n\nAfter listening carefully, you're able to hear noises that sound like fighting in the distance. Perhaps this is the source of the energy that freed you...\n\nYou slowly step outside of your cell, thinking about what to do next.",
                         -99, -99, "None", "None", "Selunara", {});
@@ -49,13 +49,13 @@ Region GenRegionA(Meta meta){
     /*
         A1
     */
-    d0 = Dialogue(false, "As you step towards the cell, your vision blurs as you experience a painful headache. You start to lose control of your body, causing you to stand lifelessly in front of the cell door. The young woman who was once trapped in that cell suddenly yet slowly walks towards you.",
+    d0 = Dialogue(false, "As you step towards the cell, your vision blurs as you experience a painful headache. You start to lose control of your body, causing you to stand lifelessly in front of the cell door. The half-elf woman who was once trapped in that cell suddenly yet slowly walks towards you.",
                 -99, -99, "None", "None", "None", {});
     d1 = Dialogue(false, "[Perception] Despite the pain her magic is inflicting on you, you realize that she is as confused and vulnerable as you are. She speaks and acts with extreme caution out of fear that you intend to harm her.",
                 3, -99, "None", "None", "None", {});
     d2 = Dialogue(true, "Raven: \"Speak.\"", -99, -99, "None", "None", "None",
                 {"\"I am a prisoner just like you. The cell doors are unlocked for some reason.\"", "\"Threatening me will end very badly for you...\"", "Attack"});
-    d3 = Dialogue(true, "Your headache swiftly clears and your vision returns to normal.\n\nRaven: \"I apologize for the poor introduction. I\'m Raven. I have no idea why we're here or how we got here, but together we may be able to figure this out. Are you in?\"",
+    d3 = Dialogue(true, "Your headache swiftly clears and your vision returns to normal.\n\nRaven: \"I\'m Raven. I have no idea why we're here or how we got here, but together we may be able to figure this out. Are you in?\"",
                 -99, -99, "None", "None", "None", {"\"I\'m " + meta.getCharName() + ". Come with me, let's deal with this together.\""});
     d4 = Dialogue(false, "Raven: \"Good luck kid.\"\n\nShe runs off, leaving you to deal with this mystery without her.",
                 -99, -99, "None", "None", "None", {});
@@ -73,7 +73,7 @@ Region GenRegionA(Meta meta){
     interaction.addQuestUpdate(-1, 3, 2, "Raven", "Raven's powers are strange and unfamiliar. We should continue traveling with her to learn more.");
     
     Location A1 = Location("Nearby cell");
-    Enemy ravenEnemy = Enemy("Raven", 7, 3, 4, 1, 0, true);
+    Enemy ravenEnemy = Enemy("Raven", 16, 3, 6, 1, 0, true);
     A1.addEnemy(ravenEnemy);
     A1.setPrimaryInteraction(interaction);
 
@@ -90,12 +90,11 @@ Region GenRegionA(Meta meta){
     interaction.addNav(1, 0, -2);
     
     Location A2 = Location("First Hallway");
-    Enemy skeletonWarrior1 = Enemy("Skeleton Warrior 1", 3, 2, 6, 1, 0, false);
-    Enemy skeletonWarrior2 = Enemy("Skeleton Warrior 2", 3, 2, 6, 1, 0, false);
-    Enemy skeletonWarrior3 = Enemy("Skeleton Warrior 3", 3, 2, 6, 1, 0, false);
+    Enemy skeletonWarrior1 = Enemy("Skeleton Warrior 1", 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior2 = Enemy("Skeleton Warrior 2", 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior3 = Enemy("Skeleton Warrior 3", 3, 2, 4, 1, 0, false);
     A2.addEnemy(skeletonWarrior1); A2.addEnemy(skeletonWarrior2); A2.addEnemy(skeletonWarrior3);
     A2.setPrimaryInteraction(interaction);
-    // TODO: POST ENCOUNTER INTERACTION WITH VIVIAN
 
     /*
         Region A

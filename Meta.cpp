@@ -10,8 +10,16 @@ Meta::Meta(){
     // Get the character's name
     std::cout << "Enter your character's name:\n";
     std::string charName;
-    getline(std::cin, charName);
-    characterName = charName;
+    while(true){
+        getline(std::cin, charName);
+        if(charName == "Raven" || charName == "Vivian" || charName == "Hubert" || charName == "Shrugmini" || charName == "Noam" || charName == "Iris" || charName == "Jasper"){
+            std::cout << "This is the name of a character that is essential to the plot. Please pick a new name.\n";
+            continue;
+        }
+        characterName = charName;
+        break;
+    }
+    
     // Get the character's class
     std::cout << "\nSelect a class by entering the corresponding number:\n\n";
     std::cout << "1) Barbarian\n";
@@ -146,7 +154,18 @@ Meta::Meta(){
     if(charClass == "Hunter"){
         std::cout << "\nName your pet wolf:\n";
         std::string wolfName;
-        getline(std::cin, wolfName);
+        while(true){
+            getline(std::cin, wolfName);
+            if(wolfName == "Raven" || wolfName == "Vivian" || wolfName == "Hubert" || wolfName == "Shrugmini" || wolfName == "Noam" || wolfName == "Iris" || wolfName == "Jasper"){
+                std::cout << "This is the name of a character that is essential to the plot. Please pick a new name.\n";
+                continue;
+            }
+            if(wolfName == characterName){
+                std::cout << "You should name your pet differently than yourself. Please pick a new name.\n";
+                continue;
+            }
+            break;
+        }
         Companion wolf = Companion(wolfName, "Wolf", "None");
         wolf.levelUp();
         companions.push_back(wolf);

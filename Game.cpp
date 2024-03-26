@@ -170,10 +170,13 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         else{ // Otherwise we provide their HP and list status effects
             std::cout << meta.companions[i].getName() << "'s current health: " << meta.companions[i].getHealth() << ".\n";
             if(meta.companions[i].hiding){
-                std::cout << meta.companions[i].getName() << " is hiding.\n";
+                std::cout << meta.companions[i].getName() << " is hiding. Attacks will reveal but deal " << meta.companions[i].getLevel() * 2 << " more damage.\n";
             }
             if(meta.companions[i].raging){
-                std::cout << meta.companions[i].getName() << " is raging.\n";
+                std::cout << meta.companions[i].getName() << " is raging. Attacks will deal " << meta.companions[i].getLevel() + 4 << " more damage.\n";
+            }
+            if(meta.companions[i].inspired){
+                std::cout << meta.companions[i].getName() << " is inspired. Attacks will deal " << meta.companions[i].getLevel() + 1 << " more damage.\n";
             }
             std::cout << "\n";
         }
@@ -201,19 +204,24 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             If statements for every possible action because we love spaghetti
         */
         if(actionChoice == "Attack"){
-            std::cout << "Select the enemy you'd like to attack.\n";
-            int targetEnemy = selectEnemy(enemies);
-            std::cout << boldtext << meta.companions[i].getName() << " attempts to attack " << enemies[targetEnemy].getName() << "\n" << resettext;
-            if(enemies[targetEnemy].takeDamage(meta.companions[i].dealDamage(), meta.companions[i].getWeapon().getPrecisionBonus())){
-                std::cout << greentext << "Your attack was successful.\n" << resettext;
-                std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
-            }
-            else{
-                std::cout << redtext << "You missed your attack.\n" << resettext;
-            }
-            if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
-                std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
-                enemies.erase(enemies.begin() + targetEnemy);
+            int targetEnemy;
+            for(int j = 0; j < meta.companions[i].getAttackCount(); j++){ // Accounts for extra attacks
+                std::cout << "Select the enemy you'd like to attack.\n";
+                //std::cout << "DEBUG\n";
+                targetEnemy = selectEnemy(enemies);
+                //std::cout << "Selected enemy: " << targetEnemy << "\n";
+                std::cout << boldtext << meta.companions[i].getName() << " attempts to attack " << enemies[targetEnemy].getName() << "\n" << resettext;
+                if(enemies[targetEnemy].takeDamage(meta.companions[i].dealDamage(), meta.companions[i].getWeapon().getPrecisionBonus())){
+                    std::cout << greentext << "Your attack was successful.\n" << resettext;
+                    std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
+                }
+                else{
+                    std::cout << redtext << "You missed your attack.\n" << resettext;
+                }
+                if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
+                    std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
+                    enemies.erase(enemies.begin() + targetEnemy);
+                }
             }
         }
         if(actionChoice == "Drink Protein"){
@@ -256,6 +264,33 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             int targetAlly = selectAlly(meta);
             meta.companions[targetAlly].setHealth(meta.companions[targetAlly].getHealth() + 5 + meta.companions[i].getLevel());
             std::cout << meta.companions[targetAlly].getName() << " was healed. They now have " << meta.companions[targetAlly].getHealth() << " health points.\n";
+        }
+        if(actionChoice == "Agonize"){
+            int targetEnemy;
+            for(int j = 0; j < meta.companions[i].getAgonizeCount(); j++){ // Accounts for extra attacks
+                std::cout << "Select the enemy you'd like to agonize.\n";
+                //std::cout << "DEBUG\n";
+                targetEnemy = selectEnemy(enemies);
+                //std::cout << "Selected enemy: " << targetEnemy << "\n";
+                std::cout << boldtext << meta.companions[i].getName() << " attempts to agonize " << enemies[targetEnemy].getName() << "\n" << resettext;
+                if(enemies[targetEnemy].takeDamage(3 * meta.companions[i].getLevel(), 0)){
+                    std::cout << greentext << "The spell successfully hit the enemy.\n" << resettext;
+                    std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
+                }
+                else{
+                    std::cout << redtext << "You missed your spell.\n" << resettext;
+                }
+                if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
+                    std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
+                    enemies.erase(enemies.begin() + targetEnemy);
+                }
+            }
+        }
+        if(actionChoice == "Inspire"){
+            std::cout << "Choose an Ally to inspire.\n";
+            int targetAlly = selectAlly(meta);
+            meta.companions[targetAlly].inspired = true;
+            std::cout << meta.companions[targetAlly].getName() << " is now inspired.\n";
         }
         separatorBar();
         if(enemies.empty()){
@@ -375,6 +410,8 @@ int main(){ // Main currently has a bunch of tester code
         currOptionIndex++;
         std::cout << currOptionIndex << ") View completed quests\n";
         currOptionIndex++;
+        std::cout << currOptionIndex << ") View party information\n";
+        currOptionIndex++;
         while(true){ // Get the input from the user
             getline(std::cin, inpStr);
             inp = stoi(inpStr); // TODO: Runtime error
@@ -414,6 +451,16 @@ int main(){ // Main currently has a bunch of tester code
         else if(inp == currLocation->getNumOptionalInteractions() + 3){ // View completed quests
             meta.journal.listQuests(true);
             continue;
+        }
+        else if(inp == currLocation->getNumOptionalInteractions() + 4){ // View party information
+            std::string trashLine;
+            for(auto x : meta.companions){
+                std::cout << "#-----#-----#\n\n";
+                x.getDetails();
+                std::cout << "<Press enter to continue>";
+                getline(std::cin, trashLine);
+            }
+            std::cout << "#-----#-----#\n\n";
         }
     }
     //std::vector<Enemy> testEnemies;

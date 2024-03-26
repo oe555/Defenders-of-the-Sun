@@ -21,14 +21,16 @@ private:
     int defense;
     int level;
 
+    int attackCount;
+    int agonizeCount;
+
     Weapon weapon;
     Armor armor;
 public:
     // STATUS EFFECTS (usually handled in encounter code)
     bool hiding;
     bool raging;
-    std::string stance; // Only matters for monks
-    std::string aura; // Only matters for paladins
+    bool inspired;
 
     Companion();
     Companion(std::string name_, std::string type_, std::string deity_);
@@ -71,6 +73,12 @@ public:
     void getDetails();
 
     void resetStatusEffects();
+
+    void increaseAttackCount();
+    int getAttackCount();
+
+    void increaseAgonizeCount();
+    int getAgonizeCount();
 };
 
 #endif

@@ -12,14 +12,17 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     type = type_;
     deity = deity_;
     addAction("Attack");
-    addAction("Drink Protein");
+    if(type_ != "Wolf") addAction("Drink Protein");
     maxHealth = 0;
+    attackCount = 1;
+    agonizeCount = 1;
 
     if(type == "Barbarian") maxHealth = 23;
     if(type == "Wizard") maxHealth = 12;
     if(type == "Rogue") maxHealth = 15;
     if(type == "Druid") maxHealth = 18;
     if(type == "Hunter") maxHealth = 18;
+    if(type == "Wolf") maxHealth = 15;
     if(type == "Monk") maxHealth = 17;
     if(type == "Cleric") maxHealth = 20;
     if(type == "Paladin") maxHealth = 25;
@@ -38,12 +41,24 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Wizard") defense--;
     if(type == "Rogue") defense--;
     if(type == "Paladin") defense += 2;
+    if(type == "Iris") defense += 2;
+    if(type == "Noam") defense--;
     level = 0; // Constructor creates a level 0 character
     // levelUp();
     health = maxHealth;
     Weapon starterWeapon = Weapon("Simple Dagger", "A simple dagger made for simple stabbing.", 6, 1, 0, 0);
     if(type == "Monk") starterWeapon = Weapon("Fist", "Ready to beat the shit out of something.", 6, 1, 0, 1);
+    if(type == "Wolf") starterWeapon = Weapon("Teeth", "Chomp!!!", 6, 1, 0, 3);
+    if(type == "Noam") starterWeapon = Weapon("Noam's Quarterstaff", "Good for magic, but also good for bonking things.", 4, 1, 0, -1); 
+    if(type == "Shrugmini") starterWeapon = Weapon("Shrugmini\'s Dagger", "A nicer dagger made for nicer stabbing.", 6, 1, 1, 1);
     Armor starterArmor = Armor("Simple Clothes", "It might be useless but it's quite fashionable.", 0);
+    if(type == "Raven") starterArmor = Armor("Raven\'s Clothes", "If wearing a hoodie at a funeral was acceptable, this is what you\'d wear.", 0);
+    if(type == "Vivian") starterArmor = Armor("Vivan\'s Clothes", "A white top and skirt dedicated to Her.", 0);
+    if(type == "Hubert") starterArmor = Armor("Hubert\'s Clothes", "Ripped jeans and a awkwardly colored jacket.", 0);
+    if(type == "Noam") starterArmor = Armor("Noam\'s Clothes", "Who managed to designed a robe that fits him?", 0);
+    if(type == "Shrugmini") starterArmor = Armor("Shrugmini\'s Clothes", "Cool girl vibes.", 0);
+    if(type == "Iris") starterArmor = Armor("Iris\' Armor", "It has the symbol of Solari on the left shoulder.", 1);
+    if(type == "Wolf") starterArmor = Armor("Fur", "Rawr!!!", 0);
     weapon = starterWeapon;
     armor = starterArmor;
     resetStatusEffects();
@@ -52,6 +67,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
 void Companion::resetStatusEffects(){
     hiding = false;
     raging = false;
+    inspired = false;
 }
 
 std::string Companion::getName(){
@@ -134,23 +150,35 @@ void Companion::levelUp(){
     if(level == 1){ // TODO: Expand as the game gets longer
         if(type == "Barbarian"){
             addAction("Rage");
-            std::cout << name << " can now use " << boldtext << "rage" << resettext << ". \nEnemies cannot miss attacks against you when you rage, but your attacks deal extra damage equal to 4 + your level.\n\n";
+            std::cout << name << " can now use " << boldtext << "Rage" << resettext << ". \nEnemies will always miss attacks against you when you rage, but your attacks deal extra damage equal to 4 + your level.\n\n";
         }
-        if(type == "Wizard"){
+        if(type == "Wizard" || type == "Noam"){
             addAction("Zap");
-            std::cout << name << " can now use " << boldtext << "zap" << resettext << ". \nZap cannot miss and always deals damage equal to 2 times your level.\n\n";
+            std::cout << name << " can now use " << boldtext << "Zap" << resettext << ". \nZap cannot miss and always deals damage equal to 2 times your level.\n\n";
         }
-        if(type == "Rogue"){
+        if(type == "Rogue" || type == "Shrugmini"){
             addAction("Hide");
-            std::cout << name << " can now use " << boldtext << "hide" << resettext << ". \nEnemies cannot hit you while you are hiding. Attacking while hiding causes you to stop hiding but deals extra damage equal to 2 times your level.\n\n";
+            std::cout << name << " can now use " << boldtext << "Hide" << resettext << ". \nEnemies cannot hit you while you are hiding. Attacking while hiding causes you to stop hiding but deals extra damage equal to 2 times your level.\n\n";
         }
-        if(type == "Druid"){
+        if(type == "Druid" || type == "Vivian"){
             addAction("Snake Bite");
-            std::cout << name << " can now use " << boldtext << "snake bite" << resettext << ". \nSnake bite inflicts poison onto an enemy, which deals 1d4 damage per turn but cannot kill.\n\n";
+            std::cout << name << " can now use " << boldtext << "Snake Bite" << resettext << ". \nSnake bite cannot miss and inflicts poison onto an enemy, which deals 1d4 damage per turn but cannot kill.\n\n";
         }
-        if(type == "Cleric"){
+        if(type == "Monk"){
+            increaseAttackCount();
+            std::cout << name << " has gained an extra attack.\n\n";
+        }
+        if(type == "Cleric" || type == "Vivian"){
             addAction("Heal");
-            std::cout << name << " can now use " << boldtext << "heal" << resettext << ". \nHeal restores HP to any ally equal to 5 + your level (potentially restoring their consciousness).\n\n";
+            std::cout << name << " can now use " << boldtext << "Heal" << resettext << ". \nHeal restores HP to any ally equal to 5 + your level (potentially restoring their consciousness).\n\n";
+        }
+        if(type == "Raven"){
+            addAction("Agonize");
+            std::cout << name << " can now use " << boldtext << "Agonize" << resettext << ". \nAgonize is a beam of dark energy that deals damage equal to 3 times your level.\n\n";
+        }
+        if(type == "Hubert"){
+            addAction("Inspire");
+            std::cout << name << " can now use " << boldtext << "Inspire" << resettext << ". \nYou can perform an inspiring tune using your bagpipes, increasing the damage of an ally's attacks by 1 + your level.\n\n";
         }
     }
     std::string trashLine;
@@ -164,8 +192,8 @@ Weapon Companion::getWeapon(){
 }
     
 void Companion::setWeapon(Weapon weapon_){
-    // TODO output something to player
     if(type == "Monk") return;
+    if(type == "Wolf") return;
     weapon = weapon_;
 }
 
@@ -174,8 +202,8 @@ Armor Companion::getArmor(){
 }
 
 void Companion::setArmor(Armor armor_){
-    // TODO output something to player
     if(type == "Monk") return;
+    if(type == "Wolf") return;
     armor = armor_;
 }
 
@@ -183,7 +211,7 @@ void Companion::setArmor(Armor armor_){
 int Companion::dealDamage(){
     bool hidingTemp = hiding; // Damage increases by 2*level if the companion is hiding
     hiding = false; // Companion can't hide through an attack
-    return weapon.dealDamage() + (hidingTemp ? 2*level : 0) + (raging ? 4+level : 0);
+    return weapon.dealDamage() + (hidingTemp ? 2*level : 0) + (raging ? 4+level : 0) + (inspired ? 1+level : 0);
 }
 
 // The companion will take damage only if the attack hits (based on a d10 and the defense)
@@ -199,8 +227,17 @@ bool Companion::takeDamage(int damage){
 
 // Outputs details to the terminal
 void Companion::getDetails(){
+    std::string tempType = type;
+    if(type == "Raven") tempType = "Witch";
+    if(type == "Hubert") tempType = "Musician";
+    if(type == "Vivan") tempType = "Archdruid of Selunara";
+    if(type == "Shrugmini") tempType = "Half-Devil Rogue";
+    if(type == "Noam") tempType = "Wizard";
+    if(type == "Iris") tempType = "Paladin";
+    if(deity != "None") tempType = tempType + " of " + deity;
+
     std::cout << name << "'s current level: " << level << "\n";
-    std::cout << name << "'s class: " << type << "\n";
+    std::cout << name << "'s class: " << tempType << "\n";
     std::cout << name << "'s health: " << maxHealth << "\n";
     std::cout << name << "'s defense: " << defense << "\n\n";
 
@@ -208,7 +245,24 @@ void Companion::getDetails(){
     std::cout << "Weapon: " << weapon.getName() << "\n";
     std::cout << "-- " << weapon.getDescription() << "\n";
     std::cout << "Damage: " << weapon.getAttackMultiplier() << "d" << weapon.getAttackDice() << " + " << weapon.getAttackBonus() << "\n";
+    std::cout << "Precision bonus: " << weapon.getPrecisionBonus() << "\n\n";
     std::cout << "Armor: " << armor.getName() << "\n";
     std::cout << "-- " << armor.getDescription() << "\n";
     std::cout << "Defense bonus: " << armor.getDefenseBonus() << "\n"; 
+}
+
+void Companion::increaseAttackCount(){
+    attackCount++;
+}
+
+int Companion::getAttackCount(){
+    return attackCount;
+}
+
+void Companion::increaseAgonizeCount(){
+    agonizeCount++;
+}
+
+int Companion::getAgonizeCount(){
+    return agonizeCount;
 }
