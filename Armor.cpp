@@ -5,12 +5,14 @@ Armor::Armor(){
     name = "";
     description = "";
     defenseBonus = 0;
+    isClothes = false;
 }
 
-Armor::Armor(std::string name_, std::string description_, int defenseBonus_){
+Armor::Armor(std::string name_, std::string description_, int defenseBonus_, bool isClothes_){
     name = name_;
     description = description_;
     defenseBonus = defenseBonus_;
+    isClothes = isClothes_;
 }
 
 std::string Armor::getName(){
@@ -35,4 +37,8 @@ int Armor::getDefenseBonus(){
 
 void Armor::setDefenseBonus(int defenseBonus_){
     defenseBonus = defenseBonus_;
+}
+
+bool Armor::getIsClothes(){
+    return isClothes;
 }

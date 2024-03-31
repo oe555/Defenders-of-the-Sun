@@ -29,6 +29,8 @@ private:
     // Pairs of name, approval value
     std::vector<std::pair<std::pair<std::string, int>, int>> approval;
 public:
+    Dialogue(std::string line_);
+    Dialogue(std::string line_, std::vector<std::string> choices_);
     Dialogue(bool playerChoice_, std::string line_, int storyVariableRequirement_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_);
 
     // If it's a player choice, then this will return the index of what the player chooses. Returns -1 on any fail. Returns 0 otherwise.

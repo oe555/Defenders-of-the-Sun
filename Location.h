@@ -42,6 +42,7 @@ public:
     std::pair<std::string, Interaction> getOptionalInteraction(int index_);
     // The string is what is displayed in the menu when the player is selecting what to do at the location
     void addOptionalInteraction(std::pair<std::string, Interaction> interaction_);
+    void removeOptionalInteraction(int index_);
 };
 
 #endif

@@ -25,6 +25,13 @@ const std::string bluetext("\033[0;36m");
 const std::string blueboldtext("\033[1;36m");
 const std::string purpleboldtext("\033[1;35m");
 
+bool checkForDigit(std::string str){ // Checks to see if the user entered some number
+    for(int i = 0; i < (int)str.size(); i++){
+        if(str[i] >= '0' && str[i] <= '9') return true;
+    }
+    return false;
+}
+
 std::string pad(std::string str){
     const int maxLineLength = 150; // This is the max number of lines that will show on any line in the terminal.
     int currLineLength = 0;
@@ -60,7 +67,10 @@ int selectEnemy(std::vector<Enemy> &enemies){
     int inpInt = 0;
     while(true){
         getline(std::cin, inpString);
-        // TODO: Potential runtime error
+        if(!checkForDigit(inpString)){
+            std::cout << "Input not recognized. Please try again.\n";
+            continue;
+        }
         int inpInt = stoi(inpString);
         inpInt--;
         if(inpInt < 0 || inpInt >= (int)enemies.size()){
@@ -82,7 +92,10 @@ int selectAlly(Meta meta){
     int inpInt = 0;
     while(true){
         getline(std::cin, inpString);
-        // TODO: Potential runtime error
+        if(!checkForDigit(inpString)){
+            std::cout << "Input not recognized. Please try again.\n";
+            continue;
+        }
         int inpInt = stoi(inpString);
         inpInt--;
         if(inpInt < 0 || inpInt >= (int)meta.companions.size()){
@@ -188,7 +201,10 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         }
         while(true){
             getline(std::cin, actionChoice);
-            // TODO: Potential runtime error
+            if(!checkForDigit(actionChoice)){
+                std::cout << "Input not recognized. Please try again.\n";
+                continue;
+            }
             int actionChoiceInt = stoi(actionChoice);
             actionChoiceInt--;
             if(actionChoiceInt < 0 || actionChoiceInt >= (int)meta.companions[i].getActions().size()){
@@ -386,7 +402,7 @@ int main(){ // Main currently has a bunch of tester code
         currLocation = &(regA.locations[currLocationIndex]);
         std::cout << "\nCurrent Location: " << currLocation->getName() << "\n";
         if(currLocation->getHasPrimaryInteraction()){ // Run the primary interaction if we haven't already
-            interactionRes = currLocation->getPrimaryInteraction().runInteraction(meta);
+            interactionRes = currLocation->getPrimaryInteraction().runInteraction(meta); // This will also remove the primary interaction
             if(interactionRes == 1){ // The interaction results in an encounter
                 std::vector<Enemy> temp = currLocation->getEnemies();
                 if(runEncounter(temp, meta, false)){ // TODO: AMBUSHES (also figure out whether we need temp)
@@ -401,7 +417,7 @@ int main(){ // Main currently has a bunch of tester code
         currOptionIndex = 1;
         std::cout << "\n";
         for(int i = 0; i < currLocation->getNumOptionalInteractions(); i++){
-            std::cout << currOptionIndex << ") " << currLocation->getOptionalInteraction(i).first;
+            std::cout << currOptionIndex << ") " << currLocation->getOptionalInteraction(i).first << "\n";
             currOptionIndex++;
         }
         std::cout << currOptionIndex << ") Move to a nearby location\n";
@@ -414,6 +430,10 @@ int main(){ // Main currently has a bunch of tester code
         currOptionIndex++;
         while(true){ // Get the input from the user
             getline(std::cin, inpStr);
+            if(!checkForDigit(inpStr)){
+                std::cout << "Input not recognized. Please try again.\n";
+                continue;
+            }
             inp = stoi(inpStr); // TODO: Runtime error
             if(inp < 1 || inp >= currOptionIndex){
                 std::cout << "Input not recognized. Please try again.\n";
@@ -423,7 +443,20 @@ int main(){ // Main currently has a bunch of tester code
             break;
         } // inp now stores their choice
         if(inp <= currLocation->getNumOptionalInteractions()){
-            // TODO: Optional interactions
+            Interaction optionalInteraction = currLocation->getOptionalInteraction(inp - 1).second;
+            interactionRes = optionalInteraction.runInteraction(meta);
+            if(interactionRes != 0){
+                currLocation->removeOptionalInteraction(inp - 1);
+            }
+            if(interactionRes == 1){ // The interaction results in an encounter
+                std::vector<Enemy> temp = currLocation->getEnemies();
+                if(runEncounter(temp, meta, false)){ // TODO: AMBUSHES (also figure out whether we need temp)
+                    return 0;
+                } 
+                if(currLocation->getHasPostEncounterInteraction()){
+                    currLocation->getPostEncounterInteraction().runInteraction(meta); // This will never result in an encounter
+                }
+            }
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 1){ // Move to a nearby location
             currOptionIndex = 1; // Utilize these variables to prompt the choice of where to go
@@ -433,6 +466,10 @@ int main(){ // Main currently has a bunch of tester code
             }
             while(true){
                 getline(std::cin, inpStr);
+                if(!checkForDigit(inpStr)){
+                    std::cout << "Input not recognized. Please try again.\n";
+                    continue;
+                }
                 inp = stoi(inpStr);
                 if(inp < 1 || inp >= currOptionIndex){
                     std::cout << "Input not recognized. Please try again.\n";
@@ -454,13 +491,18 @@ int main(){ // Main currently has a bunch of tester code
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 4){ // View party information
             std::string trashLine;
+            std::cout << "\n#-----#-----#\n\n";
+            std::cout << "Silver: " << meta.getSilver() << "\n";
+            std::cout << "Protein Shakes: " << meta.getProteinShakes() << "\n\n";
+            std::cout << "Your perception bonus: " << meta.getPerception() << "\n";
+            std::cout << "Your charisma bonus: " << meta.getCharisma() << "\n";
             for(auto x : meta.companions){
-                std::cout << "#-----#-----#\n\n";
+                std::cout << "\n#-----#-----#\n\n";
                 x.getDetails();
                 std::cout << "<Press enter to continue>";
                 getline(std::cin, trashLine);
             }
-            std::cout << "#-----#-----#\n\n";
+            std::cout << "\n#-----#-----#\n\n";
         }
     }
     //std::vector<Enemy> testEnemies;

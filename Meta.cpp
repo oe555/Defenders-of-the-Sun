@@ -249,7 +249,7 @@ void Meta::addCompanion(Companion companion){
         for(auto x : companions){
             if(x.getName() != characterName){
                 companionNames[currIndex-1] = x.getName();
-                std::cout << currIndex << ") " << x.getName();
+                std::cout << currIndex << ") " << x.getName() << "\n";
                 currIndex++;
             }
         }

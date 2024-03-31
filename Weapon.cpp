@@ -8,15 +8,17 @@ Weapon::Weapon(){
     attackMultiplier = 0;
     attackBonus = 0;
     precisionBonus = 0;
+    features = {};
 }
 
-Weapon::Weapon(std::string name_, std::string description_, int attackDice_, int attackMultiplier_, int attackBonus_, int precisionBonus_){
+Weapon::Weapon(std::string name_, std::string description_, int attackDice_, int attackMultiplier_, int attackBonus_, int precisionBonus_, std::vector<std::string> features_){
     name = name_;
     description = description_;
     attackDice = attackDice_;
     attackMultiplier = attackMultiplier_;
     attackBonus = attackBonus_;
     precisionBonus = precisionBonus_;
+    features = features_;
 }
 
 std::string Weapon::getName(){
@@ -70,4 +72,15 @@ void Weapon::setPrecisionBonus(int precisionBonus_){
 int Weapon::dealDamage(){
     //srand(time(NULL));
     return (attackMultiplier * ((rand() % attackDice) + 1)) + attackBonus; 
+}
+
+void Weapon::addFeature(std::string feature){
+    features.push_back(feature);
+}
+
+bool Weapon::hasFeature(std::string feature){
+    for(auto x : features){
+        if(x == feature) return true;
+    }
+    return false;
 }

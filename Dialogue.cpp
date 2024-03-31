@@ -5,6 +5,13 @@
 #include <iostream>
 #include <map>
 
+bool checkForDigit2(std::string str){ // Checks to see if the user entered some number
+    for(int i = 0; i < (int)str.size(); i++){
+        if(str[i] >= '0' && str[i] <= '9') return true;
+    }
+    return false;
+}
+
 // TODO: This is the same as pad in Game.cpp, but giving it the same name causes a compiletime error
 std::string pad2(std::string str){
     const int maxLineLength = 150; // This is the max number of lines that will show on any line in the terminal.
@@ -26,6 +33,30 @@ std::string pad2(std::string str){
         }
     }
     return str;
+}
+
+Dialogue::Dialogue(std::string line_){
+    playerChoice = false;
+    line = line_;
+    storyVariableRequirement = -1;
+    perceptionRequirement = -99;
+    charismaRequirement = -99;
+    classRequirement = "None";
+    companionRequirement = "None";
+    deityRequirement = "None";
+    choices = {};
+}
+
+Dialogue::Dialogue(std::string line_, std::vector<std::string> choices_){
+    playerChoice = true;
+    line = line_;
+    storyVariableRequirement = -1;
+    perceptionRequirement = -99;
+    charismaRequirement = -99;
+    classRequirement = "None";
+    companionRequirement = "None";
+    deityRequirement = "None";
+    choices = choices_;
 }
 
 Dialogue::Dialogue(bool playerChoice_, std::string line_, int storyVariableRequirement_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
@@ -108,10 +139,11 @@ int Dialogue::runDialogue(Meta meta){
                         if(x.getName() == meta.getCharName()){
                             if(classRequirement != x.getType()){
                                 firstChoiceShown = false;
-                                continue; // Not the correct class to see this choice
+                                break; 
                             }
                         }
                     }
+                    if(!firstChoiceShown) continue; // Not the correct class to see this choice
                 }
                 if(companionRequirement != "None"){
                     bool ok = false;
@@ -140,7 +172,10 @@ int Dialogue::runDialogue(Meta meta){
         int inpInt = 0;
         while(true){
             getline(std::cin, inpString);
-            // TODO: Potential runtime error
+            if(!checkForDigit2(inpString)){
+                std::cout << "Input not recognized. Please try again.\n";
+                continue;
+            }
             inpInt = stoi(inpString);
             if(inpInt <= 0 || inpInt >= currChoice) { // Make sure the input is one of the choices (currChoice is 1 more than the number of choices)
                 std::cout << "Input not recognized. Please try again.\n";
@@ -160,11 +195,9 @@ int Dialogue::runDialogue(Meta meta){
         }
         
         // Approval
-        std::map<int, std::string> approvalPhrases;
         for(auto x : approval){
             if(inpInt == x.second){ // This approval is related to this choice
-                bool companionInParty = false;
-                for(int i = 0; meta.companions.size(); i++){
+                for(int i = 0; i < (int)meta.companions.size(); i++){
                     if(meta.companions[i].getName() == x.first.first){
                         meta.companions[i].adjustApproval(x.first.second);
                         if(x.first.second == -3) std::cout << "\n\033[1;31m" << x.first.first << " strongly dissaproves.\n\033[0;0m";
@@ -176,7 +209,7 @@ int Dialogue::runDialogue(Meta meta){
                 }
             }
         }
-
+        //std::cout << "DEBUG\n";
         return inpInt; // Return what the player picked
     }
 }

@@ -17,7 +17,7 @@ private:
     std::vector<Armor> armorInventory;
     std::vector<Weapon> weaponInventory;
 
-    static const int storyVarCount = 1;
+    static const int storyVarCount = 3;
     bool storyVariables[storyVarCount];
 public:
     Journal journal;

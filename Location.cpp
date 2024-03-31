@@ -57,8 +57,6 @@ int Location::getNumOptionalInteractions(){
 
 std::pair<std::string, Interaction> Location::getOptionalInteraction(int index_){
     std::pair<std::string, Interaction> temp = optionalInteractions[index_];
-    optionalInteractions.erase(optionalInteractions.begin() + index_);
-    numOptionalInteractions--;
     return temp;
 }
 
@@ -67,4 +65,7 @@ void Location::addOptionalInteraction(std::pair<std::string, Interaction> intera
     optionalInteractions.push_back(interaction_);
 }
 
-
+void Location::removeOptionalInteraction(int index_){
+    optionalInteractions.erase(optionalInteractions.begin() + index_);
+    numOptionalInteractions--;
+}

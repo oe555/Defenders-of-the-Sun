@@ -18,6 +18,7 @@ private:
 
     // {{old id, {new id, type}},{name, description}}. An old id of -1 means new quest, a new id of -1 means quest is complete
     std::vector<std::pair<std::pair<int, std::pair<int, int>>, std::pair<std::string, std::string>>> questUpdates;
+    std::vector<std::pair<std::pair<int, std::pair<int, int>>, std::pair<std::string, std::string>>> altQuestUpdates;
     // This is the companion that joins the party if that's a result
     Companion companion;
     // Story variable update
@@ -30,7 +31,7 @@ public:
     Interaction(std::vector<Dialogue> dialogues_);
     Interaction();
 
-    // Adds to the navigator
+    // -1: End interaction, -2: Encounter, -3: Companion and quests, -4: Weapon, -5: Armor, -6: Silver, -7: Quests, -8: Update story variable, -9: Alt quests
     void addNav(int oldIndex, int returnVal, int newIndex);
 
     // Runs the interaction (takes in meta to get player stats and stuff). The return value decides if something special happens
@@ -39,6 +40,7 @@ public:
 
     // Special stuff
     void addQuestUpdate(int oldId, int newId, int type, std::string name, std::string description);
+    void addAltQuestUpdate(int oldId, int newId, int type, std::string name, std::string description);
     void addCompanion(std::string name, std::string deity);
     void addWeapon(Weapon weapon_);
     void addArmor(Armor armor_);

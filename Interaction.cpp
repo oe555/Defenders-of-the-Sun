@@ -15,6 +15,7 @@ Interaction::Interaction(std::vector<Dialogue> dialogues_){
     }
     interactionNavigator = {};
     questUpdates = {};
+    altQuestUpdates = {};
 }
 
 void Interaction::addNav(int oldIndex, int returnVal, int newIndex){
@@ -48,8 +49,6 @@ int Interaction::runInteraction(Meta &meta){
         }
         if(currDialogueIndex == -3){ // This resolution results in the companion joining
             std::cout << "\n#-----#-----#\n\nA new companion has joined your party.\n\n#-----#-----#\n";
-            companion.levelUp();
-            meta.addCompanion(companion);
             for(auto x : questUpdates){ // We do quest updates here because getting a companion always results in their quest appearing
                 if(x.first.first == -1){ // New quest
                     meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
@@ -59,6 +58,8 @@ int Interaction::runInteraction(Meta &meta){
                     meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
                 }
             }
+            companion.levelUp();
+            meta.addCompanion(companion);
             return 2;
         }
         if(currDialogueIndex == -4){ // This resolution results in gaining a weapon
@@ -91,7 +92,28 @@ int Interaction::runInteraction(Meta &meta){
         }
         if(currDialogueIndex == -8){ // This resolution updates the story variable
             meta.toggleStoryVariable(storyVariableUpdate);
+            std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
+            for(auto x : questUpdates){
+                if(x.first.first == -1){ // New quest
+                    meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
+                }
+                else{ // Quest update
+                    // Note that we want to complete the quest if the new id is -1 (we no longer care about the id, so -1 is sufficient)
+                    meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
+                }
+            }
             return 7;
+        }
+        if(currDialogueIndex == -9){ // Alternatre quest updates
+            for(auto x : altQuestUpdates){
+                if(x.first.first == -1){ // New quest
+                    meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
+                }
+                else{ // Quest update
+                    // Note that we want to complete the quest if the new id is -1 (we no longer care about the id, so -1 is sufficient)
+                    meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
+                }
+            }
         }
         // ...
     }
@@ -100,6 +122,11 @@ int Interaction::runInteraction(Meta &meta){
 // Set oldId to -1 for a new quest, newId to -1 to complete the quest
 void Interaction::addQuestUpdate(int oldId, int newId, int type, std::string name, std::string description){
     questUpdates.push_back({{oldId, {newId,type}}, {name, description}});
+}
+
+// Set oldId to -1 for a new quest, newId to -1 to complete the quest
+void Interaction::addAltQuestUpdate(int oldId, int newId, int type, std::string name, std::string description){
+    altQuestUpdates.push_back({{oldId, {newId,type}}, {name, description}});
 }
 
 void Interaction::addCompanion(std::string name, std::string deity){
