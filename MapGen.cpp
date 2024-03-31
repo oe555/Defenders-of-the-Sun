@@ -16,7 +16,16 @@
 #include <random>
 #include <string>
 
+std::string pullName(std::vector<std::string> &names){
+    int res = rand() % ((int)names.size());
+    std::string ret = names[res];
+    names.erase(names.begin() + res);
+    return ret;
+}
+
 Region GenRegionA(Meta meta){
+    std::vector<std::string> nameBank = {"Steve", "John", "Jake", "Richard", "Owen", "Mike", "Terry", "Jeff", "Suyash", "Raphael", "Nick", "Brad", "Sarah", "Susan", "Mary", "Estelle", "Rachael", "Jullian", "Theo", "Lisa", "Jenny", "Olivia", "Gina", "Tracy", "Abby", "Jill"};
+
     /*
         A0
     */
@@ -90,9 +99,9 @@ Region GenRegionA(Meta meta){
     interaction.addNav(1, 0, -2);
     
     Location A2 = Location("First Hallway");
-    Enemy skeletonWarrior1 = Enemy("Skeleton Warrior 1", 3, 2, 4, 1, 0, false);
-    Enemy skeletonWarrior2 = Enemy("Skeleton Warrior 2", 3, 2, 4, 1, 0, false);
-    Enemy skeletonWarrior3 = Enemy("Skeleton Warrior 3", 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior1 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior2 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior3 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
     A2.addEnemy(skeletonWarrior1); A2.addEnemy(skeletonWarrior2); A2.addEnemy(skeletonWarrior3);
     A2.setPrimaryInteraction(interaction);
 
@@ -209,9 +218,11 @@ Region GenRegionA(Meta meta){
     interaction = Interaction({d0});
     interaction.addNav(0, 0, -2);
     Location A7 = Location("West Hallway");
-    Enemy skeletonArcher = Enemy("Skeleton Archer", 1, 2, 8, 1, 0, false);
-    A7.addEnemy(skeletonWarrior1);
-    A7.addEnemy(skeletonWarrior2);
+    Enemy skeletonArcher = Enemy("Skeleton Archer " + pullName(nameBank), 1, 2, 8, 1, 0, false);
+    Enemy skeletonWarrior4 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior5 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    A7.addEnemy(skeletonWarrior4);
+    A7.addEnemy(skeletonWarrior5);
     A7.addEnemy(skeletonArcher);
     A7.setPrimaryInteraction(interaction);
     
@@ -285,13 +296,16 @@ Region GenRegionA(Meta meta){
     interaction = Interaction({d0});
     interaction.addNav(0, 0, -2);
     Location A11 = Location("Upper Hallway");
-    A11.addEnemy(skeletonWarrior1);
-    A11.addEnemy(skeletonWarrior2);
-    A11.addEnemy(skeletonWarrior3);
-    Enemy skeletonArcher1 = Enemy("Skeleton Archer 1", 1, 2, 8, 1, 0, false);
-    Enemy skeletonArcher2 = Enemy("Skeleton Archer 2", 1, 2, 8, 1, 0, false);
-    Enemy skeletonArcher3 = Enemy("Skeleton Archer 3", 1, 2, 8, 1, 0, false);
-    Enemy skeletonArcher4 = Enemy("Skeleton Archer 4", 1, 2, 8, 1, 0, false);
+    Enemy skeletonWarrior6 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior7 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    Enemy skeletonWarrior8 = Enemy("Skeleton Warrior " + pullName(nameBank), 3, 2, 4, 1, 0, false);
+    A11.addEnemy(skeletonWarrior6);
+    A11.addEnemy(skeletonWarrior7);
+    A11.addEnemy(skeletonWarrior8);
+    Enemy skeletonArcher1 = Enemy("Skeleton Archer " + pullName(nameBank), 1, 2, 8, 1, 0, false);
+    Enemy skeletonArcher2 = Enemy("Skeleton Archer " + pullName(nameBank), 1, 2, 8, 1, 0, false);
+    Enemy skeletonArcher3 = Enemy("Skeleton Archer " + pullName(nameBank), 1, 2, 8, 1, 0, false);
+    Enemy skeletonArcher4 = Enemy("Skeleton Archer " + pullName(nameBank), 1, 2, 8, 1, 0, false);
     A11.addEnemy(skeletonArcher1);
     A11.addEnemy(skeletonArcher2);
     A11.addEnemy(skeletonArcher3);
@@ -372,9 +386,9 @@ Region GenRegionA(Meta meta){
     // Make the location
     Location A16 = Location("Armory");
     A16.setPrimaryInteraction(interaction);
-    Enemy armoredSkeletonBully1 = Enemy("Armored Skeleton Bully 1", 12, 5, 8, 1, 0, false);
-    Enemy armoredSkeletonBully2 = Enemy("Armored Skeleton Bully 2", 12, 5, 8, 1, 0, false);
-    Enemy armoredSkeletonBully3 = Enemy("Armored Skeleton Bully 3", 12, 5, 8, 1, 0, false);
+    Enemy armoredSkeletonBully1 = Enemy("Armored Skeleton Bully " + pullName(nameBank), 12, 5, 8, 1, 0, false);
+    Enemy armoredSkeletonBully2 = Enemy("Armored Skeleton Bully " + pullName(nameBank), 12, 5, 8, 1, 0, false);
+    Enemy armoredSkeletonBully3 = Enemy("Armored Skeleton Bully " + pullName(nameBank), 12, 5, 8, 1, 0, false);
     A16.addEnemy(armoredSkeletonBully1);
     A16.addEnemy(armoredSkeletonBully2);
     A16.addEnemy(armoredSkeletonBully3);

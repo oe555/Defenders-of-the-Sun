@@ -24,6 +24,7 @@ const std::string greenboldtext("\033[1;32m");
 const std::string bluetext("\033[0;36m");
 const std::string blueboldtext("\033[1;36m");
 const std::string purpleboldtext("\033[1;35m");
+const std::string greytext("\033[0;37m");
 
 bool checkForDigit(std::string str){ // Checks to see if the user entered some number
     for(int i = 0; i < (int)str.size(); i++){
@@ -399,6 +400,7 @@ int main(){ // Main currently has a bunch of tester code
     std::string inpStr;
     int inp;
     while(true){
+        regA.markAsVisited(currLocationIndex);
         currLocation = &(regA.locations[currLocationIndex]);
         std::cout << "\nCurrent Location: " << currLocation->getName() << "\n";
         if(currLocation->getHasPrimaryInteraction()){ // Run the primary interaction if we haven't already
@@ -460,8 +462,11 @@ int main(){ // Main currently has a bunch of tester code
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 1){ // Move to a nearby location
             currOptionIndex = 1; // Utilize these variables to prompt the choice of where to go
+            std::string optionColor = resettext;
             for(int i = 0; i < regA.getAdj(currLocationIndex).size(); i++){ // Outputs the names of the adjacent locations
-                std::cout << currOptionIndex << ") " << regA.locations[regA.getAdj(currLocationIndex)[i]].getName() << "\n";
+                if(regA.hasBeenVisited(regA.getAdj(currLocationIndex)[i])) optionColor = greytext;
+                else optionColor = resettext;
+                std::cout << currOptionIndex << ") " << optionColor << regA.locations[regA.getAdj(currLocationIndex)[i]].getName() << resettext << "\n";
                 currOptionIndex++;
             }
             while(true){

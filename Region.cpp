@@ -6,10 +6,12 @@
 Region::Region(){
     adj = {};
     locations = {};
+    visitArray = {};
 }
 
 void Region::addLocation(Location location){
     locations.push_back(location);
+    visitArray.push_back(false);
 }
 
 void Region::addConnection(int firstLocation, int secondLocation){
@@ -23,4 +25,12 @@ std::vector<int> Region::getAdj(int locationIndex){
 
 Location Region::getLocation(int index){
     return locations[index];
+}
+
+bool Region::hasBeenVisited(int index){
+    return visitArray[index];
+}
+
+void Region::markAsVisited(int index){
+    visitArray[index] = true;
 }

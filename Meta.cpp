@@ -247,7 +247,7 @@ void Meta::addCompanion(Companion companion){
         int currIndex = 1;
         std::string companionNames[4];
         for(auto x : companions){
-            if(x.getName() != characterName){
+            if(x.getName() != characterName && x.getType() != "Wolf"){
                 companionNames[currIndex-1] = x.getName();
                 std::cout << currIndex << ") " << x.getName() << "\n";
                 currIndex++;

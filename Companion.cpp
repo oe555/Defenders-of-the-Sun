@@ -34,7 +34,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Shrugmini") maxHealth = 17;
     if(type == "Vivian") maxHealth = 19;
     if(type == "Raven") maxHealth = 16;
-    if(type == "Huburt") maxHealth = 16;
+    if(type == "Hubert") maxHealth = 16;
     if(type == "Iris") maxHealth = 25;
 
     defense = 3; // Everyone has base 3 defense
@@ -171,7 +171,7 @@ void Companion::levelUp(){
         }
         if(type == "Cleric" || type == "Vivian"){
             addAction("Heal");
-            std::cout << name << " can now use " << boldtext << "Heal" << resettext << ". \nHeal restores HP to any ally equal to 5 + your level (potentially restoring their consciousness).\n\n";
+            std::cout << name << " can now use " << boldtext << "Heal" << resettext << ". \nHeal restores HP to any ally equal to 5 + your level (potentially restoring their consciousness). Heal uses the caster's adrenaline and thus can't be used outside of combat.\n\n";
         }
         if(type == "Raven"){
             addAction("Agonize");
@@ -239,7 +239,8 @@ void Companion::getDetails(){
 
     std::cout << name << "'s current level: " << level << "\n";
     std::cout << name << "'s class: " << tempType << "\n";
-    std::cout << name << "'s health: " << maxHealth << "\n";
+    std::cout << name << "'s health: " << health << "\n";
+    std::cout << name << "'s starting health: " << maxHealth << " (this is how much health this companion will have after resting)\n";
     std::cout << name << "'s defense: " << defense << "\n\n";
 
     std::cout << name << "'s equipment:\n";
