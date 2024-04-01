@@ -504,7 +504,7 @@ int main(){ // Main currently has a bunch of tester code
             for(auto x : meta.companions){
                 std::cout << "\n#-----#-----#\n\n";
                 x.getDetails();
-                std::cout << "<Press enter to continue>";
+                std::cout << "<Press Enter to continue>";
                 getline(std::cin, trashLine);
             }
             std::cout << "\n#-----#-----#\n\n";
