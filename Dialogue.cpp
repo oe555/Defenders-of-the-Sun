@@ -200,9 +200,9 @@ int Dialogue::runDialogue(Meta meta){
                 for(int i = 0; i < (int)meta.companions.size(); i++){
                     if(meta.companions[i].getName() == x.first.first){
                         meta.companions[i].adjustApproval(x.first.second);
-                        if(x.first.second == -3) std::cout << "\n\033[1;31m" << x.first.first << " strongly disaproves.\n\033[0;0m";
-                        if(x.first.second == -2) std::cout << "\n\033[0;31m" << x.first.first << " disaproves.\n\033[0;0m";
-                        if(x.first.second == -1) std::cout << "\n\033[0;31m" << x.first.first << " slightly disaproves.\n\033[0;0m";
+                        if(x.first.second == -3) std::cout << "\n\033[1;31m" << x.first.first << " strongly disapproves.\n\033[0;0m";
+                        if(x.first.second == -2) std::cout << "\n\033[0;31m" << x.first.first << " disapproves.\n\033[0;0m";
+                        if(x.first.second == -1) std::cout << "\n\033[0;31m" << x.first.first << " slightly disapproves.\n\033[0;0m";
                         if(x.first.second == 2) std::cout << "\n\033[0;32m" << x.first.first << " approves.\n\033[0;0m";
                         if(x.first.second == 3) std::cout << "\n\033[1;32m" << x.first.first << " strongly approves.\n\033[0;0m";
                     }
