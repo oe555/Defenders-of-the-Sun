@@ -24,7 +24,7 @@ const std::string greenboldtext("\033[1;32m");
 const std::string bluetext("\033[0;36m");
 const std::string blueboldtext("\033[1;36m");
 const std::string purpleboldtext("\033[1;35m");
-const std::string greytext("\033[0;37m");
+const std::string greyittext("\033[3;37m");
 
 bool checkForDigit(std::string str){ // Checks to see if the user entered some number
     for(int i = 0; i < (int)str.size(); i++){
@@ -464,7 +464,7 @@ int main(){ // Main currently has a bunch of tester code
             currOptionIndex = 1; // Utilize these variables to prompt the choice of where to go
             std::string optionColor = resettext;
             for(int i = 0; i < regA.getAdj(currLocationIndex).size(); i++){ // Outputs the names of the adjacent locations
-                if(regA.hasBeenVisited(regA.getAdj(currLocationIndex)[i])) optionColor = greytext;
+                if(regA.hasBeenVisited(regA.getAdj(currLocationIndex)[i])) optionColor = greyittext;
                 else optionColor = resettext;
                 std::cout << currOptionIndex << ") " << optionColor << regA.locations[regA.getAdj(currLocationIndex)[i]].getName() << resettext << "\n";
                 currOptionIndex++;
