@@ -73,7 +73,7 @@ int Interaction::runInteraction(Meta &meta){
             return 5;
         }
         if(currDialogueIndex == -6){ // This resolution results in gaining silver
-            std::cout << "\n#-----#-----#\n\nYou gained some silver.\n\n#-----#-----#\n";
+            std::cout << "\n#-----#-----#\n\nYou gained " << silver << " silver.\n\n#-----#-----#\n";
             meta.gainSilver(silver);
             return 3;
         }
