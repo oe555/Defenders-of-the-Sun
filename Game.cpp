@@ -370,6 +370,7 @@ int main(){ // Main currently has a bunch of tester code
     std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     std::cout << greenboldtext << "Defenders of the Sun\n" << resettext;
     std::cout << bluetext << "When navigating menus, enter the number corresponding to your choice and press enter. To exit the game, press control + C.\n" << resettext;
+    std::cout << "Disclaimer: This story was written for a mature audience. Topics such as sex, religion, and death are explored in detail.\n";
     std::string mainMenuInput;
     while(true){
         std::cout << "1) Start a new adventure\n";
