@@ -59,6 +59,7 @@ Dialogue::Dialogue(std::string line_, std::vector<std::string> choices_){
     choices = choices_;
 }
 
+// storyVariableRequirement should be -1 when there is no requirement. Other numbers can be -99. Strings should be "None"
 Dialogue::Dialogue(bool playerChoice_, std::string line_, int storyVariableRequirement_, int perceptionRequirement_, int charismaRequirement_, std::string classRequirement_, std::string companionRequirement_, std::string deityRequirement_, std::vector<std::string> choices_){
     playerChoice = playerChoice_;
     line = line_;
@@ -218,6 +219,7 @@ bool Dialogue::isPlayerChoice(){
     return playerChoice;
 }
 
+// 3 for strong approve, 2 for approve, -1 for slight dissaprove, -2 for dissaprove, -3 for strong dissaprove
 void Dialogue::addApproval(std::string companion, int value, int index){
     approval.push_back({{companion, value}, index});
 }

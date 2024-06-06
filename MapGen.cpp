@@ -427,7 +427,7 @@ Region GenRegionA(Meta meta){
     interaction.addNav(0, 1, 2);
     interaction.addNav(0, 2, 2);
     interaction.addNav(0, 3, 1);
-    interaction.addNav(1, 0, -1);
+    interaction.addNav(1, 0, -10);
     interaction.addNav(2, 0, -3);
     interaction.addCompanion("Iris", "Solari");
     interaction.addQuestUpdate(-1, 6, 2, "Iris", "Iris seems to be a brave and loyal ally. Traveling with her more may reveal more about her background.");
@@ -503,6 +503,40 @@ Region GenRegionA(Meta meta){
     A20.setPostEncounterInteraction(interaction);
 
     /*
+        A21
+    */
+    Location A21 = Location("Drawbridge");
+    d0 = Dialogue("As you step outside, your memories rush back to you. Images of your young self roaming city streets fills you with comfort and gives you a sense of familiarity. Unfortunately, it looks like this prison was in the middle of a large wilderness. You look around and desperately try to find civilization, but the only thing close to it is the group of elf druids approaching you from the other side of the bridge.");
+    d1 = Dialogue(false, "Magnus: \"Vivian! Thank goodness you're alive. We sent some of our best warriors to come find you. Are you hurt?",
+                -1, -99, -99, "None", "Vivian", "None", {});
+    d2 = Dialogue("Vivian: \"I'm alright. Do you have an explanation for all of this?\"");
+    d3 = Dialogue("Magnus: \"While you aren't the prisoner I was looking for, I'm glad to see some of you survived.\"");
+    d4 = Dialogue("Magnus: \"I know you're probably not interested in further drama given your situation, but please listen carefully. A group of cultists, followers of Leer and Necrotar to be specific, have discovered a way to manipulate the brightness of the sun. The prison you found yourself in was built by servants of Necrotar ages ago. It's surrounded by a magic force that temporarily blocks out the memory of those who are imprisoned.\n\nThey captured each of you for a reason, but those reasons aren't exactly clear. We're hoping that your party has the ability to put a stop to the cultists. Fortunately, something is wrong on their end and they haven't been able to execute their plans of bringing permanent darkness to the world, but we fear that whatever is holding them back won't last very long.\n\nThere's a lot of detail to this but I don't want to overwhelm you. I need you to find our cave in the east wilderness. There, I will discuss all of the specifics. I'm in a hurry to get back to report to the others and I won't be able to escort your party as a result. Please, be careful. There is a campsite up ahead with some basic supplies and bedrolls for those who need them. It's getting dark and you should rest as much as you can before finding us. Good luck.\"");
+    d5 = Dialogue(false, "He turns to Vivian with a fearful look in his eyes.\n\nMagnus: \"I have some unfortunate news I'll need to share with you as well. Please keep yourself safe. We have a lot to talk about.\"",
+                -1, -99, -99, "None", "Vivian", "None", {});
+    d6 = Dialogue("The druids transform themselves into wolfs and run away towards their home. Stress fills your mind as you begin to realize how big of a conflict this may be. With the reassurance of your party behind you, you look towards the campsite ready to get some well deserved rest.");
+    interaction = Interaction({d0, d1, d2, d3, d4, d5, d6});
+    interaction.addNav(0, 0, 1);
+    interaction.addNav(1, -1, 3);
+    interaction.addNav(1, 0, 2);
+    interaction.addNav(2, 0, 4);
+    interaction.addNav(3, 0, 4);
+    interaction.addNav(4, 0, 5);
+    interaction.addNav(5, -1, 6);
+    interaction.addNav(5, 0, 6);
+    interaction.addNav(6, 0, -7);
+    interaction.addQuestUpdate(1, -1, 0, "Find Allies", "There's something special about the people that were trapped in the prison. It's unlikely that we'll find more allies in the future.");
+    interaction.addQuestUpdate(2, -1, 1, "Discover Your Past", "Escaping the prison resulted in our memories coming back.");
+    interaction.addQuestUpdate(4, 4, 2, "Vivian", "One of the leaders of Vivian's pack has something to say to her. We should go to their cave in the east wilderness to learn more.");
+    interaction.addQuestUpdate(-1, 10, 0, "Talk to Magnus", "We were told that cultists are trying to control the brightness of the sun. The pack of druids in the east wilderness knows more about this.");
+    A21.setPrimaryInteraction(interaction);
+
+    /*
+        A22
+    */
+    Location A22 = Location("Campsite A");
+
+    /*
         Region A
     */
 
@@ -528,6 +562,8 @@ Region GenRegionA(Meta meta){
     res.addLocation(A18);
     res.addLocation(A19);
     res.addLocation(A20);
+    res.addLocation(A21);
+    res.addLocation(A22);
     res.addConnection(0, 1);
     res.addConnection(0, 2);
     res.addConnection(1, 2);
@@ -551,6 +587,58 @@ Region GenRegionA(Meta meta){
     res.addConnection(17, 18);
     res.addConnection(17, 19);
     res.addConnection(17, 20);
-    
+    res.addConnection(20, 21);
+    res.addConnection(21, 22);
+
+    /*
+        Making the rest interactions
+    */
+    d0 = Dialogue("You spot Vivian praying on her knees by the river nearby. Squirrels, birds, and various other animals gather around her. As you approach, she begins to speak, somehow knowing you're nearby.");
+    d1 = Dialogue(false, "Vivian: \"I know you probably don't think highly of me because of my faith, but I assure you what we're dealing with is far more threatening than our differences.\"",
+                -1, -99, -99, "None", "None", "Leer", {});
+    d2 = Dialogue(true, "Vivian: \"We need to find my people and talk to Magnus. I'm worried, " + meta.getCharName() + ".\"",
+                -1, -99, -99, "None", "None", "Selunara", {"[Selunara] \"With Her guidance, we can accomplish anything.\"", "\"I'm sure we can figure this out, especially with your help.\"", "\"Don't be so weak. What are a bunch of cultists going to do?\""});
+    d2.addApproval("Vivian", 3, 1);
+    d2.addApproval("Vivian", 2, 2);
+    d2.addApproval("Vivian", -2, 3);
+    d3 = Dialogue(true, "Vivian: \"I appreciate your optimism, but we need to be smart about this. Conflicts like this aren't easily solved with blades. I'm relying on you and our friends to stand up for what is right and maintain peace.\n\nI was impressed by your actions in the prison. Thank you, for approaching me peacefully. In one of my most voulnerable moments, you didn't fight me. Why?\"",
+                -1, -99, -99, "Druid", "None", "None", {"[Druid] \"I knew you weren't an ordinary wolf.\"", "\"It just felt wrong to fight for no reason.\"", "\"Not sure. I regret not killing you when I had the chance.\""});
+    d3.addApproval("Vivian", 3, 1);
+    d3.addApproval("Vivian", 2, 2);
+    d3.addApproval("Vivian", -3, 3);
+    d4 = Dialogue("Vivian: \"I'm glad to be by your side. Get some rest, we'll need it.\"\n\nVivian stands up and walks towards the camp.");
+    d5 = Dialogue("Vivian: \"I guess I'll have to keep my eye on you.\"\n\nVivian stands up and walks towards the camp.");
+    Interaction vivianInteraction = Interaction({d0, d1, d2, d3, d4, d5, d6});
+    vivianInteraction.addNav(0, 0, 1);
+    vivianInteraction.addNav(1, 0, 2);
+    vivianInteraction.addNav(1, -1, 2);
+    vivianInteraction.addNav(2, 1, 3);
+    vivianInteraction.addNav(2, 2, 3);
+    vivianInteraction.addNav(2, 3, 3);
+    vivianInteraction.addNav(3, 1, 4);
+    vivianInteraction.addNav(3, 2, 4);
+    vivianInteraction.addNav(3, 3, 5);
+    vivianInteraction.addNav(4, 0, -1);
+    vivianInteraction.addNav(5, 0, -1);
+    res.endingRest.setVivianInteraction(vivianInteraction);
+
+    d0 = Dialogue(true, "You notice that Raven is still a little unsettled by the encounter your party had with the devil. She signals you to come over while she sets up a place for her to sleep by one of the large trees nearby.\n\nRaven: \"So, what do you think about Jasper?\"",
+                -1, -99, -99, "None", "None", "Necrotar", {"[Necrotar] \"Seems like a friendly fiend. It's nice having good connections in the underworld.\"", "\"I don't trust him. He's a devil, why would he be helping us?\"", "\"He seems to be on our side. We should give him a chance.\""});
+    d0.addApproval("Raven", -1, 1);
+    d0.addApproval("Raven", 2, 2);
+    d0.addApproval("Raven", -2, 3);
+    d1 = Dialogue("Raven: \"There is no winning with devils. I don't want to play his game. I've already done it before and it's one of my biggest regrets. We should keep an eye on him in the future, trust me.\"\n\nBefore you get a chance to ask follow up questions, Raven turns her back and starts organizing again. It seems best to leave her alone for now.");
+    d2 = Dialogue("Raven: \"You're a smart kid. I have a really bad feeling about him being here. In the future, let's keep an eye on him, yeah? I have a bad history with this one in particular, but I'll spare you the details for now. Rest well.\"\n\nBefore you get a chance to ask follow up questions, Raven turns her back and starts organizing again. It seems best to leave her alone for now.");
+    Interaction ravenInteraction = Interaction({d0, d1, d2});
+    ravenInteraction.addNav(0, 1, 1);
+    ravenInteraction.addNav(0, 2, 2);
+    ravenInteraction.addNav(0, 3, 1);
+    ravenInteraction.addNav(1, 0, -7);
+    ravenInteraction.addNav(2, 0, -7);
+    ravenInteraction.addQuestUpdate(3, 3, 2, "Raven", "Raven indicated that she has a bad history with Jasper but didn't want to share details. We should keep this in mind and continue to learn more about him from Raven.");
+    res.endingRest.setRavenInteraction(ravenInteraction);
+
+
+
     return res;
 }

@@ -31,15 +31,17 @@ public:
     Interaction(std::vector<Dialogue> dialogues_);
     Interaction();
 
-    // -1: End interaction, -2: Encounter, -3: Companion and quests, -4: Weapon, -5: Armor, -6: Silver, -7: Quests, -8: Update story variable, -9: Alt quests
+    // -1: End interaction, -2: Encounter, -3: Companion and quests, -4: Weapon, -5: Armor, -6: Silver, -7: Quests, -8: Update story variable, -9: Alt quests, -10: Remove optional encounter
     void addNav(int oldIndex, int returnVal, int newIndex);
 
     // Runs the interaction (takes in meta to get player stats and stuff). The return value decides if something special happens
     // Return values: 0 - Nothing, 1 - Encounter, 2 - Companion, 3 - Silver, 4 - Weapon, 5 - Armor, 6 - Quest
     int runInteraction(Meta &meta);
 
-    // Special stuff
+    
+    // Set oldId to -1 for a new quest, newId to -1 to complete the quest
     void addQuestUpdate(int oldId, int newId, int type, std::string name, std::string description);
+    // Set oldId to -1 for a new quest, newId to -1 to complete the quest
     void addAltQuestUpdate(int oldId, int newId, int type, std::string name, std::string description);
     void addCompanion(std::string name, std::string deity);
     void addWeapon(Weapon weapon_);

@@ -33,6 +33,7 @@ public:
     bool hiding;
     bool raging;
     bool inspired;
+    bool healUsed;
 
     Companion();
     Companion(std::string name_, std::string type_, std::string deity_);

@@ -10,6 +10,7 @@
 #include "Region.h"
 #include "Dialogue.h"
 #include "MapGen.h"
+#include "Rest.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -87,7 +88,7 @@ int selectEnemy(std::vector<Enemy> &enemies){
 // Calling this function prompts the player to pick a companion from the given meta object
 int selectAlly(Meta meta){
     for(int i = 0; i < meta.companions.size(); i++){
-        std::cout << i+1 << ") " << meta.companions[i].getName() << "\n";
+        std::cout << i+1 << ") " << meta.companions[i].getName() << " [" << meta.companions[i].getHealth() << "/" << meta.companions[i].getMaxHealth() << "]\n";
     }
     std::string inpString = "";
     int inpInt = 0;
@@ -141,13 +142,13 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
             }
         }
         //separatorBar();
-        std::cout << boldtext << "Enemy " << enemies[currEnemy].getName() << " attempted to attack " << meta.companions[currTarget].getName() << ".\n" << resettext;
+        std::cout << boldtext << enemies[currEnemy].getName() << " attempted to attack " << meta.companions[currTarget].getName() << ".\n" << resettext;
         if(meta.companions[currTarget].hiding){ // Enemies cannot attack hidden targets
             std::cout << "The enemy could not find their target...\n";
         }
         else if(meta.companions[currTarget].takeDamage(enemies[currEnemy].dealDamage())){
             std::cout << "The enemy's attack was successful.\n";
-            std::cout << meta.companions[currTarget].getName() << "'s health has been reduced to " << meta.companions[currTarget].getHealth() << ".\n";
+            std::cout << meta.companions[currTarget].getName() << "'s health has been reduced to " << meta.companions[currTarget].getHealth() << "/" << meta.companions[currTarget].getMaxHealth() << ".\n";
         }
         else{
             std::cout << "The enemy missed their attack.\n";
@@ -182,7 +183,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             continue;
         }
         else{ // Otherwise we provide their HP and list status effects
-            std::cout << meta.companions[i].getName() << "'s current health: " << meta.companions[i].getHealth() << ".\n";
+            std::cout << meta.companions[i].getName() << "'s current health: " << meta.companions[i].getHealth() << "/" << meta.companions[i].getMaxHealth() << ".\n";
             if(meta.companions[i].hiding){
                 std::cout << meta.companions[i].getName() << " is hiding. Attacks will reveal but deal " << meta.companions[i].getLevel() * 2 << " more damage.\n";
             }
@@ -191,6 +192,9 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             }
             if(meta.companions[i].inspired){
                 std::cout << meta.companions[i].getName() << " is inspired. Attacks will deal " << meta.companions[i].getLevel() + 1 << " more damage.\n";
+            }
+            if(meta.companions[i].healUsed){
+                std::cout << meta.companions[i].getName() << " is low on adrenaline. Healing will only restore 1 HP.\n";
             }
             std::cout << "\n";
         }
@@ -228,7 +232,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
                 targetEnemy = selectEnemy(enemies);
                 //std::cout << "Selected enemy: " << targetEnemy << "\n";
                 std::cout << boldtext << meta.companions[i].getName() << " attempts to attack " << enemies[targetEnemy].getName() << "\n" << resettext;
-                if(enemies[targetEnemy].takeDamage(meta.companions[i].dealDamage(), meta.companions[i].getWeapon().getPrecisionBonus())){
+                if(enemies[targetEnemy].takeDamage(meta.companions[i].dealDamage(), meta.companions[i].getWeapon().getPrecisionBonus() + (meta.companions[i].hiding ? 100 : 0))){
                     std::cout << greentext << "Your attack was successful.\n" << resettext;
                     std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
                 }
@@ -243,8 +247,8 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         }
         if(actionChoice == "Drink Protein"){
             if(meta.drinkProteinShake()){
-                meta.companions[i].setHealth(meta.companions[i].getHealth() + 10);
-                std::cout << "You consume a protein shake and gain 10 health. You now have " << meta.companions[i].getHealth() << " health points.\n";
+                meta.companions[i].setHealth(std::min(meta.companions[i].getHealth() + 10, meta.companions[i].getMaxHealth()));
+                std::cout << "You consume a protein shake and gain 10 health. You now have " << meta.companions[i].getHealth() << "/" << meta.companions[i].getMaxHealth() << " health points.\n";
             }
             else{
                 std::cout << "You reach into your bag and realize that you don't have any protein shakes left!\n";
@@ -258,7 +262,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             std::cout << "Select the enemy you'd like to zap.\n";
             int targetEnemy = selectEnemy(enemies);
             std::cout << boldtext << meta.companions[i].getName() << " zaps " << enemies[targetEnemy].getName() << "\n" << resettext;
-            enemies[targetEnemy].takeDamage(2*meta.companions[i].getLevel(), 100); // Precision level 100 makes it always hit
+            enemies[targetEnemy].takeDamage(5, 100); // Precision level 100 makes it always hit
             std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
             if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
                 std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
@@ -279,8 +283,14 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         if(actionChoice == "Heal"){
             std::cout << "Choose an Ally to heal.\n";
             int targetAlly = selectAlly(meta);
-            meta.companions[targetAlly].setHealth(meta.companions[targetAlly].getHealth() + 5 + meta.companions[i].getLevel());
-            std::cout << meta.companions[targetAlly].getName() << " was healed. They now have " << meta.companions[targetAlly].getHealth() << " health points.\n";
+            if(!meta.companions[i].healUsed){ // Heal has not been used, thus it will restore 5 + level
+                meta.companions[targetAlly].setHealth(std::min(meta.companions[targetAlly].getHealth() + 5 + meta.companions[i].getLevel(), meta.companions[targetAlly].getMaxHealth()));
+            }
+            else{ // Heals after the first only heal 1
+                meta.companions[targetAlly].setHealth(std::min(meta.companions[targetAlly].getHealth() + 1, meta.companions[targetAlly].getMaxHealth()));
+            }
+            std::cout << meta.companions[targetAlly].getName() << " was healed. They now have " << meta.companions[targetAlly].getHealth() << "/" << meta.companions[targetAlly].getMaxHealth() << " health points.\n";
+            meta.companions[i].healUsed = true; // We used heal
         }
         if(actionChoice == "Agonize"){
             int targetEnemy;
@@ -430,6 +440,8 @@ int main(){ // Main currently has a bunch of tester code
         currOptionIndex++;
         std::cout << currOptionIndex << ") View party information\n";
         currOptionIndex++;
+        std::cout << currOptionIndex << ") Drink protein\n";
+        currOptionIndex++;
         while(true){ // Get the input from the user
             getline(std::cin, inpStr);
             if(!checkForDigit(inpStr)){
@@ -448,7 +460,9 @@ int main(){ // Main currently has a bunch of tester code
             Interaction optionalInteraction = currLocation->getOptionalInteraction(inp - 1).second;
             interactionRes = optionalInteraction.runInteraction(meta);
             if(interactionRes != 0){
+                //std::cout << "\n[DEV] REMOVING OPTIONAL INTERACTION\n\n";
                 currLocation->removeOptionalInteraction(inp - 1);
+                //std::cout << "\n[DEV] OPTIONAL INTERACTION REMOVED\n\n";
             }
             if(interactionRes == 1){ // The interaction results in an encounter
                 std::vector<Enemy> temp = currLocation->getEnemies();
@@ -508,6 +522,16 @@ int main(){ // Main currently has a bunch of tester code
                 getline(std::cin, trashLine);
             }
             std::cout << "\n#-----#-----#\n\n";
+        }
+        else if(inp == currLocation->getNumOptionalInteractions() + 5){ // Drink protein
+            if(meta.drinkProteinShake()){
+                int theChoice = selectAlly(meta);
+                meta.companions[theChoice].setHealth(std::min(meta.companions[theChoice].getHealth() + 10, meta.companions[theChoice].getMaxHealth()));
+                std::cout << meta.companions[theChoice].getName() << " consumed a protein shake and gained 10 health. They now have " << meta.companions[theChoice].getHealth() << "/" << meta.companions[theChoice].getMaxHealth() << " health points.\n";
+            }
+            else{
+                std::cout << "You reach into your bag and realize that you don't have any protein shakes left!\n";
+            }
         }
     }
     //std::vector<Enemy> testEnemies;

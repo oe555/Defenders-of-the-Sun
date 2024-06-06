@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "Location.h"
+#include "Rest.h"
 
 class Region{
 private:
@@ -14,6 +15,7 @@ private:
 public:
     // Maps integers to corresponding locations... locations[0] is the starting location and locations[n-1] is the end
     std::vector<Location> locations;
+    Rest endingRest;
 
     Region();
 

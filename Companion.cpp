@@ -56,7 +56,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Raven") starterArmor = Armor("Raven\'s Clothes", "If wearing a hoodie at a funeral was acceptable, this is what you\'d wear.", 0, true);
     if(type == "Vivian") starterArmor = Armor("Vivan\'s Clothes", "A white top and skirt dedicated to Her.", 0, true);
     if(type == "Hubert") starterArmor = Armor("Hubert\'s Clothes", "Ripped jeans and a awkwardly colored jacket.", 0, true);
-    if(type == "Noam") starterArmor = Armor("Noam\'s Clothes", "Who managed to designed a robe that fits him?", 0, true);
+    if(type == "Noam") starterArmor = Armor("Noam\'s Clothes", "Who managed to design a robe that fits him?", 0, true);
     if(type == "Shrugmini") starterArmor = Armor("Shrugmini\'s Clothes", "Cool girl vibes.", 0, true);
     if(type == "Iris") starterArmor = Armor("Iris\' Armor", "It has the symbol of Solari on the left shoulder.", 1, false);
     if(type == "Wolf") starterArmor = Armor("Fur", "Rawr!!!", 0, false);
@@ -69,6 +69,7 @@ void Companion::resetStatusEffects(){
     hiding = false;
     raging = false;
     inspired = false;
+    healUsed = false;
 }
 
 std::string Companion::getName(){
@@ -155,11 +156,11 @@ void Companion::levelUp(){
         }
         if(type == "Wizard" || type == "Noam"){
             addAction("Zap");
-            std::cout << name << " can now use " << boldtext << "Zap" << resettext << ". \nZap cannot miss and always deals damage equal to 2 times your level.\n\n";
+            std::cout << name << " can now use " << boldtext << "Zap" << resettext << ". \nZap cannot miss and always deals 5 damage.\n\n";
         }
         if(type == "Rogue" || type == "Shrugmini"){
             addAction("Hide");
-            std::cout << name << " can now use " << boldtext << "Hide" << resettext << ". \nEnemies cannot hit you while you are hiding. Attacking while hiding causes you to stop hiding but deals extra damage equal to 2 times your level.\n\n";
+            std::cout << name << " can now use " << boldtext << "Hide" << resettext << ". \nEnemies cannot hit you while you are hiding, but may still try to target you.\nAttacking while hiding causes you to stop hiding but deals extra damage equal to 2 times your level and guarantees a hit.\n\n";
         }
         if(type == "Druid" || type == "Vivian"){
             addAction("Snake Bite");
@@ -171,7 +172,7 @@ void Companion::levelUp(){
         }
         if(type == "Cleric" || type == "Vivian"){
             addAction("Heal");
-            std::cout << name << " can now use " << boldtext << "Heal" << resettext << ". \nHeal restores HP to any ally equal to 5 + your level (potentially restoring their consciousness). Heal uses the caster's adrenaline and thus can't be used outside of combat.\n\n";
+            std::cout << name << " can now use " << boldtext << "Heal" << resettext << ". \nHeal uses the caster's adrenaline and thus can only be used during combat.\nThe first heal of each combat restores HP equal to 5 + your level to any ally (potentially restoring their consciousness).\nEach heal after the first heal only restores 1 HP.\n\n";
         }
         if(type == "Raven"){
             addAction("Agonize");
@@ -240,7 +241,7 @@ void Companion::getDetails(){
     std::cout << name << "'s current level: " << level << "\n";
     std::cout << name << "'s class: " << tempType << "\n";
     std::cout << name << "'s health: " << health << "\n";
-    std::cout << name << "'s starting health: " << maxHealth << " (this is how much health this companion will have after resting)\n";
+    std::cout << name << "'s max health: " << maxHealth << "\n";
     std::cout << name << "'s defense: " << defense << "\n\n";
 
     std::cout << name << "'s equipment:\n";

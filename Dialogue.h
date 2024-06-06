@@ -38,6 +38,7 @@ public:
 
     bool isPlayerChoice();
 
+    // 3 for strong approve, 2 for approve, -1 for slight dissaprove, -2 for dissaprove, -3 for strong dissaprove
     void addApproval(std::string companion, int value, int index);
 };
 

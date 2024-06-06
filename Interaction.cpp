@@ -104,7 +104,8 @@ int Interaction::runInteraction(Meta &meta){
             }
             return 7;
         }
-        if(currDialogueIndex == -9){ // Alternatre quest updates
+        if(currDialogueIndex == -9){ // Alternate quest updates
+            std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
             for(auto x : altQuestUpdates){
                 if(x.first.first == -1){ // New quest
                     meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
@@ -114,6 +115,10 @@ int Interaction::runInteraction(Meta &meta){
                     meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
                 }
             }
+            return 6;
+        }
+        if(currDialogueIndex == -10){ // If for whatever reason we want to return something that isn't 0
+            return 100;
         }
         // ...
     }
