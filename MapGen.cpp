@@ -601,7 +601,7 @@ Region GenRegionA(Meta meta){
     d2.addApproval("Vivian", 3, 1);
     d2.addApproval("Vivian", 2, 2);
     d2.addApproval("Vivian", -2, 3);
-    d3 = Dialogue(true, "Vivian: \"I appreciate your optimism, but we need to be smart about this. Conflicts like this aren't easily solved with blades. I'm relying on you and our friends to stand up for what is right and maintain peace.\n\nI was impressed by your actions in the prison. Thank you, for approaching me peacefully. In one of my most voulnerable moments, you didn't fight me. Why?\"",
+    d3 = Dialogue(true, "Vivian: \"I appreciate your optimism, but we need to be smart about this. Conflicts like this aren't easily solved with blades. I'm relying on you and our friends to stand up for what is right and maintain composure.\n\nI was impressed by your actions in the prison. Thank you, for approaching me peacefully. In one of my most voulnerable moments, you didn't fight me. Why?\"",
                 -1, -99, -99, "Druid", "None", "None", {"[Druid] \"I knew you weren't an ordinary wolf.\"", "\"It just felt wrong to fight for no reason.\"", "\"Not sure. I regret not killing you when I had the chance.\""});
     d3.addApproval("Vivian", 3, 1);
     d3.addApproval("Vivian", 2, 2);
@@ -638,7 +638,20 @@ Region GenRegionA(Meta meta){
     ravenInteraction.addQuestUpdate(3, 3, 2, "Raven", "Raven indicated that she has a bad history with Jasper but didn't want to share details. We should keep this in mind and continue to learn more about him from Raven.");
     res.endingRest.setRavenInteraction(ravenInteraction);
 
-
+    d0 = Dialogue("You notice Shrugmini playing with squirrels near her bedroll. Given that she's a half devil, she might know a thing or two about your party's encounter with Jasper. You watch as she plays, but she doesn't seem to notice you.",
+                {"\"Hey Shrugmini, what do you know about devils like Jasper?\"", "\"Shrugmini, I noticed that you're half-devil half-human. How does that work? Do you have a devil parent and human parent?\"", "Leave Shrugmini to play with the squirrels."});
+    d1 = Dialogue("Shrugmini: \"They're exactly as you expect. Evil in every way and always fighting for themselves. I don't like playing games with devils, and even though I look like one, I can promise you I'm nowhere close to those damn creatures.\"");
+    d2 = Dialogue("Shrugmini: \"I was a slave in the underworld once. I served devils as they saught to take over the surface and abuse innocent mortals for their own personal gain. I was born a human just like you, but was taken and slowly transformed during my time in the underworld. When I finally escaped, I was discriminated against in the city and became an outcast. It's been rough kid, but having devil skin isn't so bad once you get used to it.\"",
+                {"\"I'm sorry you had to go through that.\"", "\"You're tough. I bet it wasn't so bad for you down there.\""});
+    d2.addApproval("Shrugmini", 2, 2);
+    d3 = Dialogue("Shrugmini: \"It's in the past now. There's no point in dwelling on how bad it was or what could've been different. What matters is that I'm here and ready to kick some cultist ass. Go get some rest. I don't want to be doing all the heavy lifting.\"\n\nShrugmini goes back to playing with squirrels.");
+    Interaction shrugminiInteraction = Interaction({d0, d1, d2, d3});
+    shrugminiInteraction.addNav(0, 1, 1);
+    shrugminiInteraction.addNav(0, 2, 2);
+    shrugminiInteraction.addNav(1, 0, 2);
+    shrugminiInteraction.addNav(2, 1, 3);
+    shrugminiInteraction.addNav(2, 2, 3);
+    shrugminiInteraction.addNav(3, 0, -1);
 
     return res;
 }
