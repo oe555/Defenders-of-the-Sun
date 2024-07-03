@@ -34,7 +34,7 @@ Meta::Meta(){
     std::cout << "4) Druid\n";
     std::cout << "-- Servants of the deities of nature with the power to turn into animals.\n\n";
     std::cout << "5) Hunter\n";
-    std::cout << "-- Experts of survival who gather food for their community (picking this class provides a pet wolf).\n\n";
+    std::cout << "-- Experts of survival who gather food for their community (picking this class provides a pet dog).\n\n";
     std::cout << "6) Monk\n";
     std::cout << "-- Masters of martial arts who practice meditation in order to communicate to their deity.\n\n";
     std::cout << "7) Cleric\n";
@@ -155,7 +155,7 @@ Meta::Meta(){
         }
     }
     if(charClass == "Hunter"){
-        std::cout << "\nName your pet wolf:\n";
+        std::cout << "\nName your dog:\n";
         std::string wolfName;
         while(true){
             getline(std::cin, wolfName);
@@ -169,7 +169,7 @@ Meta::Meta(){
             }
             break;
         }
-        Companion wolf = Companion(wolfName, "Wolf", "None");
+        Companion wolf = Companion(wolfName, "Dog", "None");
         wolf.levelUp();
         companions.push_back(wolf);
     }
@@ -233,7 +233,7 @@ bool Meta::drinkProteinShake(){
 
 void Meta::addCompanion(Companion companion){
     companions.push_back(companion);
-    // We check to see if the player is a hunter since their wolf does not count as a companion
+    // We check to see if the player is a hunter since their dog does not count as a companion
     int isNotHunter = 1;
     for(auto x : companions){
         if(x.getType() == "Hunter"){

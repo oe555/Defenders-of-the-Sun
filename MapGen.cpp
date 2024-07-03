@@ -34,7 +34,7 @@ Region GenRegionA(Meta meta){
                         {"Check your body for injuries.", "Look for prisoners in the cell across the hall."});
     Dialogue d1 = Dialogue(false, "You glance over your body, trying to find scars. Everything seems fine, but who knows how much luck was involved?",
                         -1, -99, -99, "None", "None", "None", {});
-    Dialogue d2 = Dialogue(false, "You closely examine the only cell within your line of sight. You see a young, unconscious, female half-elf with black hair and a large raven tattooed to her neck. Looking at her gives you a feeling of danger and uncertainty. It's unclear whether allying with her is a good idea...",
+    Dialogue d2 = Dialogue(false, "You closely examine the only cell within your line of sight. You see an unconscious female half-elf with pale skin, black hair, and a large raven tattooed to her neck. Looking at her gives you a feeling of danger and uncertainty. It's unclear whether allying with her is a good idea...",
                         -1, -99, -99, "None", "None", "None", {});
     Dialogue d3 = Dialogue(false, "Before you get a chance to check anything else, a massive beam moonlight shoots through the hallway. A radiant energy, one that you realize is fueled by the power of your goddess, burns the skeletons to a crisp. The energy shakes the ground, causing your cell door to open slightly. Strangely, it seems like none the cell doors were locked in the first place.\n\nAfter listening carefully, you're able to hear noises that sound like fighting in the distance. Perhaps this is the source of the energy that freed you...\n\nYou slowly step outside of your cell, thinking about what to do next.",
                         -1, -99, -99, "None", "None", "Selunara", {});
@@ -58,7 +58,7 @@ Region GenRegionA(Meta meta){
     /*
         A1
     */
-    d0 = Dialogue(false, "As you step towards the cell, your vision blurs as you experience a painful headache. You start to lose control of your body, causing you to stand lifelessly in front of the cell door. The half-elf woman who was once trapped in that cell suddenly yet slowly walks towards you.",
+    d0 = Dialogue(false, "As you step towards the cell, your vision blurs as you experience a painful headache. You start to lose control of your body, causing you to stand lifelessly in front of the cell door. The pale half-elf woman who was once trapped in that cell suddenly yet slowly walks towards you.",
                 -1, -99, -99, "None", "None", "None", {});
     d1 = Dialogue(false, "[Perception] Despite the pain her magic is inflicting on you, you realize that she is as confused and vulnerable as you are. She speaks and acts with extreme caution out of fear that you intend to harm her.",
                 -1, 3, -99, "None", "None", "None", {});
@@ -113,9 +113,9 @@ Region GenRegionA(Meta meta){
     d1 = Dialogue(true, "You move into the central room and spot more dead warriors. You notice a strange wolf examining one of the corpses. It's not clear whether who's side this wolf is on, but it doesn't notice you yet...",
                 -1, -99, -99, "None", "None", "None", {"Slowly and peacefully approach the wolf.", "Attack."});
     d2 = Dialogue(false, "The wolf gets scared and runs away.", -1, -99, -99, "None", "None", "None", {});
-    d3 = Dialogue(false, "The wolf's body starts glowing and changing shape. In its place, a young, half-elf woman with long bright white hair and baby blue eyes appears.",
+    d3 = Dialogue(false, "The wolf's body starts glowing and changing shape. In its place, a half-elf woman with a long bright white pony tail and piercing dark blue eyes appears.",
                 -1, -99, -99, "None", "None", "None", {});
-    d4 = Dialogue(false, "Raven: \"We should see what this druid has to say. I'm not confident that she'll be useful in a fight but I trust that my kind will be helpful allies in situations like this.\"",
+    d4 = Dialogue(false, "Raven: \"Another half-elf? It's been a while since I've seen another of my kind...\"",
                 -1, -99, -99, "None", "Raven", "None", {});
     Dialogue d5 = Dialogue(true, "Vivian: \"I\'m glad to see that I'm not the only one in this situation. Let us work together. I believe my fellow Selunarans were looking to break me out and keep me alive, but unfortunately I wasn't able to return the favor...\"",
                 -1, -99, -99, "None", "None", "None", {"Let's travel together then. I\'m " + meta.getCharName() + ".", "Why were they looking for you?", "I would rather handle this without you. Good luck."});
@@ -146,7 +146,7 @@ Region GenRegionA(Meta meta){
     interaction.addNav(9, -1, -3);
     interaction.addNav(9, 0, -3);
     interaction.addCompanion("Vivian", "Selunara");
-    interaction.addQuestUpdate(-1, 4, 2, "Vivian", "Vivian mentioned that the Selunarans raiding the temple were there to find her. Traveling with Vivian may give us more insight into what is happening.");
+    interaction.addQuestUpdate(-1, 4, 2, "Vivian", "Vivian mentioned that the Selunarans raiding the prison were there to find her. Traveling with Vivian may give us more insight into what is happening.");
 
     Location A3 = Location("Central Room");
     A3.setPrimaryInteraction(interaction);
@@ -171,7 +171,7 @@ Region GenRegionA(Meta meta){
         A6
     */
     d0 = Dialogue("As you peak your head into the storage closet, something immediately grabs you and pulls you in. The skin of whatever is holding you feels hot to the touch, contrasting with the cold blade that is being held to your neck.");
-    d1 = Dialogue(false, "Although Raven is hesitant to step near the closet, she begins moving her hands and getting ready to use her magic against the strange creature. \n\nRaven: \"Whatever you are, if you hurt my friend I'll incinerate you.\"",
+    d1 = Dialogue(false, "Although Raven is hesitant to step near the closet, she begins moving her hands and getting ready to use her magic against the strange creature. \n\nRaven: \"Whatever you are, if you hurt my friend, it will be the last thing you do.\"",
                 -1, -99, -99, "None", "Raven", "None", {});
     d2 = Dialogue(true, "The mysterious creature does not speak. As its skin begins to get hotter, you realize that it is waiting for you to say something. Surprisingly, you also have an opportunity to reach for your dagger and end its life once and for all.",
                 -1, -99, -99, "Rogue", "None", "None", {"[Rogue] \"You're not gripping my arm properly. If you don't let me go right now, it won't end nicely for you.\"", "Stab the creature and attempt to kill it.", "\"Please let me go. I'm not looking for conflict.\""});
@@ -368,7 +368,7 @@ Region GenRegionA(Meta meta){
         A16
     */
     // INITIAL INTERACTION: CHOOSE WHETHER OR NOT TO SAVE NOAM
-    d0 = Dialogue("You quickly approach the three goblin bullies surrounding the gnome. They look very tough, but you notice that you're able to sneak up on them and kill them easily. Unfortunately, doing this will result in the gnome's death.",
+    d0 = Dialogue("You quickly approach the three bullies surrounding the gnome. They look very tough, but you notice that you're able to sneak up on them and kill them easily. Unfortunately, doing this will result in the gnome's death.",
                 {"Allow the gnome to die and kill the bullies easily.", "Charge in and take on the bullies before they do anything else."});
     d0.addApproval("Hubert", 3, 2);
     d0.addApproval("Raven", 2, 2);
@@ -394,11 +394,11 @@ Region GenRegionA(Meta meta){
     A16.addEnemy(armoredSkeletonBully3);
     // POST ENCOUNTER INTERACTION
     d0 = Dialogue(true, "Just as you finish defeating the bullies, the paladin you met earlier finishes her fight and starts leaning against the wall to catch her breath. The gnome you saved approaches you with gratitude.\n\nNoam: \"You saved me. I can't believe it. I really thought I was going to die back there. How could I possibly repay you?\"",
-                -1, -99, 4, "Rogue", "None", "None", {"[Rogue] [Persuasion] If I were you I'd be handing over all the silver in my pocket.", "Do you think you could come with us and help us escape?", "You owe me nothing. You're free to leave. Good luck!"});
+                -1, -99, 4, "Rogue", "None", "None", {"[Rogue] [Intimidation] If I were you I'd be handing over all the silver in my pocket.", "Do you think you could come with us and help us escape?", "You owe me nothing. You're free to leave. Good luck!"});
     d0.addApproval("Shrugmini", 2, 1);
     d1 = Dialogue("The gnome runs off happily. Hopefully he's able to find his way out of here.");
     d2 = Dialogue(true, "Noam: \"I'd love to join you! I've learned quite a bit from magic school that could come in handy. Trust me, you won't regret having another brain on your team.\"",
-                -1, -99, -99, "Wizard", "None", "None", {"[Wizard] \"Magic school? Traveling with a fellow wizard would certainly come in handy! Come with me.\"", "\"Come with me. Let's figure this out together.\"", "\"On second thought, I think we should part ways.\""});
+                -1, -99, -99, "Wizard", "None", "None", {"[Wizard] \"Magic school? Traveling with a fellow wizard would certainly be useful! Come with me.\"", "\"Come with me. Let's figure this out together.\"", "\"On second thought, I think we should part ways.\""});
     d3 = Dialogue("The gnome gets scared and runs away.");
     d4 = Dialogue("Noam: \"Fine, but you better leave me alone after I pay.\"\n\nThe gnome runs away after throwing all the silver he had on the floor in front of you.");
     d5 = Dialogue("Noam: \"I don't think that's the intellegent decision but you do you.\"");
@@ -507,14 +507,14 @@ Region GenRegionA(Meta meta){
     */
     Location A21 = Location("Drawbridge");
     d0 = Dialogue("As you step outside, your memories rush back to you. Images of your young self roaming city streets fills you with comfort and gives you a sense of familiarity. Unfortunately, it looks like this prison was in the middle of a large wilderness. You look around and desperately try to find civilization, but the only thing close to it is the group of elf druids approaching you from the other side of the bridge.");
-    d1 = Dialogue(false, "Magnus: \"Vivian! Thank goodness you're alive. We sent some of our best warriors to come find you. Are you hurt?",
+    d1 = Dialogue(false, "Magnus: \"Vivian! Thank goodness you're alive. We sent some of our best warriors to come find you. Are you hurt?\"",
                 -1, -99, -99, "None", "Vivian", "None", {});
     d2 = Dialogue("Vivian: \"I'm alright. Do you have an explanation for all of this?\"");
     d3 = Dialogue("Magnus: \"While you aren't the prisoner I was looking for, I'm glad to see some of you survived.\"");
-    d4 = Dialogue("Magnus: \"I know you're probably not interested in further drama given your situation, but please listen carefully. A group of cultists, followers of Leer and Necrotar to be specific, have discovered a way to manipulate the brightness of the sun. The prison you found yourself in was built by servants of Necrotar ages ago. It's surrounded by a magic force that temporarily blocks out the memory of those who are imprisoned.\n\nThey captured each of you for a reason, but those reasons aren't exactly clear. We're hoping that your party has the ability to put a stop to the cultists. Fortunately, something is wrong on their end and they haven't been able to execute their plans of bringing permanent darkness to the world, but we fear that whatever is holding them back won't last very long.\n\nThere's a lot of detail to this but I don't want to overwhelm you. I need you to find our cave in the east wilderness. There, I will discuss all of the specifics. I'm in a hurry to get back to report to the others and I won't be able to escort your party as a result. Please, be careful. There is a campsite up ahead with some basic supplies and bedrolls for those who need them. It's getting dark and you should rest as much as you can before finding us. Good luck.\"");
+    d4 = Dialogue("Magnus: \"I know you're probably not interested in further drama given your situation, but please listen carefully. A group of cultists, followers of Leer and Necrotar to be specific, have discovered a way to manipulate the brightness of the sun. The prison you found yourself in was built by servants of Necrotar ages ago. It's surrounded by a magic force that temporarily blocks out the memory of those who are imprisoned.\n\nThey captured each of you for a reason, but those reasons aren't exactly clear. We're hoping that your party has the ability to put a stop to the cultists. Fortunately, something is wrong on their end and they haven't been able to execute their plans of bringing permanent darkness to the world, but we fear that whatever is holding them back won't last very long.\n\nThere's a lot of detail to this but I don't want to overwhelm you. I need you to find our cave in the east wilderness. There, I will discuss all of the specifics. I'm in a hurry to get back to report to the others and I won't be able to escort your party as a result. Please, be careful. There is a campsite up ahead with some basic supplies and bedrolls for those who need them. It's getting dark and you should rest as much as you can before finding us. My name is Magnus. Tell them you're looking for me when you get there. Good luck.\"");
     d5 = Dialogue(false, "He turns to Vivian with a fearful look in his eyes.\n\nMagnus: \"I have some unfortunate news I'll need to share with you as well. Please keep yourself safe. We have a lot to talk about.\"",
                 -1, -99, -99, "None", "Vivian", "None", {});
-    d6 = Dialogue("The druids transform themselves into wolfs and run away towards their home. Stress fills your mind as you begin to realize how big of a conflict this may be. With the reassurance of your party behind you, you look towards the campsite ready to get some well deserved rest.");
+    d6 = Dialogue("The druids transform themselves into wolfs and run away towards their home. Your memory loss is simply replaced by stress. Nothing from your life before the prison has prepared you for a conflict like this, yet with the reassurance of your party behind you, you look towards the campsite ready to get some well deserved sleep.");
     interaction = Interaction({d0, d1, d2, d3, d4, d5, d6});
     interaction.addNav(0, 0, 1);
     interaction.addNav(1, -1, 3);
@@ -593,6 +593,7 @@ Region GenRegionA(Meta meta){
     /*
         Making the rest interactions
     */
+    // VIVIAN REST A
     d0 = Dialogue("You spot Vivian praying on her knees by the river nearby. Squirrels, birds, and various other animals gather around her. As you approach, she begins to speak, somehow knowing you're nearby.");
     d1 = Dialogue(false, "Vivian: \"I know you probably don't think highly of me because of my faith, but I assure you what we're dealing with is far more threatening than our differences.\"",
                 -1, -99, -99, "None", "None", "Leer", {});
@@ -601,13 +602,13 @@ Region GenRegionA(Meta meta){
     d2.addApproval("Vivian", 3, 1);
     d2.addApproval("Vivian", 2, 2);
     d2.addApproval("Vivian", -2, 3);
-    d3 = Dialogue(true, "Vivian: \"I appreciate your optimism, but we need to be smart about this. Conflicts like this aren't easily solved with blades. I'm relying on you and our friends to stand up for what is right and maintain composure.\n\nI was impressed by your actions in the prison. Thank you, for approaching me peacefully. In one of my most voulnerable moments, you didn't fight me. Why?\"",
-                -1, -99, -99, "Druid", "None", "None", {"[Druid] \"I knew you weren't an ordinary wolf.\"", "\"It just felt wrong to fight for no reason.\"", "\"Not sure. I regret not killing you when I had the chance.\""});
+    d3 = Dialogue(true, "Vivian: \"I appreciate your optimism, but we must not be impatient. I'm relying on you and our friends to stand up for what is right and maintain our composure.\n\nI was impressed by you in the prison. Thank you, for approaching me peacefully. In what is likely one of your most vulnerable moments you didn't seem to be bothered by the potential threat of a wolf. Why?\"",
+                -1, -99, -99, "Druid", "None", "None", {"[Druid] \"I knew you weren't an ordinary wolf.\"", "\"It's just a wolf. There was no reason for violence.\"", "\"I could easily beat a wolf in a fight.\""});
     d3.addApproval("Vivian", 3, 1);
     d3.addApproval("Vivian", 2, 2);
-    d3.addApproval("Vivian", -3, 3);
+    d3.addApproval("Vivian", -1, 3);
     d4 = Dialogue("Vivian: \"I'm glad to be by your side. Get some rest, we'll need it.\"\n\nVivian stands up and walks towards the camp.");
-    d5 = Dialogue("Vivian: \"I guess I'll have to keep my eye on you.\"\n\nVivian stands up and walks towards the camp.");
+    d5 = Dialogue("Vivian laughs, but it seems like she's laughing at you rather than with you.\n\nVivian: \"Don't make me test that. Sleep well.\"\n\nVivian stands up and walks towards the camp.");
     Interaction vivianInteraction = Interaction({d0, d1, d2, d3, d4, d5, d6});
     vivianInteraction.addNav(0, 0, 1);
     vivianInteraction.addNav(1, 0, 2);
@@ -622,6 +623,7 @@ Region GenRegionA(Meta meta){
     vivianInteraction.addNav(5, 0, -1);
     res.endingRest.setVivianInteraction(vivianInteraction);
 
+    // RAVEN REST A
     d0 = Dialogue(true, "You notice that Raven is still a little unsettled by the encounter your party had with the devil. She signals you to come over while she sets up a place for her to sleep by one of the large trees nearby.\n\nRaven: \"So, what do you think about Jasper?\"",
                 -1, -99, -99, "None", "None", "Necrotar", {"[Necrotar] \"Seems like a friendly fiend. It's nice having good connections in the underworld.\"", "\"I don't trust him. He's a devil, why would he be helping us?\"", "\"He seems to be on our side. We should give him a chance.\""});
     d0.addApproval("Raven", -1, 1);
@@ -638,10 +640,11 @@ Region GenRegionA(Meta meta){
     ravenInteraction.addQuestUpdate(3, 3, 2, "Raven", "Raven indicated that she has a bad history with Jasper but didn't want to share details. We should keep this in mind and continue to learn more about him from Raven.");
     res.endingRest.setRavenInteraction(ravenInteraction);
 
-    d0 = Dialogue("You notice Shrugmini playing with squirrels near her bedroll. Given that she's a half devil, she might know a thing or two about your party's encounter with Jasper. You watch as she plays, but she doesn't seem to notice you.",
+    // SHRUGMINI REST A
+    d0 = Dialogue("You notice Shrugmini playing with squirrels near her bedroll. Given her half-devil appearance, she might know a thing or two about your party's encounter with Jasper. On the other hand, she's clearly much younger than the rest of your party and may not have any experiences. You watch as she plays, but she doesn't seem to notice you.",
                 {"\"Hey Shrugmini, what do you know about devils like Jasper?\"", "\"Shrugmini, I noticed that you're half-devil half-human. How does that work? Do you have a devil parent and human parent?\"", "Leave Shrugmini to play with the squirrels."});
     d1 = Dialogue("Shrugmini: \"They're exactly as you expect. Evil in every way and always fighting for themselves. I don't like playing games with devils, and even though I look like one, I can promise you I'm nowhere close to those damn creatures.\"");
-    d2 = Dialogue("Shrugmini: \"I was a slave in the underworld once. I served devils as they saught to take over the surface and abuse innocent mortals for their own personal gain. I was born a human just like you, but was taken and slowly transformed during my time in the underworld. When I finally escaped, I was discriminated against in the city and became an outcast. It's been rough kid, but having devil skin isn't so bad once you get used to it.\"",
+    d2 = Dialogue("Shrugmini: \"I was a slave in the underworld once. I served devils as they saught to take over the surface and abuse innocent mortals for their own personal gain. I was born a human just like you, but was taken and slowly transformed during my time in the underworld. When I finally escaped, I was discriminated against in the city and became an outcast. It's been rough, but having devil skin isn't so bad once you get used to it.\"",
                 {"\"I'm sorry you had to go through that.\"", "\"You're tough. I bet it wasn't so bad for you down there.\""});
     d2.addApproval("Shrugmini", 2, 2);
     d3 = Dialogue("Shrugmini: \"It's in the past now. There's no point in dwelling on how bad it was or what could've been different. What matters is that I'm here and ready to kick some cultist ass. Go get some rest. I don't want to be doing all the heavy lifting.\"\n\nShrugmini goes back to playing with squirrels.");
@@ -652,6 +655,111 @@ Region GenRegionA(Meta meta){
     shrugminiInteraction.addNav(2, 1, 3);
     shrugminiInteraction.addNav(2, 2, 3);
     shrugminiInteraction.addNav(3, 0, -1);
+
+    // IRIS REST A
+    d0 = Dialogue(true, "The sun is setting, and Iris seems... sad?\n\nIris: \"Isn't it beautiful? Can you feel it?\"\n\nThe sun warms your skin but slowly the feeling starts to go away as it approaches the horizon. This seems important to Iris, almost as if her life is dedicated to protecting it.",
+                -1, -99, -99, "None", "None", "Solari", {"[Solari] \"I understand your dedication. The sun is the source of everything in this world.\"", "\"Beautiful is an understatement.\"", "\"You seem upset about all of this. Are you alright?\"", "\"It will come back tomorrow morning.\""});
+    d0.addApproval("Iris", 3, 1);
+    d0.addApproval("Iris", 2, 2);
+    d0.addApproval("Iris", 2, 3);
+    d0.addApproval("Iris", -1, 4);
+    d1 = Dialogue("Iris: \"I'm not so sure about that. I hope the others take this situation as seriously as I do, and I can only pray that you will as well. Stay focused, my friend.\"\n\nThe sun has set, and Iris seems to be ready to sleep. As she begins to rest, you notice her whisper prayers in hopes that the sun will greet her in the morning.");
+    d2 = Dialogue("Iris: \"You're right. As long as Solari keeps that ball in the sky with all of his power and dedication, everything in this world remains beyond beautiful. I can't let anyone take that away from him, and I certainly can't let anyone take that away from us.\"");
+    d3 = Dialogue("Iris: \"Don't worry about me kid. I'm not usually feeling down at dusk, but this is the first night in which I worry I will never see his creation again. As long as the sun rises the next morning, I'll be ready. Until then, sleep well.\"\n\nThe sun has set, and Iris seems to be ready to sleep. As she begins to rest, you notice her whisper prayers in hopes that the sun will greet her in the morning.");
+    Interaction irisInteraction = Interaction({d0, d1, d2, d3});
+    irisInteraction.addNav(0, 1, 2);
+    irisInteraction.addNav(0, 2, 2);
+    irisInteraction.addNav(0, 3, 3);
+    irisInteraction.addNav(0, 4, 1);
+    irisInteraction.addNav(1, 0, -1);
+    irisInteraction.addNav(2, 0, 3);
+    irisInteraction.addNav(3, 0, -1);
+
+    // HUBURT REST A
+    d0 = Dialogue("Hubert seems to be very tired compared to your other allies. \n\nHubert: \"Beautiful night, isn't it buddy? It's refreshing to see nature again after being stuck in there. What do you make of all this?\"",
+                {"\"I'm not sure what to think.\"", "\"Seems like people really need our help. I'm worried I won't be able to live up to expectations.\"", "\"I honestly don't want to deal with this.\""});
+    d0.addApproval("Hubert", 2, 2);
+    d0.addApproval("Hubert", -1, 3);
+    d1 = Dialogue("Hubert: \"You're not the only one. It's a lot of responsibility. It isn't just me and you at stake... it's the entire world.\"");
+    d2 = Dialogue("Hubert: \"We don't have a choice unfortunately. The sun isn't just good for beaches. People's lives are at stake. Children, leaders, traders, farmers, everyone.\"");
+    d3 = Dialogue(true, "Hubert: \"No matter what, don't forget that we're a team. No matter how bad this situation gets, I hope we struggle together if we struggle at all.\"",
+                -1, -1, -1, "Paladin", "None", "None", {"[Paladin] \"It's an honor to be by your side Hubert.\"", "\"You seem quick to consider me an ally...\"", "\"I hope so too.\"", "\"Let's not worry too much. We should get some sleep.\""});
+    d3.addApproval("Hubert", 2, 3);
+    d3.addApproval("Hubert", 2, 1);
+    d4 = Dialogue("Hubert: \"You're a good friend. Let's get some rest.\"");
+    d5 = Dialogue("Hubert: \"I know a good friend when I see one. Let's get some rest.");
+    d6 = Dialogue("Hubert: \"Right. Sleep well buddy.\"");
+    Interaction hubertInteraction = Interaction({d0, d1, d2, d3, d4, d5, d6});
+    hubertInteraction.addNav(0, 1, 1);
+    hubertInteraction.addNav(0, 2, 1);
+    hubertInteraction.addNav(0, 3, 2);
+    hubertInteraction.addNav(1, 0, 3);
+    hubertInteraction.addNav(2, 0, 3);
+    hubertInteraction.addNav(3, 1, 4);
+    hubertInteraction.addNav(3, 2, 5);
+    hubertInteraction.addNav(3, 3, 4);
+    hubertInteraction.addNav(3, 4, 6);
+    hubertInteraction.addNav(4, 0, -1);
+    hubertInteraction.addNav(5, 0, -1);
+    hubertInteraction.addNav(6, 0, -1);
+
+    // NOAM REST A
+    d0 = Dialogue(true, "As everyone begins to settle for the night, Noam remains awake reading a small book titled \"Spell Gnomenclature\". He doesn't seem very tired and notices you watching.\n\nNoam: \"You were brave for saving me back there. I'm not sure if I'd be strong enough to do the same.\"",
+                -1, -1, -1, "Barbarian", "None", "None", {"[Barbarian] \"You'd be strong enough after a few push-ups.\"", "\"I bet you're a lot stronger than you look.\"", "\"No need to be strong if you're smart.\""});
+    d0.addApproval("Noam", 2, 3);
+    d1 = Dialogue("Noam: \"You're the optimistic type it seems. You remind me of my father. His confidence was unmatched, but unfortunately I feel like I didn't inherit much of that from him. Maybe I'll tell you some stories about him in the future, but for now we should sleep a little bit.\"\n\nNoam closes his book and starts to prepare his bed.");
+    Interaction noamInteraction = Interaction({d0, d1});
+    noamInteraction.addNav(0, 1, 1);
+    noamInteraction.addNav(0, 2, 1);
+    noamInteraction.addNav(0, 3, 1);
+
+    // JASPER REST A
+    d0 = Dialogue("As you approach the campsite looking for places to set up your bedding, a loud roar from the hells shakes the ground and alerts your entire party. A small inferno appears in the distance as a tall, well-dressed man with red skin and devil horns politely approaches.\n\nJasper: \"Hello friends. My name is Jasper. It's an absolute pleasure to finally introduce myself. May I?\"");
+    d1 = Dialogue(false, "Raven: \"Ugh, anyone but you...\"", -1, -1, -1, "None", "Raven", "None", {});
+    d2 = Dialogue(false, "You notice Shrugmini slowly back up and hide behind a tree. She seems very startled by this.", -1, -1, -1, "None", "Shrugmini", "None", {});
+    d3 = Dialogue(false, "Noam: \"Well that's not something you see every day...\"", -1, -1, -1, "None", "Noam", "None", {});
+    d4 = Dialogue(false, "Iris grips the handle of her sword.\n\nIris: \"I already don't like this guy...\"", -1, -1, -1, "None", "Iris", "None", {});
+    d5 = Dialogue("Jasper: \"Don't let me appearance decieve you. I am your friend. If it weren't for me, the sun would already be gone. Indeed, I know about your predicament, and I am on your side.\"",
+                {"\"That's a relief!\"", "\"You need to leave. Right now.\"", "Slowly reach for your dagger."});
+    d5.addApproval("Shrugmini", 2, 2);
+    d5.addApproval("Shrugmini", -2, 1);
+    d5.addApproval("Raven", 3, 3);
+    d5.addApproval("Raven", 3, 2);
+    d5.addApproval("Raven", -3, 1);
+    d5.addApproval("Iris", 2, 2);
+    d5.addApproval("Vivian", -1, 3);
+    d6 = Dialogue("Jasper: \"Relax my friend. Let me reiterate, I'm not here to fight you. I am your ally.\"");
+    d7 = Dialogue("Jasper: \"When you meet Magnus, he will tell you that the cultists are missing an artifact necessary for their spell. I have it. All I need you to do is listen to Magnus and play your part.\"");
+    d8 = Dialogue("Before you even get a chance to respond, Jasper engulfs himself in fire and disappears back into the hells.");
+    Interaction jasperInteraction = Interaction({d0, d1, d2, d3, d4, d5, d6, d7, d8});
+    jasperInteraction.addNav(0, 0, 1);
+    jasperInteraction.addNav(1, 0, 2);
+    jasperInteraction.addNav(1, -1, 2);
+    jasperInteraction.addNav(2, 0, 3);
+    jasperInteraction.addNav(2, -1, 3);
+    jasperInteraction.addNav(3, 0, 4);
+    jasperInteraction.addNav(3, -1, 4);
+    jasperInteraction.addNav(4, 0, 5);
+    jasperInteraction.addNav(4, -1, 5);
+    jasperInteraction.addNav(5, 1, 7);
+    jasperInteraction.addNav(5, 2, 6);
+    jasperInteraction.addNav(5, 3, 6);
+    jasperInteraction.addNav(6, 0, 7);
+    jasperInteraction.addNav(7, 0, 8);
+    jasperInteraction.addNav(8, 0, -7);
+    jasperInteraction.addQuestUpdate(-1, 11, 0, "Deal with the Devil", "A devil named Jasper appeared at our campsite and claimed to be our friend. We should keep an eye on him.");
+
+
+    Rest restA = Rest();
+    restA.setVivianInteraction(vivianInteraction);
+    restA.setIrisInteraction(irisInteraction);
+    restA.setNoamInteraction(noamInteraction);
+    restA.setRavenInteraction(ravenInteraction);
+    restA.setShrugminiInteraction(shrugminiInteraction);
+    restA.setHubertInteraction(hubertInteraction);
+    restA.setJasperInteraction(jasperInteraction);
+
+    res.endingRest = restA;
 
     return res;
 }

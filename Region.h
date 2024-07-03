@@ -15,6 +15,7 @@ private:
 public:
     // Maps integers to corresponding locations... locations[0] is the starting location and locations[n-1] is the end
     std::vector<Location> locations;
+    // This is the rest that happens at the end of this region
     Rest endingRest;
 
     Region();

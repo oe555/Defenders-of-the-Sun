@@ -177,8 +177,8 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
     // TODO: Maybe output some information about the party here
     std::cout << "Your party prepares to attack. You currently have " << meta.getProteinShakes() << " protein shakes.\n";
     for(int i = 0; i < (int)meta.companions.size(); i++){ // This loop iterates over all companions
-        if(meta.companions[i].getHealth() <= 0){ // We inform the player and continue when the companion is unconscious
-            std::cout << meta.companions[i].getName() << " is unconscious.\n";
+        if(meta.companions[i].getHealth() <= 0){ // We inform the player and continue when the companion is at 0 hp
+            std::cout << meta.companions[i].getName() << " is very weak.\n";
             separatorBar();
             continue;
         }
@@ -227,6 +227,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
         if(actionChoice == "Attack"){
             int targetEnemy;
             for(int j = 0; j < meta.companions[i].getAttackCount(); j++){ // Accounts for extra attacks
+                if(enemies.empty()) break; // Don't keep prompting if all the enemies died
                 std::cout << "Select the enemy you'd like to attack.\n";
                 //std::cout << "DEBUG\n";
                 targetEnemy = selectEnemy(enemies);
@@ -364,8 +365,7 @@ bool runEncounter(std::vector<Enemy> &enemies, Meta &meta, bool ambush){
     }
 }
 
-int main(){ // Main currently has a bunch of tester code
-    //companionTester();
+int main(){ 
     srand(time(NULL));
     std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     std::cout << greenboldtext << "Defenders of the Sun\n" << resettext;
@@ -380,7 +380,7 @@ int main(){ // Main currently has a bunch of tester code
             break;
         }
         else if(mainMenuInput == "2"){
-            std::cout << pad("Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe (somewhere between 50 and 60), and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n\n");
+            std::cout << pad("Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe, and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n\n");
             std::cout << "- Solari: God of the sun (lawful good)\n";
             std::cout << "- Selunara: Goddess of the moon (chaotic good)\n";
             std::cout << "- Leer: Goddess of darkness and night (chaotic evil)\n";
@@ -388,7 +388,7 @@ int main(){ // Main currently has a bunch of tester code
             std::cout << "- Terraflora: Goddess of nature (neutral good)\n";
             std::cout << "- Bei: Goddess of War (lawful evil)\n";
             std::cout << "- Necrotar: God of death (neutral evil)\n\n";
-            std::cout << pad("There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way (most druids serve Terraflora).\n\n");
+            std::cout << pad("There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way.\n\n");
             std::cout << pad("Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards are scholars and don't have patrons, but witches/warlocks do).\n\n");
             std::cout << pad("The underworld exists, but nobody knows much about it or how to get there. Devils live in the underworld and seek to control the surface, but the deities keep them trapped in the underworld to maintain balance.\n\n");
             std::cout << "#-----#-----#\n\n";
@@ -498,7 +498,10 @@ int main(){ // Main currently has a bunch of tester code
                 std::cout << purpleboldtext << "-----\n" << resettext;
                 break;
             }
+            // Update currLocationIndex
             currLocationIndex = regA.getAdj(currLocationIndex)[inp-1];
+            // If we end up in the location of the campsite, we should move on to act 2 (region B)
+            if(currLocationIndex == 22) break;
             continue;
         }
         else if(inp == currLocation->getNumOptionalInteractions() + 2){ // View active quests
@@ -535,29 +538,6 @@ int main(){ // Main currently has a bunch of tester code
             }
         }
     }
-    //std::vector<Enemy> testEnemies;
-    //Enemy enemy1 = Enemy("Test Enemy 1", 5, 5, 2, 1, 1, false);
-    //Companion companion1 = Companion("Teammate", "Cleric", "Leer");
-    //meta.addCompanion(companion1);
-    //Enemy enemy2 = Enemy("Test Enemy 2", 10, 5, 4, 1, 1, true);
-    //testEnemies.push_back(enemy1);
-    //testEnemies.push_back(enemy2);
-    //runEncounter(testEnemies, meta, true);
+    regA.endingRest.executeRest(meta);
     return 0;
 }
-
-//void journalTester(){ // TESTER CODE
-//    Journal journal = Journal();
-//    journal.addQuest("Test this code.", "You must write tester code to make sure the journal works.", 0, 0);
-//    journal.addQuest("Kill Noam.", "You notice your companion Noam is too short. You should find a way to get rid of him.", 2, 1);
-//    journal.addQuest("Realize your potential.", "Take over the world!!!", 1, 2);
-//    journal.addQuest("Eat ice cream.", "yum.", 1, 100);
-//    journal.addQuest("This is an example completed quest.", "uwuwuwuwuwu", 0, 4);
-//    if(!journal.advanceQuest(4, -1, "This quest has been completed.", true)) std::cout << "ERROR";
-//    journal.addQuest("Pet dog.", "Dog cute must pet.", 3, 3);
-//    separatorBar();
-//    journal.listQuests(false);
-//    separatorBar();
-//    journal.listQuests(true);
-//    separatorBar();
-//}

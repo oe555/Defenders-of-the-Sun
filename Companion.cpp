@@ -13,7 +13,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     type = type_;
     deity = deity_;
     addAction("Attack");
-    if(type_ != "Wolf") addAction("Drink Protein");
+    if(type_ != "Dog") addAction("Drink Protein");
     maxHealth = 0;
     attackCount = 1;
     agonizeCount = 1;
@@ -23,7 +23,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Rogue") maxHealth = 15;
     if(type == "Druid") maxHealth = 18;
     if(type == "Hunter") maxHealth = 18;
-    if(type == "Wolf") maxHealth = 15;
+    if(type == "Dog") maxHealth = 15;
     if(type == "Monk") maxHealth = 17;
     if(type == "Cleric") maxHealth = 20;
     if(type == "Paladin") maxHealth = 25;
@@ -49,7 +49,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     health = maxHealth;
     Weapon starterWeapon = Weapon("Simple Dagger", "A simple dagger made for simple stabbing.", 6, 1, 0, 0, {"Dagger"});
     if(type == "Monk") starterWeapon = Weapon("Fist", "Ready to beat the shit out of something.", 6, 1, 0, 1, {"Fist"});
-    if(type == "Wolf") starterWeapon = Weapon("Teeth", "Chomp!!!", 6, 1, 0, 3, {"Teeth"});
+    if(type == "Dog") starterWeapon = Weapon("Teeth", "Chomp!!!", 6, 1, 0, 3, {"Teeth"});
     if(type == "Noam") starterWeapon = Weapon("Noam's Quarterstaff", "Good for magic, but also good for bonking things.", 4, 1, 0, -1, {"Quarterstaff"}); 
     if(type == "Shrugmini") starterWeapon = Weapon("Shrugmini\'s Dagger", "A nicer dagger made for nicer stabbing.", 6, 1, 1, 1, {"Dagger"});
     Armor starterArmor = Armor("Simple Clothes", "It might be useless but it's quite fashionable.", 0, true);
@@ -59,7 +59,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Noam") starterArmor = Armor("Noam\'s Clothes", "Who managed to design a robe that fits him?", 0, true);
     if(type == "Shrugmini") starterArmor = Armor("Shrugmini\'s Clothes", "Cool girl vibes.", 0, true);
     if(type == "Iris") starterArmor = Armor("Iris\' Armor", "It has the symbol of Solari on the left shoulder.", 1, false);
-    if(type == "Wolf") starterArmor = Armor("Fur", "Rawr!!!", 0, false);
+    if(type == "Dog") starterArmor = Armor("Fur", "Rawr!!!", 0, false);
     weapon = starterWeapon;
     armor = starterArmor;
     resetStatusEffects();
@@ -195,7 +195,7 @@ Weapon Companion::getWeapon(){
     
 void Companion::setWeapon(Weapon weapon_){
     if(type == "Monk") return;
-    if(type == "Wolf") return;
+    if(type == "Dog") return;
     weapon = weapon_;
 }
 
@@ -205,7 +205,7 @@ Armor Companion::getArmor(){
 
 void Companion::setArmor(Armor armor_){
     if(type == "Monk") return;
-    if(type == "Wolf") return;
+    if(type == "Dog") return;
     armor = armor_;
 }
 

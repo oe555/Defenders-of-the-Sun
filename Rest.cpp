@@ -54,7 +54,7 @@ void Rest::executeRest(Meta &meta){
     // JASPER INTERACTION -----
     jasperInteraction.runInteraction(meta);
     // FIRESIDE CHATS -----
-    std::cout << "\n#-----#-----#\n\nThe sun goes down and the campfire lights up the nearby area. This is a great opportunity to walk around the campsite and chat with your allies.\n\n#-----#-----#\n\n";
+    std::cout << "\n#-----#-----#\n\nThe sun begins to set and the campfire lights up the nearby area. This is a great opportunity to walk around the campsite and chat with your allies.\n\n#-----#-----#\n\n";
     std::vector<std::string> firesideChatChoices = {};
     for(auto x : meta.companions){
         if(x.getType() == "Vivian" || x.getType() == "Raven" || x.getType() == "Hubert" || x.getType() == "Shrugmini" || x.getType() == "Iris" || x.getType() == "Noam"){
@@ -81,6 +81,7 @@ void Rest::executeRest(Meta &meta){
                 std::cout << "Input not recognized. Please try again.\n";
                 continue;
             }
+            break;
         } // inpInt now stores which companion they want to talk to
         inpString = firesideChatChoices[inpInt]; // Get the name of that companion
         firesideChatChoices.erase(firesideChatChoices.begin() + inpInt); // We can't talk to them twice
