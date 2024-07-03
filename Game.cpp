@@ -154,7 +154,7 @@ bool enemiesTurn(std::vector<Enemy> &enemies, Meta &meta){
             std::cout << "The enemy missed their attack.\n";
         }
         if(meta.companions[currTarget].getHealth() <= 0){
-            std::cout << redtext << meta.companions[currTarget].getName() << " was knocked unconscious!\n" << resettext;
+            std::cout << redtext << meta.companions[currTarget].getName() << " is now severely weakened!\n" << resettext;
         }
         std::cout << "<Press Enter to continue>";
         getline(std::cin, trashLine);
