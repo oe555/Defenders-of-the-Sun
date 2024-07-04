@@ -38,7 +38,7 @@ Region GenRegionA(Meta meta){
                         -1, -99, -99, "None", "None", "None", {});
     Dialogue d3 = Dialogue(false, "Before you get a chance to check anything else, a massive beam moonlight shoots through the hallway. A radiant energy, one that you realize is fueled by the power of your goddess, burns the skeletons to a crisp. The energy shakes the ground, causing your cell door to open slightly. Strangely, it seems like none the cell doors were locked in the first place.\n\nAfter listening carefully, you're able to hear noises that sound like fighting in the distance. Perhaps this is the source of the energy that freed you...\n\nYou slowly step outside of your cell, thinking about what to do next.",
                         -1, -99, -99, "None", "None", "Selunara", {});
-    Dialogue d4 = Dialogue(false, "Before you get a chance to check anything else, a massive beam of light shoots through the hallway. A mysterious radiant energy burns the skeletons to a crisp. The energy shakes the ground, causing your cell door to open slightly. Strangely, it seems like none the cell doors were locked in the first place. \n\nAfter listening carefully, you're able to hear noises that sound like fighting in the distance. Perhaps this is the source of the energy that freed you...\n\nYou slowly step outside of your cell, thinking about what to do next.",
+    Dialogue d4 = Dialogue(false, "Before you get a chance to check anything else, a massive beam of light shoots through the hallway. A mysterious radiant energy burns the skeletons to a crisp. The energy shakes the ground, causing your cell door to open slightly. Strangely, it seems like none of the cell doors were locked in the first place. \n\nAfter listening carefully, you're able to hear noises that sound like fighting in the distance. Perhaps this is the source of the energy that freed you...\n\nYou slowly step outside of your cell, thinking about what to do next.",
                         -1, -99, -99, "None", "None", "None", {});
     Interaction interaction = Interaction({d0, d1, d2, d3, d4});
     interaction.addNav(0, 1, 1);
@@ -127,9 +127,9 @@ Region GenRegionA(Meta meta){
                 -1, 4, -99, "None", "None", "Leer", {});
     d5.addApproval("Raven", 2, 1);
     d7.addApproval("Raven", 2, 1);
-    interaction = Interaction({d0, d1, d2, d3, d4, d5, d6, d7, d8, d9});
+    interaction = Interaction({d1, d2, d3, d4, d5, d6, d7, d8, d9});
     interaction.addNav(0, -1, 1);
-    interaction.addNav(0, 0, 1);
+    interaction.addNav(0, 0, 3);
     interaction.addNav(1, 1, 3);
     interaction.addNav(1, 2, 2);
     interaction.addNav(2, 0, -1);

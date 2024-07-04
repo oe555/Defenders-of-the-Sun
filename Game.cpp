@@ -441,7 +441,7 @@ int main(){
         currOptionIndex++;
         std::cout << currOptionIndex << ") View party information\n";
         currOptionIndex++;
-        std::cout << currOptionIndex << ") Drink protein\n";
+        std::cout << currOptionIndex << ") Drink protein (restores 10 health)\n";
         currOptionIndex++;
         while(true){ // Get the input from the user
             getline(std::cin, inpStr);

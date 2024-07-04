@@ -45,7 +45,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Iris") defense += 2;
     if(type == "Noam") defense--;
     level = 0; // Constructor creates a level 0 character
-    // levelUp();
+
     health = maxHealth;
     Weapon starterWeapon = Weapon("Simple Dagger", "A simple dagger made for simple stabbing.", 6, 1, 0, 0, {"Dagger"});
     if(type == "Monk") starterWeapon = Weapon("Fist", "Ready to beat the shit out of something.", 6, 1, 0, 1, {"Fist"});
