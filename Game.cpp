@@ -281,6 +281,22 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             enemies[targetEnemy].addStatusEffect("Poison");
             std::cout << enemies[targetEnemy].getName() << " has been poisoned.\n";
         }
+        if(actionChoice == "Wolf Bite"){
+            std::cout << "Select the enemy you'd like to bite.\n";
+            int targetEnemy = selectEnemy(enemies);
+            std::cout << boldtext << meta.companions[i].getName() << " bites " << enemies[targetEnemy].getName() << "\n" << resettext;
+            if(enemies[targetEnemy].getHealth() <= 15){
+                enemies[targetEnemy].takeDamage(5 + meta.companions[i].getLevel(), 100); // Precision level 100 makes it always hit
+                std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
+                if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
+                    std::cout << greentext << enemies[targetEnemy].getName() << " was defeated!\n" << resettext;
+                    enemies.erase(enemies.begin() + targetEnemy);
+                }
+            }
+            else{
+                std::cout << "The target enemy is not weak enough to be affected by wolf bite.\n";
+            }
+        }
         if(actionChoice == "Heal"){
             std::cout << "Choose an Ally to heal.\n";
             int targetAlly = selectAlly(meta);

@@ -162,7 +162,7 @@ void Companion::levelUp(){
             addAction("Hide");
             std::cout << name << " can now use " << boldtext << "Hide" << resettext << ". \nEnemies cannot hit you while you are hiding, but may still try to target you.\nAttacking while hiding causes you to stop hiding but deals extra damage equal to 2 times your level and guarantees a hit.\n\n";
         }
-        if(type == "Druid" || type == "Vivian"){
+        if(type == "Druid"){
             addAction("Snake Bite");
             std::cout << name << " can now use " << boldtext << "Snake Bite" << resettext << ". \nSnake bite cannot miss and inflicts poison onto an enemy, which deals 1d4 damage per turn but cannot kill.\n\n";
         }
@@ -181,6 +181,10 @@ void Companion::levelUp(){
         if(type == "Hubert"){
             addAction("Inspire");
             std::cout << name << " can now use " << boldtext << "Inspire" << resettext << ". \nYou can perform an inspiring tune using your bagpipes, increasing the damage of an ally's attacks by 1 + your level.\n\n";
+        }
+        if(type == "Dog" || type == "Vivian"){
+            addAction("Wolf Bite");
+            std::cout << name << " can now use " << boldtext << "Wolf Bite" << resettext << ". \nWolf bite deals damage equal to 5 + your level and never misses, but it only impacts enemies with at most 15 HP.\n\n";
         }
     }
     std::string trashLine;

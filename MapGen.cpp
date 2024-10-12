@@ -127,7 +127,7 @@ Region GenRegionA(Meta meta){
                 -1, 4, -99, "None", "None", "Leer", {});
     d5.addApproval("Raven", 2, 1);
     d7.addApproval("Raven", 2, 1);
-    interaction = Interaction({d1, d2, d3, d4, d5, d6, d7, d8, d9});
+    interaction = Interaction({d0, d1, d2, d3, d4, d5, d6, d7, d8, d9});
     interaction.addNav(0, -1, 1);
     interaction.addNav(0, 0, 3);
     interaction.addNav(1, 1, 3);
