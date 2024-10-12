@@ -285,7 +285,7 @@ bool playerTurn(std::vector<Enemy> &enemies, Meta &meta){
             std::cout << "Select the enemy you'd like to bite.\n";
             int targetEnemy = selectEnemy(enemies);
             std::cout << boldtext << meta.companions[i].getName() << " bites " << enemies[targetEnemy].getName() << "\n" << resettext;
-            if(enemies[targetEnemy].getHealth() <= 15){
+            if(enemies[targetEnemy].getHealth() <= 15){ // Wolf bite only hits when HP is less than 15
                 enemies[targetEnemy].takeDamage(5 + meta.companions[i].getLevel(), 100); // Precision level 100 makes it always hit
                 std::cout << enemies[targetEnemy].getName() << "'s health has been reduced to " << enemies[targetEnemy].getHealth() << ".\n";
                 if(enemies[targetEnemy].getHealth() <= 0){ // Check to see if they were killed
