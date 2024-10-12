@@ -14,14 +14,16 @@ private:
     std::string type;
     // This is the list of things the companion can do in battle
     std::vector<std::string> actions;
-    // Health is set to max health at the start of every battle
+    // Health is set to max health at the start of every act (as a result of the rest)
     int maxHealth;
     int health;
     // How likely it is to hit someone (based on a d10 roll)
     int defense;
     int level;
 
+    // How many times the companion can attack
     int attackCount;
+    // How many times the companion can agonize (currently only matters for Raven)
     int agonizeCount;
 
     Weapon weapon;
@@ -29,7 +31,7 @@ private:
 
     int approval;
 public:
-    // STATUS EFFECTS (usually handled in encounter code)
+    // STATUS EFFECTS (usually handled in encounter code; also make sure to update resetStatusEffects method in this class)
     bool hiding;
     bool raging;
     bool inspired;

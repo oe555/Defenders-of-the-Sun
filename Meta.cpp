@@ -15,7 +15,8 @@ Meta::Meta(){
     std::string charName;
     while(true){
         getline(std::cin, charName);
-        if(charName == "Raven" || charName == "Vivian" || charName == "Hubert" || charName == "Shrugmini" || charName == "Noam" || charName == "Iris" || charName == "Jasper"){
+        if(charName == "Raven" || charName == "Vivian" || charName == "Hubert" || charName == "Shrugmini" || charName == "Noam" || charName == "Iris" || charName == "Jasper"
+            || charName == "Jackson" || charName == "Julie" || charName == "Magnus" || charName == "Lucas"){
             std::cout << "This is the name of a character that is essential to the plot. Please pick a new name.\n";
             continue;
         }
@@ -98,8 +99,8 @@ Meta::Meta(){
     if(charClass == "Druid"){
         std::cout << "\nSelect a deity by entering the corresponding number:\n";
         std::cout << "1) Solari\n";
-        std::cout << "2) Terraflora\n";
-        std::cout << "3) Selunara\n";
+        std::cout << "2) Selunara\n";
+        std::cout << "3) Other (deity is unrelated to the story)\n";
         while(true){
             std::getline(std::cin, charDeityInput);
             if(charDeityInput == "1"){
@@ -107,11 +108,11 @@ Meta::Meta(){
                 break;
             }
             if(charDeityInput == "2"){
-                characterDeity = "Terraflora";
+                characterDeity = "Selunara";
                 break;
             }
             if(charDeityInput == "3"){
-                characterDeity = "Selunara";
+                characterDeity = "Foo";
                 break;
             }
             std::cout << "Input not recognized. Please try again.\n";
@@ -120,11 +121,9 @@ Meta::Meta(){
     if(charClass == "Cleric" || charClass == "Monk" || charClass == "Paladin"){
         std::cout << "\nSelect a deity by entering the corresponding number:\n";
         std::cout << "1) Solari\n";
-        std::cout << "2) Terraflora\n";
+        std::cout << "2) Leer\n";
         std::cout << "3) Selunara\n";
-        std::cout << "4) Bei\n";
-        std::cout << "5) Necrotar\n";
-        std::cout << "6) Leer\n";
+        std::cout << "4) Other (deity is unrelated to the story)\n";
         while(true){
             std::getline(std::cin, charDeityInput);
             if(charDeityInput == "1"){
@@ -132,7 +131,7 @@ Meta::Meta(){
                 break;
             }
             if(charDeityInput == "2"){
-                characterDeity = "Terraflora";
+                characterDeity = "Leer";
                 break;
             }
             if(charDeityInput == "3"){
@@ -140,15 +139,7 @@ Meta::Meta(){
                 break;
             }
             if(charDeityInput == "4"){
-                characterDeity = "Bei";
-                break;
-            }
-            if(charDeityInput == "5"){
-                characterDeity = "Necrotar";
-                break;
-            }
-            if(charDeityInput == "6"){
-                characterDeity = "Leer";
+                characterDeity = "Foo";
                 break;
             }
             std::cout << "Input not recognized. Please try again.\n";
@@ -159,7 +150,8 @@ Meta::Meta(){
         std::string wolfName;
         while(true){
             getline(std::cin, wolfName);
-            if(wolfName == "Raven" || wolfName == "Vivian" || wolfName == "Hubert" || wolfName == "Shrugmini" || wolfName == "Noam" || wolfName == "Iris" || wolfName == "Jasper"){
+            if(charName == "Raven" || charName == "Vivian" || charName == "Hubert" || charName == "Shrugmini" || charName == "Noam" || charName == "Iris" || charName == "Jasper"
+            || charName == "Jackson" || charName == "Julie" || charName == "Magnus" || charName == "Lucas"){
                 std::cout << "This is the name of a character that is essential to the plot. Please pick a new name.\n";
                 continue;
             }
@@ -344,11 +336,13 @@ int Meta::getCharisma(){
     return charisma;
 }
 
+// Expand to add item name and details
 void Meta::addArmor(Armor armor){
     armorInventory.push_back(armor);
     std::cout << "\n\033[0;36mA new piece of armor was added to your inventory.\033[0;0m\n";
 }
 
+// Expand to add item name and details
 void Meta::addWeapon(Weapon weapon){
     weaponInventory.push_back(weapon);
     std::cout << "\n\033[0;36mA new weapon was added to your inventory.\033[0;0m\n";

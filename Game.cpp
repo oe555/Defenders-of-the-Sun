@@ -401,9 +401,6 @@ int main(){
             std::cout << "- Selunara: Goddess of the moon (chaotic good)\n";
             std::cout << "- Leer: Goddess of darkness and night (chaotic evil)\n";
             std::cout << pad("The deities listed above are siblings. Followers of Leer are typically enemies with followers of the other two as they believe light is a distraction from self awareness and reflection.\n");
-            std::cout << "- Terraflora: Goddess of nature (neutral good)\n";
-            std::cout << "- Bei: Goddess of War (lawful evil)\n";
-            std::cout << "- Necrotar: God of death (neutral evil)\n\n";
             std::cout << pad("There exists many clerics, paladins, and monks with powers that are sponsored by their deity. Druids are only sponsored by deities that govern nature in some way.\n\n");
             std::cout << pad("Magic exists in the world, but only certain people can use it. Those who use magic are either sponsored by a deity or other very powerful figure or have spent lots of time studying (wizards are scholars and don't have patrons, but witches/warlocks do).\n\n");
             std::cout << pad("The underworld exists, but nobody knows much about it or how to get there. Devils live in the underworld and seek to control the surface, but the deities keep them trapped in the underworld to maintain balance.\n\n");
@@ -555,5 +552,7 @@ int main(){
         }
     }
     regA.endingRest.executeRest(meta);
+
+    // Here, we will generate region B
     return 0;
 }

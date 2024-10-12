@@ -34,7 +34,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Shrugmini") maxHealth = 17;
     if(type == "Vivian") maxHealth = 19;
     if(type == "Raven") maxHealth = 16;
-    if(type == "Hubert") maxHealth = 16;
+    if(type == "Hubert") maxHealth = 19;
     if(type == "Iris") maxHealth = 25;
 
     defense = 3; // Everyone has base 3 defense
@@ -54,7 +54,7 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Shrugmini") starterWeapon = Weapon("Shrugmini\'s Dagger", "A nicer dagger made for nicer stabbing.", 6, 1, 1, 1, {"Dagger"});
     Armor starterArmor = Armor("Simple Clothes", "It might be useless but it's quite fashionable.", 0, true);
     if(type == "Raven") starterArmor = Armor("Raven\'s Clothes", "If wearing a hoodie at a funeral was acceptable, this is what you\'d wear.", 0, true);
-    if(type == "Vivian") starterArmor = Armor("Vivan\'s Clothes", "A white top and skirt dedicated to Her.", 0, true);
+    if(type == "Vivian") starterArmor = Armor("Vivan\'s Clothes", "Top and skirt made from wolf hide.", 0, true);
     if(type == "Hubert") starterArmor = Armor("Hubert\'s Clothes", "Ripped jeans and a awkwardly colored jacket.", 0, true);
     if(type == "Noam") starterArmor = Armor("Noam\'s Clothes", "Who managed to design a robe that fits him?", 0, true);
     if(type == "Shrugmini") starterArmor = Armor("Shrugmini\'s Clothes", "Cool girl vibes.", 0, true);
@@ -235,10 +235,10 @@ bool Companion::takeDamage(int damage){
 void Companion::getDetails(){
     std::string tempType = type;
     if(type == "Raven") tempType = "Witch";
-    if(type == "Hubert") tempType = "Musician";
+    if(type == "Hubert") tempType = "Politician";
     if(type == "Vivian") tempType = "Archdruid";
     if(type == "Shrugmini") tempType = "Half-Devil Rogue";
-    if(type == "Noam") tempType = "Wizard";
+    if(type == "Noam") tempType = "Gnome Wizard";
     if(type == "Iris") tempType = "Paladin";
     if(deity != "None") tempType = tempType + " of " + deity;
 
