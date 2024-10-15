@@ -29,7 +29,8 @@ public:
 
     int getSilver();
     void gainSilver(int amount);
-    bool spendSilver(int amount); // Returns false if there is not enough silver
+    // Returns false if there is not enough silver
+    bool spendSilver(int amount);
 
     int getProteinShakes();
     void gainProteinShake();

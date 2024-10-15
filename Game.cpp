@@ -396,7 +396,7 @@ int main(){
             break;
         }
         else if(mainMenuInput == "2"){
-            std::cout << pad("Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe, and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n\n");
+            std::cout << pad("Defenders of the Sun takes place in a world consisting of humans, elves, dwarves, and other various common mythological creatures.\n\nIn this universe, gods (referred to as deities) are real. There are many deities that govern the universe, and they are commonly worshipped among mortals. The deities that are important to this story are introduced here:\n");
             std::cout << "- Solari: God of the sun (lawful good)\n";
             std::cout << "- Selunara: Goddess of the moon (chaotic good)\n";
             std::cout << "- Leer: Goddess of darkness and night (chaotic evil)\n";

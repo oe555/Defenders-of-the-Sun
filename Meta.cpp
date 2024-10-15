@@ -33,7 +33,7 @@ Meta::Meta(){
     std::cout << "3) Rogue\n";
     std::cout << "-- Former criminals who use deception and stealth to their advantage.\n\n";
     std::cout << "4) Druid\n";
-    std::cout << "-- Servants of the deities of nature with the power to turn into animals.\n\n";
+    std::cout << "-- Servants of the nature deities with the power to turn into animals.\n\n";
     std::cout << "5) Hunter\n";
     std::cout << "-- Experts of survival who gather food for their community (picking this class provides a pet dog).\n\n";
     std::cout << "6) Monk\n";
@@ -41,7 +41,7 @@ Meta::Meta(){
     std::cout << "7) Cleric\n";
     std::cout << "-- Priests who have been trusted by their deity to wield special powers.\n\n";
     std::cout << "8) Paladin\n";
-    std::cout << "-- Loyal knights who defend those worshipping the same deity.\n\n";
+    std::cout << "-- Loyal knights who protect their local community and promote worship of their deity.\n\n";
     std::cout << "9) Artisan\n";
     std::cout << "-- Skilled crafters who can improve weapons and armor.\n\n";
     std::cout << "10) Explorer\n";
@@ -96,28 +96,32 @@ Meta::Meta(){
     // Picking a deity to worship
     characterDeity = "None";
     std::string charDeityInput;
-    if(charClass == "Druid"){
-        std::cout << "\nSelect a deity by entering the corresponding number:\n";
-        std::cout << "1) Solari\n";
-        std::cout << "2) Selunara\n";
-        std::cout << "3) Other (deity is unrelated to the story)\n";
-        while(true){
-            std::getline(std::cin, charDeityInput);
-            if(charDeityInput == "1"){
-                characterDeity = "Solari";
-                break;
-            }
-            if(charDeityInput == "2"){
-                characterDeity = "Selunara";
-                break;
-            }
-            if(charDeityInput == "3"){
-                characterDeity = "Foo";
-                break;
-            }
-            std::cout << "Input not recognized. Please try again.\n";
-        }
-    }
+
+    // THE CODE BELOW WAS COMMENTED OUT TO REMOVE DEITY CHOICE FROM DRUIDS
+
+    // if(charClass == "Druid"){
+    //     std::cout << "\nSelect a deity by entering the corresponding number:\n";
+    //     std::cout << "1) Solari (sun druid)\n";
+    //     std::cout << "2) Selunara (moon druid)\n";
+    //     std::cout << "3) Other (deity is unrelated to the story)\n";
+    //     while(true){
+    //         std::getline(std::cin, charDeityInput);
+    //         if(charDeityInput == "1"){
+    //             characterDeity = "Solari";
+    //             break;
+    //         }
+    //         if(charDeityInput == "2"){
+    //             characterDeity = "Selunara";
+    //             break;
+    //         }
+    //         if(charDeityInput == "3"){
+    //             characterDeity = "None";
+    //             break;
+    //         }
+    //         std::cout << "Input not recognized. Please try again.\n";
+    //     }
+    // }
+    
     if(charClass == "Cleric" || charClass == "Monk" || charClass == "Paladin"){
         std::cout << "\nSelect a deity by entering the corresponding number:\n";
         std::cout << "1) Solari\n";
@@ -139,7 +143,7 @@ Meta::Meta(){
                 break;
             }
             if(charDeityInput == "4"){
-                characterDeity = "Foo";
+                characterDeity = "None";
                 break;
             }
             std::cout << "Input not recognized. Please try again.\n";
@@ -323,7 +327,6 @@ void Meta::removeCompanion(std::string name){
     }
 }
 
-// This is for battles
 void Meta::shuffleCompanions(){
     std::random_shuffle(companions.begin(), companions.end());
 }
@@ -336,13 +339,13 @@ int Meta::getCharisma(){
     return charisma;
 }
 
-// Expand to add item name and details
+// TODO: Expand to add item name and details
 void Meta::addArmor(Armor armor){
     armorInventory.push_back(armor);
     std::cout << "\n\033[0;36mA new piece of armor was added to your inventory.\033[0;0m\n";
 }
 
-// Expand to add item name and details
+// TODO: Expand to add item name and details
 void Meta::addWeapon(Weapon weapon){
     weaponInventory.push_back(weapon);
     std::cout << "\n\033[0;36mA new weapon was added to your inventory.\033[0;0m\n";

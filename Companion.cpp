@@ -31,8 +31,8 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Explorer") maxHealth = 15;
     
     if(type == "Noam") maxHealth = 11;
-    if(type == "Shrugmini") maxHealth = 17;
-    if(type == "Vivian") maxHealth = 19;
+    if(type == "Shrugmini") maxHealth = 15;
+    if(type == "Vivian") maxHealth = 18;
     if(type == "Raven") maxHealth = 16;
     if(type == "Hubert") maxHealth = 19;
     if(type == "Iris") maxHealth = 25;
@@ -42,8 +42,9 @@ Companion::Companion(std::string name_, std::string type_, std::string deity_){
     if(type == "Wizard") defense--;
     if(type == "Rogue") defense--;
     if(type == "Paladin") defense += 2;
-    if(type == "Iris") defense += 2;
-    if(type == "Noam") defense--;
+    if(type == "Iris") defense += 2; // Same as paladin
+    if(type == "Noam") defense--; // Same as wizard
+    if(type == "Shrugmini") defense--; // Same as rogue
     level = 0; // Constructor creates a level 0 character
 
     health = maxHealth;
@@ -236,7 +237,7 @@ void Companion::getDetails(){
     std::string tempType = type;
     if(type == "Raven") tempType = "Witch";
     if(type == "Hubert") tempType = "Politician";
-    if(type == "Vivian") tempType = "Archdruid";
+    if(type == "Vivian") tempType = "Moon Druid";
     if(type == "Shrugmini") tempType = "Half-Devil Rogue";
     if(type == "Noam") tempType = "Gnome Wizard";
     if(type == "Iris") tempType = "Paladin";
