@@ -45,7 +45,7 @@ void Journal::listQuests(bool completedQuests){
                 currCount++;
             }
         }
-        std::cout << "\nSection 3: Compainion Quests\n\n";
+        std::cout << "\nSection 3: Companion Quests\n\n";
         for(Quest q : quests){
             if(q.getType() == 2 && !q.isComplete()){
                 std::cout << currCount << ") " << q.getTitle() << "\n";

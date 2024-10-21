@@ -78,46 +78,52 @@ int Interaction::runInteraction(Meta &meta){
             return 3;
         }
         if(currDialogueIndex == -7){ // This resolution results in quest updates
-            std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
             for(auto x : questUpdates){
                 if(x.first.first == -1){ // New quest
+                    std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
                     meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
                 }
                 else{ // Quest update
                     // Note that we want to complete the quest if the new id is -1 (we no longer care about the id, so -1 is sufficient)
-                    meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
+                    if(meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1))){
+                        std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
+                    }
                 }
             }
-            return 6; // Tells the main function to indicate to the player that the journal was updated
+            return 6; // Tells the main function that the journal was updated (likely not needed)
         }
         if(currDialogueIndex == -8){ // This resolution updates the story variable
             meta.toggleStoryVariable(storyVariableUpdate);
-            std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
             for(auto x : questUpdates){
                 if(x.first.first == -1){ // New quest
+                    std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
                     meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
                 }
                 else{ // Quest update
                     // Note that we want to complete the quest if the new id is -1 (we no longer care about the id, so -1 is sufficient)
-                    meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
+                    if(meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1))){
+                        std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
+                    }
                 }
             }
-            return 7;
+            return 7; // Tells the main function that a story update occured (likely not needed)
         }
         if(currDialogueIndex == -9){ // Alternate quest updates
-            std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
             for(auto x : altQuestUpdates){
                 if(x.first.first == -1){ // New quest
+                    std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
                     meta.journal.addQuest(x.second.first, x.second.second, x.first.second.second, x.first.second.first);
                 }
                 else{ // Quest update
                     // Note that we want to complete the quest if the new id is -1 (we no longer care about the id, so -1 is sufficient)
-                    meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1));
+                    if(meta.journal.advanceQuest(x.first.first, x.first.second.first, x.second.second, (x.first.second.first == -1))){
+                        std::cout << "\n#-----#-----#\n\nYour journal has updates.\n\n#-----#-----#\n";
+                    }
                 }
             }
             return 6;
         }
-        if(currDialogueIndex == -10){ // If for whatever reason we want to return something that isn't 0
+        if(currDialogueIndex == -10){ // If for whatever reason we want to return something that isn't 0, often to remove optional interactions after doing them
             return 100;
         }
         // ...
